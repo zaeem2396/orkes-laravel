@@ -1,0 +1,34 @@
+{
+    "name": "conductor/orkes-php-sdk",
+    "description": "Framework-agnostic PHP SDK for Conductor workflows (Orkes & Netflix Conductor)",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Conductor\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Conductor\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpstan": "phpstan analyse"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
+        }
+    }
+}

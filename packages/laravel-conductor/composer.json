@@ -1,0 +1,56 @@
+{
+    "name": "conductor/laravel-conductor",
+    "description": "Laravel integration for Conductor workflows (Artisan, DSL, testing)",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../orkes-php-sdk",
+            "options": { "symlink": true }
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0",
+        "illuminate/console": "^10.0|^11.0",
+        "illuminate/config": "^10.0|^11.0",
+        "conductor/orkes-php-sdk": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.0",
+        "orchestra/testbench": "^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Conductor\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Conductor\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Conductor\\Laravel\\Providers\\ConductorServiceProvider"
+            ],
+            "aliases": {
+                "Conductor": "Conductor\\Laravel\\Facades\\Conductor"
+            }
+        },
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpstan": "phpstan analyse"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

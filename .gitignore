@@ -1,0 +1,14 @@
+vendor/
+composer.lock
+.phpunit.result.cache
+.phpunit.cache
+phpstan.neon
+phpstan-baseline.neon
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.env
+.env.local
+.env.*.local
