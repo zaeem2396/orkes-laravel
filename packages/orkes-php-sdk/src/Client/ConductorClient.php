@@ -12,7 +12,7 @@ use Conductor\Workflow\WorkflowClient;
  * Main SDK entrypoint for Conductor / Orkes.
  *
  * Usage:
- *   $client = new ConductorClient([
+ *   $client = ConductorClient::fromArray([
  *       'base_url' => 'http://localhost:8080/api',
  *       'token'    => 'xyz',
  *   ]);
@@ -27,6 +27,21 @@ final class ConductorClient
     public function __construct(
         private readonly HttpClient $http,
     ) {
+    }
+
+    /**
+     * Create client from config array.
+     *
+     * @param  array{base_url?: string, token?: string|null, timeout?: int}  $config
+     */
+    public static function fromArray(array $config): self
+    {
+        $baseUrl = (string) ($config['base_url'] ?? '');
+        $token = isset($config['token']) ? (string) $config['token'] : null;
+        $timeout = isset($config['timeout']) ? (int) $config['timeout'] : 30;
+        $http = new HttpClient($baseUrl, $token !== '' ? $token : null, $timeout);
+
+        return new self($http);
     }
 
     public function workflow(): WorkflowClient
