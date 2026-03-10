@@ -10,7 +10,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 | Phase | Module | Begin | Completion | Status |
 |-------|--------|-------|------------|--------|
-| 1 | Core HTTP client | 2025-03-08 | 2025-03-14 | Planned |
+| 1 | Core HTTP client | 2025-03-08 | 2025-03-14 | In progress |
 | 2 | Workflow client | 2025-03-15 | 2025-03-21 | Planned |
 | 3 | Task client | 2025-03-22 | 2025-03-28 | Planned |
 | 4 | Worker system | 2025-03-29 | 2025-04-04 | Planned |
@@ -30,17 +30,17 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `orkes-php-sdk`  
 **Begin:** 2025-03-08  
 **Completion:** 2025-03-14  
-**Status:** Planned
+**Status:** In progress
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 1.1 | Guuzzle wrapper | `HttpClient` class wrapping Guuzzle | 2025-03-08 | 2025-03-10 | Planned |
-| 1.2 | Base URL & config | Base URL, timeout, JSON options | 2025-03-08 | 2025-03-10 | Planned |
-| 1.3 | Auth headers | Token / key-based authentication | 2025-03-09 | 2025-03-11 | Planned |
-| 1.4 | Request API | `request(string $method, string $uri, array $data = [])` | 2025-03-10 | 2025-03-12 | Planned |
-| 1.5 | ConductorClient entrypoint | Main SDK client with `workflow()`, `tasks()`, `workers()` | 2025-03-12 | 2025-03-14 | Planned |
+| 1.1 | Guuzzle wrapper | `HttpClient` class wrapping Guuzzle | 2025-03-08 | 2025-03-10 | Done |
+| 1.2 | Base URL & config | Base URL, timeout, JSON options | 2025-03-08 | 2025-03-10 | Done |
+| 1.3 | Auth headers | Token / key-based authentication | 2025-03-09 | 2025-03-11 | Done |
+| 1.4 | Request API | `request(string $method, string $uri, array $data = [])` | 2025-03-10 | 2025-03-12 | Done |
+| 1.5 | ConductorClient entrypoint | Main SDK client with `workflow()`, `tasks()`, `workers()` | 2025-03-12 | 2025-03-14 | Done |
 
 ### Deliverables
 

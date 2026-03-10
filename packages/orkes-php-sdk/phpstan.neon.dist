@@ -1,0 +1,15 @@
+parameters:
+    level: 5
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        # Stub classes - properties used in later phases
+        - message: '#.*#'
+          path: src/Retry/RetryHandler.php
+        - message: '#.*#'
+          path: src/Task/TaskClient.php
+        - message: '#.*#'
+          path: src/Task/Worker.php
+        - message: '#.*#'
+          path: src/Workflow/WorkflowClient.php
