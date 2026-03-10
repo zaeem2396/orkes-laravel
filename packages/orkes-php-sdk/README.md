@@ -1,6 +1,6 @@
 # Conductor Orkes PHP SDK
 
-Framework-agnostic PHP SDK for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor).
+Framework-agnostic PHP SDK for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor). Supports PHP 8.2, 8.3, and 8.4.
 
 ## Installation
 
