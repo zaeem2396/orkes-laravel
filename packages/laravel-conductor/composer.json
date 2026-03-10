@@ -13,14 +13,14 @@
     ],
     "require": {
         "php": "^8.2",
+        "conductor/orkes-php-sdk": "*",
         "illuminate/support": "^11.0|^12.0",
         "illuminate/console": "^11.0|^12.0",
-        "illuminate/config": "^11.0|^12.0",
-        "conductor/orkes-php-sdk": "*"
+        "illuminate/config": "^11.0|^12.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "^10.0|^11.0|^12.0",
         "phpstan/phpstan": "^1.0",
         "orchestra/testbench": "^9.0|^10.0"
     },
