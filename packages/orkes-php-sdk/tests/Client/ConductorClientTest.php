@@ -25,4 +25,25 @@ final class ConductorClientTest extends TestCase
 
         $this->assertSame($client->tasks(), $client->tasks());
     }
+
+    public function test_from_array_creates_client_with_http(): void
+    {
+        $client = ConductorClient::fromArray([
+            'base_url' => 'http://conductor.example/api',
+            'token' => 'xyz',
+            'timeout' => 10,
+        ]);
+
+        $this->assertInstanceOf(ConductorClient::class, $client);
+        $this->assertInstanceOf(\Conductor\Workflow\WorkflowClient::class, $client->workflow());
+    }
+
+    public function test_from_array_accepts_null_token(): void
+    {
+        $client = ConductorClient::fromArray([
+            'base_url' => 'http://localhost:8080/api',
+        ]);
+
+        $this->assertInstanceOf(ConductorClient::class, $client);
+    }
 }
