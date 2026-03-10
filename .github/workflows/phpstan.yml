@@ -1,0 +1,45 @@
+name: Code analysis (PHPStan)
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+    branches: [main, 'feature/**']
+
+jobs:
+  sdk:
+    name: orkes-php-sdk
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+        working-directory: packages/orkes-php-sdk
+      - name: Run PHPStan
+        run: composer phpstan
+        working-directory: packages/orkes-php-sdk
+
+  laravel:
+    name: laravel-conductor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+      - name: Install SDK
+        run: composer install --no-interaction --prefer-dist
+        working-directory: packages/orkes-php-sdk
+      - name: Install Laravel package
+        run: composer install --no-interaction --prefer-dist
+        working-directory: packages/laravel-conductor
+      - name: Run PHPStan
+        run: composer phpstan
+        working-directory: packages/laravel-conductor
