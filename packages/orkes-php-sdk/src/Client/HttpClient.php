@@ -78,7 +78,15 @@ final class HttpClient
             if (in_array(strtoupper($method), ['GET', 'HEAD'], true)) {
                 $fullUri .= (str_contains($fullUri, '?') ? '&' : '?') . http_build_query($data);
             } else {
-                $body = json_encode($data);
+                try {
+                    $body = json_encode($data, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    throw new \Conductor\Exceptions\ConductorException(
+                        'Failed to encode request body as JSON: ' . $e->getMessage(),
+                        0,
+                        $e,
+                    );
+                }
                 $headers['Content-Type'] = 'application/json';
             }
         }

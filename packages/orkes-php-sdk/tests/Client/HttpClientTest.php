@@ -97,4 +97,22 @@ final class HttpClientTest extends TestCase
 
         $http->request('GET', 'workflow/w1');
     }
+
+    public function test_request_throws_on_json_encode_failure(): void
+    {
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], '{}'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $http = new HttpClient('http://localhost:8080/api', null, 30, $client);
+
+        $circular = [];
+        $circular['self'] = &$circular;
+
+        $this->expectException(ConductorException::class);
+        $this->expectExceptionMessage('Failed to encode request body as JSON');
+
+        $http->request('POST', 'workflow', $circular);
+    }
 }
