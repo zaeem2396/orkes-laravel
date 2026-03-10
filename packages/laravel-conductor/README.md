@@ -1,6 +1,6 @@
 # Conductor Laravel
 
-Laravel integration for Conductor workflows: Artisan commands, workflow DSL, and testing utilities.
+Laravel integration for Conductor workflows: Artisan commands, workflow DSL, and testing utilities. Supports Laravel 11 and 12, PHP 8.2–8.4.
 
 ## Installation
 
