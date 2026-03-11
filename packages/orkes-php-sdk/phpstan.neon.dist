@@ -11,5 +11,3 @@ parameters:
           path: src/Task/TaskClient.php
         - message: '#.*#'
           path: src/Task/Worker.php
-        - message: '#.*#'
-          path: src/Workflow/WorkflowClient.php
