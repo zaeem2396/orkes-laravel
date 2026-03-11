@@ -29,7 +29,7 @@ final class HttpClient
     /**
      * Send a request to the Conductor API.
      *
-     * @param  array<string, mixed>  $data  Query params for GET/HEAD, JSON body for others.
+     * @param  array  $data  Query params for GET/HEAD, JSON body for others (assoc or list).
      * @return array<string, mixed>
      *
      * @throws \Conductor\Exceptions\ConductorException

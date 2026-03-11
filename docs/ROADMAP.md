@@ -10,8 +10,8 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 | Phase | Module | Begin | Completion | Status |
 |-------|--------|-------|------------|--------|
-| 1 | Core HTTP client | 2025-03-08 | 2025-03-14 | In progress |
-| 2 | Workflow client | 2025-03-15 | 2025-03-21 | Planned |
+| 1 | Core HTTP client | 2025-03-08 | 2025-03-14 | Done |
+| 2 | Workflow client | 2025-03-15 | 2025-03-21 | Done |
 | 3 | Task client | 2025-03-22 | 2025-03-28 | Planned |
 | 4 | Worker system | 2025-03-29 | 2025-04-04 | Planned |
 | 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Planned |
@@ -30,7 +30,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `orkes-php-sdk`  
 **Begin:** 2025-03-08  
 **Completion:** 2025-03-14  
-**Status:** In progress
+**Status:** Done
 
 ### Sub-modules
 
@@ -55,17 +55,17 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `orkes-php-sdk`  
 **Begin:** 2025-03-15  
 **Completion:** 2025-03-21  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 2.1 | WorkflowClient class | Class and constructor | 2025-03-15 | 2025-03-15 | Planned |
-| 2.2 | startWorkflow / getWorkflow | Start and fetch workflow | 2025-03-15 | 2025-03-17 | Planned |
-| 2.3 | terminate / retry / pause / resume | Lifecycle operations | 2025-03-17 | 2025-03-19 | Planned |
-| 2.4 | getWorkflowStatus | Status and search helpers | 2025-03-18 | 2025-03-19 | Planned |
-| 2.5 | registerWorkflowDefinition / updateWorkflowDefinition | Definition CRUD | 2025-03-19 | 2025-03-21 | Planned |
+| 2.1 | WorkflowClient class | Class and constructor | 2025-03-15 | 2025-03-15 | Done |
+| 2.2 | startWorkflow / getWorkflow | Start and fetch workflow | 2025-03-15 | 2025-03-17 | Done |
+| 2.3 | terminate / retry / pause / resume | Lifecycle operations | 2025-03-17 | 2025-03-19 | Done |
+| 2.4 | getWorkflowStatus | Status and search helpers | 2025-03-18 | 2025-03-19 | Done |
+| 2.5 | registerWorkflowDefinition / updateWorkflowDefinition | Definition CRUD | 2025-03-19 | 2025-03-21 | Done |
 
 ### Deliverables
 
