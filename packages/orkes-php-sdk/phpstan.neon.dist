@@ -8,6 +8,4 @@ parameters:
         - message: '#.*#'
           path: src/Retry/RetryHandler.php
         - message: '#.*#'
-          path: src/Task/TaskClient.php
-        - message: '#.*#'
           path: src/Task/Worker.php
