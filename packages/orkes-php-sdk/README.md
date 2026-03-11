@@ -49,6 +49,37 @@ $client->workflow()->registerWorkflowDefinition(['name' => 'my_wf', 'tasks' => [
 $client->workflow()->updateWorkflowDefinition([$definition1, $definition2]);
 ```
 
+## Task API
+
+The task client supports polling for tasks and submitting results:
+
+```php
+$tasks = $client->tasks();
+
+// Poll for a task (returns task array or null when none available)
+$task = $tasks->poll('process_payment');
+$task = $tasks->poll('process_payment', workerId: 'worker-1', domain: 'domain-a');
+
+if ($task !== null) {
+    $taskId = $task['taskId'];
+    $workflowInstanceId = $task['workflowInstanceId'] ?? null;
+
+    // Acknowledge (extend lease)
+    $tasks->ack($taskId, $workflowInstanceId);
+
+    // Complete with output
+    $tasks->complete($taskId, ['payment_id' => 'p123'], $workflowInstanceId);
+
+    // Or fail with reason
+    $tasks->fail($taskId, 'Payment declined', ['code' => 'DECLINED'], $workflowInstanceId);
+
+    // Or update status / output / callback
+    $tasks->update($taskId, 'IN_PROGRESS', ['progress' => 50], null, 60, $workflowInstanceId);
+}
+```
+
+Task-related errors are thrown as `Conductor\Exceptions\TaskException`.
+
 ## Roadmap
 
 See [docs/ROADMAP.md](../../docs/ROADMAP.md) in the monorepo root.
