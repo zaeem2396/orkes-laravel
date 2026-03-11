@@ -12,7 +12,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 |-------|--------|-------|------------|--------|
 | 1 | Core HTTP client | 2025-03-08 | 2025-03-14 | Done |
 | 2 | Workflow client | 2025-03-15 | 2025-03-21 | Done |
-| 3 | Task client | 2025-03-22 | 2025-03-28 | Planned |
+| 3 | Task client | 2025-03-22 | 2025-03-28 | Done |
 | 4 | Worker system | 2025-03-29 | 2025-04-04 | Planned |
 | 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Planned |
 | 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Planned |
@@ -79,21 +79,22 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `orkes-php-sdk`  
 **Begin:** 2025-03-22  
 **Completion:** 2025-03-28  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 3.1 | TaskClient class | Class and HTTP wiring | 2025-03-22 | 2025-03-23 | Planned |
-| 3.2 | poll | Poll for tasks by task type | 2025-03-23 | 2025-03-24 | Planned |
-| 3.3 | complete / fail / update | Task result submission | 2025-03-24 | 2025-03-26 | Planned |
-| 3.4 | ack | Acknowledge task (extend lease) | 2025-03-26 | 2025-03-27 | Planned |
-| 3.5 | Error handling & exceptions | TaskException, validation | 2025-03-27 | 2025-03-28 | Planned |
+| 3.1 | TaskClient class | Class and HTTP wiring | 2025-03-22 | 2025-03-23 | Done |
+| 3.2 | poll | Poll for tasks by task type | 2025-03-23 | 2025-03-24 | Done |
+| 3.3 | complete / fail / update | Task result submission | 2025-03-24 | 2025-03-26 | Done |
+| 3.4 | ack | Acknowledge task (extend lease) | 2025-03-26 | 2025-03-27 | Done |
+| 3.5 | Error handling & exceptions | TaskException, validation | 2025-03-27 | 2025-03-28 | Done |
 
 ### Deliverables
 
 - `src/Task/TaskClient.php`
+- `src/Exceptions/TaskException.php`
 - Methods: `poll`, `complete`, `fail`, `update`, `ack`
 
 ---
