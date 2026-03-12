@@ -32,11 +32,12 @@ final class ConductorServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/conductor.php', 'conductor');
+        $configPath = dirname(__DIR__, 3) . '/config/conductor.php';
+        $this->mergeConfigFrom($configPath, 'conductor');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../config/conductor.php' => $this->app->configPath('conductor.php'),
+                $configPath => $this->app->configPath('conductor.php'),
             ], 'conductor-config');
 
             $this->commands([

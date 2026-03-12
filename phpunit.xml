@@ -6,8 +6,13 @@
          cacheDirectory=".phpunit.cache"
 >
     <testsuites>
-        <testsuite name="laravel-conductor">
-            <directory>tests</directory>
+        <testsuite name="sdk">
+            <directory>tests/Client</directory>
+            <directory>tests/Task</directory>
+            <directory>tests/Workflow</directory>
+        </testsuite>
+        <testsuite name="laravel">
+            <directory>tests/Laravel</directory>
         </testsuite>
     </testsuites>
     <source>

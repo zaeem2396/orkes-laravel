@@ -2,7 +2,7 @@
 
 This roadmap is based on the Cursor master prompt. It divides the implementation into **sub-modules** with begin/completion dates and status tracking.
 
-**Project goal:** Production-quality PHP SDK and Laravel integration for Conductor workflows (Orkes Conductor Cloud + Netflix Conductor).
+**Project goal:** Production-quality PHP SDK and Laravel integration for Conductor workflows (Orkes Conductor Cloud + Netflix Conductor). Single package: `conductor/orkes-laravel`.
 
 ---
 
@@ -27,7 +27,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 1 — Core HTTP client
 
-**Package:** `orkes-php-sdk`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-03-08  
 **Completion:** 2025-03-14  
 **Status:** Done
@@ -52,7 +52,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 2 — Workflow client
 
-**Package:** `orkes-php-sdk`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-03-15  
 **Completion:** 2025-03-21  
 **Status:** Done
@@ -76,7 +76,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 3 — Task client
 
-**Package:** `orkes-php-sdk`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-03-22  
 **Completion:** 2025-03-28  
 **Status:** Done
@@ -101,7 +101,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 4 — Worker system
 
-**Package:** `orkes-php-sdk`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-03-29  
 **Completion:** 2025-04-04  
 **Status:** Done
@@ -126,7 +126,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 5 — Retry logic & exceptions
 
-**Package:** `orkes-php-sdk`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-05  
 **Completion:** 2025-04-11  
 **Status:** Planned
@@ -150,7 +150,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 6 — Laravel service provider
 
-**Package:** `laravel-conductor`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-12  
 **Completion:** 2025-04-18  
 **Status:** Planned
@@ -175,7 +175,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 7 — Artisan commands
 
-**Package:** `laravel-conductor`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-19  
 **Completion:** 2025-04-25  
 **Status:** Planned
@@ -201,7 +201,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 8 — Workflow DSL
 
-**Package:** `laravel-conductor`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-26  
 **Completion:** 2025-05-09  
 **Status:** Planned
@@ -226,7 +226,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 9 — Testing utilities
 
-**Package:** `laravel-conductor`  
+**Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-05-10  
 **Completion:** 2025-05-16  
 **Status:** Planned
@@ -238,14 +238,14 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 9.1 | ConductorFake | Fake implementation for tests | 2025-05-10 | 2025-05-12 | Planned |
 | 9.2 | Conductor::fake() | Swap real client with fake | 2025-05-11 | 2025-05-13 | Planned |
 | 9.3 | assertWorkflowStarted | Assertion helpers | 2025-05-12 | 2025-05-14 | Planned |
-| 9.4 | PHPUnit tests for SDK | orkes-php-sdk tests/ | 2025-05-13 | 2025-05-15 | Planned |
-| 9.5 | PHPUnit tests for Laravel package | laravel-conductor tests/ | 2025-05-14 | 2025-05-16 | Planned |
+| 9.4 | PHPUnit tests for SDK | tests/ | 2025-05-13 | 2025-05-15 | Planned |
+| 9.5 | PHPUnit tests for Laravel | tests/Laravel/ | 2025-05-14 | 2025-05-16 | Planned |
 
 ### Deliverables
 
 - `src/Testing/ConductorFake.php`
 - Example: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');`
-- PHPUnit tests in both packages
+- PHPUnit tests for SDK and Laravel in single repo
 
 ---
 
@@ -269,7 +269,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ### Deliverables
 
-- `README.md` per package
+- `README.md`
 - `docs/` and `examples/`
 - `.github/workflows/` CI (PHPUnit, PHPStan)
 - Clean, open-source-ready code with docblocks and examples
@@ -296,8 +296,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 Developers will be able to:
 
 ```bash
-composer require conductor/orkes-php-sdk
-composer require conductor/laravel-conductor
+composer require conductor/orkes-laravel
 ```
 
 ```php
