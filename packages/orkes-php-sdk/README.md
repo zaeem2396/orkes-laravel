@@ -80,6 +80,48 @@ if ($task !== null) {
 
 Task-related errors are thrown as `Conductor\Exceptions\TaskException`.
 
+## Worker
+
+The worker runs an infinite polling loop, dispatching tasks to registered handlers:
+
+```php
+$worker = $client->workers();
+
+$worker
+    ->listen('process_payment', function (array $task) {
+        // $task contains taskId, workflowInstanceId, inputData, etc.
+        return [
+            'status' => 'COMPLETED',
+            'outputData' => ['payment_id' => 'p123'],
+        ];
+    })
+    ->listen('validate_order', function (array $task) {
+        return [
+            'status' => 'FAILED',
+            'reasonForIncompletion' => 'Invalid item',
+            'outputData' => ['errors' => []],
+        ];
+    });
+
+$worker->run(); // infinite loop: poll -> ack -> handler -> complete/fail -> sleep
+```
+
+You can create a worker with custom options (poll interval, worker ID, domain, retries):
+
+```php
+$worker = new \Conductor\Task\Worker(
+    $client->tasks(),
+    pollIntervalSeconds: 5,
+    workerId: 'worker-1',
+    domain: 'domain-a',
+    maxRetries: 1,
+);
+$worker->listen('my_task', $handler);
+$worker->run();
+```
+
+For tests or single-cycle execution, use `runOneCycle()` instead of `run()`.
+
 ## Roadmap
 
 See [docs/ROADMAP.md](../../docs/ROADMAP.md) in the monorepo root.

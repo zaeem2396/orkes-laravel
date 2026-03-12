@@ -13,7 +13,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 1 | Core HTTP client | 2025-03-08 | 2025-03-14 | Done |
 | 2 | Workflow client | 2025-03-15 | 2025-03-21 | Done |
 | 3 | Task client | 2025-03-22 | 2025-03-28 | Done |
-| 4 | Worker system | 2025-03-29 | 2025-04-04 | Planned |
+| 4 | Worker system | 2025-03-29 | 2025-04-04 | Done |
 | 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Planned |
 | 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Planned |
 | 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Planned |
@@ -104,22 +104,23 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `orkes-php-sdk`  
 **Begin:** 2025-03-29  
 **Completion:** 2025-04-04  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 4.1 | Worker class | Worker loop skeleton | 2025-03-29 | 2025-03-30 | Planned |
-| 4.2 | listen(taskType, callback) | Register task handlers | 2025-03-30 | 2025-04-01 | Planned |
-| 4.3 | Infinite polling & sleep interval | Configurable poll + sleep | 2025-04-01 | 2025-04-02 | Planned |
-| 4.4 | Retry & failure handling | On failure: retry or fail task | 2025-04-02 | 2025-04-04 | Planned |
-| 4.5 | Output contract | Return `status`, `outputData` from handler | 2025-04-03 | 2025-04-04 | Planned |
+| 4.1 | Worker class | Worker loop skeleton | 2025-03-29 | 2025-03-30 | Done |
+| 4.2 | listen(taskType, callback) | Register task handlers | 2025-03-30 | 2025-04-01 | Done |
+| 4.3 | Infinite polling & sleep interval | Configurable poll + sleep | 2025-04-01 | 2025-04-02 | Done |
+| 4.4 | Retry & failure handling | On failure: retry or fail task | 2025-04-02 | 2025-04-04 | Done |
+| 4.5 | Output contract | Return `status`, `outputData` from handler | 2025-04-03 | 2025-04-04 | Done |
 
 ### Deliverables
 
 - `src/Task/Worker.php`
 - Support: infinite polling, sleep interval, retry, failure handling, callback returning `COMPLETED`/`FAILED` + outputData
+- Optional `workerId`, `domain`, and `maxRetries` constructor options; `runOneCycle()` for single-cycle execution (e.g. tests)
 
 ---
 

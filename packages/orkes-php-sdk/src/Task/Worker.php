@@ -4,28 +4,44 @@ declare(strict_types=1);
 
 namespace Conductor\Task;
 
+use Conductor\Exceptions\TaskException;
+
 /**
  * Worker loop: poll for tasks and invoke registered handlers.
  *
  * Usage:
- *   $worker->listen('process_payment', function ($task) {
+ *   $worker->listen('process_payment', function (array $task) {
  *       return ['status' => 'COMPLETED', 'outputData' => ['payment_id' => 'abc123']];
  *   });
  *   $worker->run();
  *
- * Supports: infinite polling, sleep interval, retry, failure handling.
+ * Handler return: array with 'status' => 'COMPLETED'|'FAILED', 'outputData' => array.
+ * For FAILED, include 'reasonForIncompletion' => string.
+ * Supports: infinite polling, sleep interval, optional retry on handler exception.
  */
 final class Worker
 {
-    /** @var array<string, callable> */
+    private const STATUS_COMPLETED = 'COMPLETED';
+
+    private const STATUS_FAILED = 'FAILED';
+
+    /** @var array<string, callable(array): array> */
     private array $handlers = [];
 
     public function __construct(
         private readonly TaskClient $taskClient,
         private int $pollIntervalSeconds = 5,
+        private ?string $workerId = null,
+        private ?string $domain = null,
+        private int $maxRetries = 0,
     ) {
     }
 
+    /**
+     * Register a handler for the given task type.
+     *
+     * @param  callable(array<string, mixed>): array{status: string, outputData?: array<string, mixed>, reasonForIncompletion?: string}  $handler
+     */
     public function listen(string $taskType, callable $handler): self
     {
         $this->handlers[$taskType] = $handler;
@@ -35,9 +51,106 @@ final class Worker
 
     /**
      * Run the worker loop (infinite polling).
+     * Polls each registered task type once per cycle, processes one task if available, then sleeps.
+     *
+     * @throws TaskException On task update (complete/fail) errors.
      */
     public function run(): void
     {
-        // TODO: Poll, dispatch to handler, complete/fail task, sleep.
+        while (true) {
+            $this->runOneCycle();
+            if ($this->pollIntervalSeconds > 0) {
+                sleep($this->pollIntervalSeconds);
+            }
+        }
+    }
+
+    /**
+     * Run a single poll cycle: poll each task type once, process at most one task.
+     *
+     * @throws TaskException
+     */
+    public function runOneCycle(): void
+    {
+        foreach (array_keys($this->handlers) as $taskType) {
+            $task = $this->taskClient->poll($taskType, $this->workerId, $this->domain);
+            if ($task === null) {
+                continue;
+            }
+
+            $this->processTask($taskType, $task);
+
+            return;
+        }
+    }
+
+    /**
+     * Process a single task: ack, invoke handler, complete or fail.
+     *
+     * @param  array<string, mixed>  $task
+     *
+     * @throws TaskException
+     */
+    private function processTask(string $taskType, array $task): void
+    {
+        $taskId = $task['taskId'] ?? '';
+        $workflowInstanceId = isset($task['workflowInstanceId']) ? (string) $task['workflowInstanceId'] : null;
+        $handler = $this->handlers[$taskType];
+
+        if ($taskId === '') {
+            return;
+        }
+
+        $this->taskClient->ack($taskId, $workflowInstanceId);
+
+        $lastException = null;
+        $result = null;
+        $attempts = $this->maxRetries + 1;
+
+        for ($attempt = 0; $attempt < $attempts; $attempt++) {
+            try {
+                $result = $handler($task);
+                break;
+            } catch (\Throwable $e) {
+                $lastException = $e;
+                if ($attempt === $attempts - 1) {
+                    $this->taskClient->fail(
+                        $taskId,
+                        'Handler failed: ' . $e->getMessage(),
+                        [],
+                        $workflowInstanceId,
+                    );
+
+                    return;
+                }
+            }
+        }
+
+        if ($result === null) {
+            return;
+        }
+
+        $status = $result['status'] ?? '';
+        $outputData = $result['outputData'] ?? [];
+
+        if ($status === self::STATUS_COMPLETED) {
+            $this->taskClient->complete($taskId, $outputData, $workflowInstanceId);
+
+            return;
+        }
+
+        if ($status === self::STATUS_FAILED) {
+            $reason = $result['reasonForIncompletion'] ?? 'Failed';
+            $this->taskClient->fail($taskId, $reason, $outputData, $workflowInstanceId);
+
+            return;
+        }
+
+        $this->taskClient->fail(
+            $taskId,
+            'Invalid handler status: ' . $status,
+            $outputData,
+            $workflowInstanceId,
+        );
     }
 }
