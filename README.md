@@ -11,7 +11,7 @@ Monorepo for production-quality PHP support for Conductor workflows (Orkes Condu
 
 ## Roadmap
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the full implementation roadmap, sub-modules, and status. Phase 1 (HTTP client), Phase 2 (Workflow client), and Phase 3 (Task client) are complete.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the full implementation roadmap, sub-modules, and status. Phases 1–4 (HTTP client, Workflow client, Task client, Worker system) are complete.
 
 ## Requirements
 
