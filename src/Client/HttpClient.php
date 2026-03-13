@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Conductor\Client;
 
+use Conductor\Exceptions\AuthenticationException;
+use Conductor\Exceptions\ConductorException;
+use Conductor\Exceptions\RetryableException;
+use Conductor\Retry\RetryHandler;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 
 /**
  * HTTP client wrapper around Guuzzle for Conductor API.
  *
  * Features: base URL, auth headers, timeout, JSON serialization.
- * Retry logic is applied via RetryHandler (separate component).
+ * Optional RetryHandler retries on 5xx and connection timeouts.
  */
 final class HttpClient
 {
@@ -23,6 +29,7 @@ final class HttpClient
         private readonly ?string $token = null,
         private readonly int $timeout = self::DEFAULT_TIMEOUT,
         private readonly ?ClientInterface $guzzle = null,
+        private readonly ?RetryHandler $retryHandler = null,
     ) {
     }
 
@@ -32,9 +39,33 @@ final class HttpClient
      * @param  array  $data  Query params for GET/HEAD, JSON body for others (assoc or list).
      * @return array<string, mixed>
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws AuthenticationException On 401 Unauthorized.
+     * @throws ConductorException On other API or network errors.
      */
     public function request(string $method, string $uri, array $data = []): array
+    {
+        $doRequest = fn (): array => $this->executeRequest($method, $uri, $data);
+
+        if ($this->retryHandler !== null) {
+            return $this->retryHandler->execute(
+                $doRequest,
+                fn (\Throwable $e): bool => $e instanceof RetryableException,
+            );
+        }
+
+        return $doRequest();
+    }
+
+    /**
+     * Perform a single request (no retry). Used internally.
+     *
+     * @return array<string, mixed>
+     *
+     * @throws AuthenticationException
+     * @throws ConductorException
+     * @throws RetryableException
+     */
+    private function executeRequest(string $method, string $uri, array $data): array
     {
         $client = $this->guzzle ?? $this->createDefaultClient();
         $request = $this->buildRequest($method, $uri, $data);
@@ -42,11 +73,9 @@ final class HttpClient
         try {
             $response = $client->send($request);
         } catch (GuzzleException $e) {
-            throw new \Conductor\Exceptions\ConductorException(
-                'Conductor API request failed: ' . $e->getMessage(),
-                (int) $e->getCode(),
-                $e,
-            );
+            $this->throwMappedException($e);
+
+            return [];
         }
 
         $body = (string) $response->getBody();
@@ -56,13 +85,56 @@ final class HttpClient
 
         $decoded = json_decode($body, true);
         if (! is_array($decoded)) {
-            throw new \Conductor\Exceptions\ConductorException(
+            throw new ConductorException(
                 'Invalid JSON response from Conductor API',
                 0,
             );
         }
 
         return $decoded;
+    }
+
+    /**
+     * @throws AuthenticationException
+     * @throws ConductorException
+     * @throws RetryableException
+     */
+    private function throwMappedException(GuzzleException $e): void
+    {
+        if ($e instanceof ConnectException) {
+            throw new RetryableException(
+                'Conductor API connection failed: ' . $e->getMessage(),
+                (int) $e->getCode(),
+                $e,
+            );
+        }
+
+        if ($e instanceof RequestException) {
+            $response = $e->getResponse();
+            if ($response !== null) {
+                $status = $response->getStatusCode();
+                if ($status === 401) {
+                    throw new AuthenticationException(
+                        'Conductor API authentication failed (401 Unauthorized)',
+                        401,
+                        $e,
+                    );
+                }
+                if ($status >= 500) {
+                    throw new RetryableException(
+                        'Conductor API server error (' . $status . '): ' . $e->getMessage(),
+                        $status,
+                        $e,
+                    );
+                }
+            }
+        }
+
+        throw new ConductorException(
+            'Conductor API request failed: ' . $e->getMessage(),
+            (int) $e->getCode(),
+            $e,
+        );
     }
 
     /**
@@ -81,7 +153,7 @@ final class HttpClient
                 try {
                     $body = json_encode($data, JSON_THROW_ON_ERROR);
                 } catch (\JsonException $e) {
-                    throw new \Conductor\Exceptions\ConductorException(
+                    throw new ConductorException(
                         'Failed to encode request body as JSON: ' . $e->getMessage(),
                         0,
                         $e,
