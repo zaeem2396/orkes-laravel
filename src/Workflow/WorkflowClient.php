@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Conductor\Workflow;
 
 use Conductor\Client\HttpClient;
+use Conductor\Exceptions\WorkflowException;
 
 /**
  * Conductor workflow operations.
@@ -28,7 +29,7 @@ final class WorkflowClient
      *
      * @param  array<string, mixed>  $input
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function start(string $name, array $input = [], ?string $correlationId = null, ?int $version = null): string
     {
@@ -47,7 +48,7 @@ final class WorkflowClient
             return (string) $result['workflowId'];
         }
 
-        throw new \Conductor\Exceptions\ConductorException(
+        throw new WorkflowException(
             'Start workflow did not return a workflow ID (expected workflowId in response)',
             0,
         );
@@ -58,7 +59,7 @@ final class WorkflowClient
      *
      * @return array<string, mixed>
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function getWorkflow(string $workflowId, bool $includeTasks = true): array
     {
@@ -70,7 +71,7 @@ final class WorkflowClient
     /**
      * Terminate a running workflow.
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function terminateWorkflow(string $workflowId): void
     {
@@ -80,7 +81,7 @@ final class WorkflowClient
     /**
      * Retry the last failed task in a workflow.
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function retryWorkflow(string $workflowId): void
     {
@@ -90,7 +91,7 @@ final class WorkflowClient
     /**
      * Pause a running workflow.
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function pauseWorkflow(string $workflowId): void
     {
@@ -100,7 +101,7 @@ final class WorkflowClient
     /**
      * Resume a paused workflow.
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function resumeWorkflow(string $workflowId): void
     {
@@ -112,7 +113,7 @@ final class WorkflowClient
      *
      * @return array<string, mixed>
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function getWorkflowStatus(string $workflowId): array
     {
@@ -124,7 +125,7 @@ final class WorkflowClient
      *
      * @param  array<string, mixed>  $definition
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function registerWorkflowDefinition(array $definition): void
     {
@@ -136,7 +137,7 @@ final class WorkflowClient
      *
      * @param  array<int, array<string, mixed>>  $definitions
      *
-     * @throws \Conductor\Exceptions\ConductorException
+     * @throws WorkflowException
      */
     public function updateWorkflowDefinition(array $definitions): void
     {
