@@ -14,7 +14,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 2 | Workflow client | 2025-03-15 | 2025-03-21 | Done |
 | 3 | Task client | 2025-03-22 | 2025-03-28 | Done |
 | 4 | Worker system | 2025-03-29 | 2025-04-04 | Done |
-| 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Planned |
+| 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Done |
 | 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Planned |
 | 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Planned |
 | 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Planned |
@@ -129,22 +129,23 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-05  
 **Completion:** 2025-04-11  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 5.1 | RetryHandler | Exponential backoff, max attempts | 2025-04-05 | 2025-04-07 | Planned |
-| 5.2 | Delay strategy | Configurable delay (exponential/linear) | 2025-04-06 | 2025-04-08 | Planned |
-| 5.3 | ConductorException hierarchy | Base + specific exceptions | 2025-04-07 | 2025-04-09 | Planned |
-| 5.4 | AuthenticationException / WorkflowException / TaskException | Specific exception types | 2025-04-08 | 2025-04-10 | Planned |
-| 5.5 | Integrate retry into HttpClient | Optional retry on 5xx / timeouts | 2025-04-09 | 2025-04-11 | Planned |
+| 5.1 | RetryHandler | Exponential backoff, max attempts | 2025-04-05 | 2025-04-07 | Done |
+| 5.2 | Delay strategy | Configurable delay (exponential/linear) | 2025-04-06 | 2025-04-08 | Done |
+| 5.3 | ConductorException hierarchy | Base + specific exceptions | 2025-04-07 | 2025-04-09 | Done |
+| 5.4 | AuthenticationException / WorkflowException / TaskException | Specific exception types | 2025-04-08 | 2025-04-10 | Done |
+| 5.5 | Integrate retry into HttpClient | Optional retry on 5xx / timeouts | 2025-04-09 | 2025-04-11 | Done |
 
 ### Deliverables
 
-- `src/Retry/RetryHandler.php`
-- `src/Exceptions/ConductorException.php`, `AuthenticationException`, `WorkflowException`, `TaskException`
+- `src/Retry/RetryHandler.php`, `src/Retry/DelayStrategy.php`, `ExponentialDelayStrategy`, `LinearDelayStrategy`
+- `src/Exceptions/ConductorException.php`, `AuthenticationException`, `WorkflowException`, `TaskException`, `RetryableException`
+- HttpClient: optional `RetryHandler` constructor arg; 401 → `AuthenticationException`; 5xx/connection errors → retry then `RetryableException` or `ConductorException`
 
 ---
 
