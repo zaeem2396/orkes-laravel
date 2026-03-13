@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Conductor\Tests\Client;
 
 use Conductor\Client\HttpClient;
+use Conductor\Exceptions\AuthenticationException;
 use Conductor\Exceptions\ConductorException;
+use Conductor\Exceptions\RetryableException;
+use Conductor\Retry\ExponentialDelayStrategy;
+use Conductor\Retry\RetryHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -114,5 +118,56 @@ final class HttpClientTest extends TestCase
         $this->expectExceptionMessage('Failed to encode request body as JSON');
 
         $http->request('POST', 'workflow', $circular);
+    }
+
+    public function test_request_throws_authentication_exception_on_401(): void
+    {
+        $mock = new MockHandler([
+            new Response(401, ['Content-Type' => 'application/json'], '{"message":"Unauthorized"}'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $http = new HttpClient('http://localhost:8080/api', 'bad-token', 30, $client);
+
+        $this->expectException(AuthenticationException::class);
+        $this->expectExceptionMessage('401');
+
+        $http->request('GET', 'workflow/w1');
+    }
+
+    public function test_request_retries_on_500_when_retry_handler_set(): void
+    {
+        $mock = new MockHandler([
+            new Response(500, [], 'Internal Server Error'),
+            new Response(500, [], 'Internal Server Error'),
+            new Response(200, ['Content-Type' => 'application/json'], '{"ok":true}'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $retryHandler = new RetryHandler(3, new ExponentialDelayStrategy(1, 2.0));
+        $http = new HttpClient('http://localhost:8080/api', null, 30, $client, $retryHandler);
+
+        $result = $http->request('GET', 'workflow/w1');
+
+        $this->assertSame(['ok' => true], $result);
+        $this->assertCount(3, $container);
+    }
+
+    public function test_request_throws_retryable_after_exhausting_retries_on_500(): void
+    {
+        $mock = new MockHandler([
+            new Response(500, [], 'Error'),
+            new Response(500, [], 'Error'),
+            new Response(500, [], 'Error'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $retryHandler = new RetryHandler(3, new ExponentialDelayStrategy(1, 2.0));
+        $http = new HttpClient('http://localhost:8080/api', null, 30, $client, $retryHandler);
+
+        $this->expectException(RetryableException::class);
+        $this->expectExceptionMessage('500');
+
+        $http->request('GET', 'workflow/w1');
     }
 }
