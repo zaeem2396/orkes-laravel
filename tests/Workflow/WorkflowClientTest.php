@@ -55,7 +55,7 @@ final class WorkflowClientTest extends TestCase
         $http = $this->createClientWithHistory($mock, $container);
         $client = new WorkflowClient($http);
 
-        $this->expectException(\Conductor\Exceptions\ConductorException::class);
+        $this->expectException(\Conductor\Exceptions\WorkflowException::class);
         $this->expectExceptionMessage('Start workflow did not return a workflow ID');
 
         $client->start('order_processing', []);
