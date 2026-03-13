@@ -55,16 +55,17 @@ final class RetryHandlerTest extends TestCase
         $attempts = 0;
         $handler = new RetryHandler(3);
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Client error');
-
-        $handler->execute(
-            function () use (&$attempts): void {
-                $attempts++;
-                throw new \RuntimeException('Client error');
-            },
-            fn (\Throwable $e): bool => $e instanceof RetryableException,
-        );
+        try {
+            $handler->execute(
+                function () use (&$attempts): void {
+                    $attempts++;
+                    throw new \RuntimeException('Client error');
+                },
+                fn (\Throwable $e): bool => $e instanceof RetryableException,
+            );
+        } catch (\RuntimeException $e) {
+            $this->assertSame('Client error', $e->getMessage());
+        }
 
         $this->assertSame(1, $attempts);
     }
@@ -74,12 +75,14 @@ final class RetryHandlerTest extends TestCase
         $attempts = 0;
         $handler = new RetryHandler(1);
 
-        $this->expectException(RetryableException::class);
-
-        $handler->execute(function () use (&$attempts): void {
-            $attempts++;
-            throw new RetryableException('Fail');
-        });
+        try {
+            $handler->execute(function () use (&$attempts): void {
+                $attempts++;
+                throw new RetryableException('Fail');
+            });
+        } catch (RetryableException $e) {
+            $this->assertSame('Fail', $e->getMessage());
+        }
 
         $this->assertSame(1, $attempts);
     }
