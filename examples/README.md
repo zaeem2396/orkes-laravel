@@ -1,0 +1,11 @@
+# Examples
+
+## order_processing_workflow.php
+
+Defines an `order_processing` workflow using the Workflow DSL and outputs the Conductor JSON definition.
+
+```bash
+php examples/order_processing_workflow.php
+```
+
+Use `$def->register($workflowClient)` to register with Conductor when you have a client (e.g. Laravel `Conductor::workflow()`).
