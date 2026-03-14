@@ -24,4 +24,10 @@ return [
 
     'retry_initial_delay_ms' => (int) env('CONDUCTOR_RETRY_INITIAL_DELAY_MS', 1000),
 
+    /*
+     * Task handler class names for conductor:work. Each must implement
+     * Conductor\Laravel\Workers\TaskHandler (taskType + handle).
+     */
+    'task_handlers' => [],
+
 ];
