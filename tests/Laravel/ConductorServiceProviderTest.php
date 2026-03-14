@@ -116,4 +116,12 @@ final class ConductorServiceProviderTest extends TestCase
 
         $this->assertIsInt($config['timeout']);
     }
+
+    public function test_config_worker_and_poll_values_are_integers(): void
+    {
+        $config = $this->app['config']->get('conductor');
+
+        $this->assertIsInt($config['worker_concurrency']);
+        $this->assertIsInt($config['poll_interval']);
+    }
 }
