@@ -34,7 +34,30 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–5 (HTTP client, Workflow client, Task client, Worker system, retry logic & exceptions) are complete. The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflow errors, and `TaskException` for task errors. Optional retry with exponential/linear backoff is available via `RetryHandler` when constructing `HttpClient`.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–6 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider) are complete.
+
+### Laravel setup
+
+After installing, publish the config (optional):
+
+```bash
+php artisan vendor:publish --tag=conductor-config
+```
+
+Configure in `.env`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `CONDUCTOR_SERVER` | Conductor API base URL | `http://localhost:8080/api` |
+| `CONDUCTOR_TOKEN` | Bearer token (optional) | — |
+| `CONDUCTOR_TIMEOUT` | Request timeout (seconds) | `30` |
+| `CONDUCTOR_WORKER_CONCURRENCY` | Worker concurrency | `5` |
+| `CONDUCTOR_POLL_INTERVAL` | Poll interval (seconds) | `5` |
+| `CONDUCTOR_RETRY_ENABLED` | Enable HTTP retry on 5xx/timeouts | `false` |
+| `CONDUCTOR_RETRY_MAX_ATTEMPTS` | Max retry attempts | `3` |
+| `CONDUCTOR_RETRY_INITIAL_DELAY_MS` | Initial retry delay (ms) | `1000` |
+
+The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflow errors, and `TaskException` for task errors. Optional retry with exponential backoff is available via `RetryHandler` when constructing `HttpClient`, or by setting `CONDUCTOR_RETRY_ENABLED=true` in Laravel.
 
 ## Development
 
