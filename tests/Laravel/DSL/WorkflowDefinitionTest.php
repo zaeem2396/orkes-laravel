@@ -110,6 +110,16 @@ final class WorkflowDefinitionTest extends TestCase
         $this->assertCount(1, $decoded['tasks']);
     }
 
+    public function test_to_json_with_pretty_print(): void
+    {
+        $def = Workflow::define('wf')->task('t1');
+        $json = $def->toJson(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
+        $this->assertStringContainsString("\n", $json);
+        $decoded = json_decode($json, true);
+        $this->assertSame('wf', $decoded['name']);
+    }
+
     public function test_register_calls_workflow_client(): void
     {
         $mock = new MockHandler([

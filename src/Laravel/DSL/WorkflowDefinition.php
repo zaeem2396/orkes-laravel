@@ -9,6 +9,7 @@ use Conductor\Workflow\WorkflowClient;
 /**
  * Fluent builder for a single workflow definition.
  * Builds Conductor workflow definition (schemaVersion 2) with SIMPLE tasks.
+ * Use Workflow::define($name) to create; then ->task(), ->description(), ->toArray(), ->toJson(), ->register().
  *
  * @internal
  */
