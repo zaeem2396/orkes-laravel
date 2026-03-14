@@ -43,7 +43,7 @@ See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1â
 
 ### Laravel setup
 
-After installing, publish the config (optional):
+After installing, publish the config so you can edit it (optional):
 
 ```bash
 php artisan vendor:publish --tag=conductor-config
