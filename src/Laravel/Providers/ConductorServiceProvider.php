@@ -66,6 +66,7 @@ final class ConductorServiceProvider extends ServiceProvider
                 $configPath => $this->app->configPath('conductor.php'),
             ], 'conductor-config');
 
+            // Register Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)
             $this->commands([
                 StartWorkflowCommand::class,
                 WorkerCommand::class,
