@@ -42,6 +42,7 @@ final class WorkflowDefinitionTest extends TestCase
 
         $this->assertSame('empty_workflow', $arr['name']);
         $this->assertSame([], $arr['tasks']);
+        $this->assertSame(2, $arr['schemaVersion']);
     }
 
     public function test_task_chaining_adds_tasks(): void

@@ -13,7 +13,7 @@ namespace Conductor\Laravel\DSL;
  *       ->task('charge_payment')
  *       ->task('send_confirmation');
  *
- * Then: $def->toArray(), $def->toJson(), or $def->register(Conductor::workflow()) to register with Conductor. Task names must exist as Conductor task definitions.
+ * Then: $def->toArray(), $def->toJson(), or $def->register(Conductor::workflow()) to register with Conductor. Task names must exist as Conductor task definitions. See docs/dsl.md.
  *
  * @see WorkflowDefinition
  */
