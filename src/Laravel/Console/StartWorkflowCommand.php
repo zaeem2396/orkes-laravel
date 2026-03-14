@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
  * Start a Conductor workflow by name.
  *
  * Example: php artisan conductor:start order_processing
+ * Example: php artisan conductor:start order_processing --input='{"order_id":123}' --correlation-id=ord-1 --version=2
  */
 final class StartWorkflowCommand extends Command
 {
