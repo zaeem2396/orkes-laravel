@@ -163,7 +163,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 6.1 | Package skeleton | composer.json, src layout | 2025-04-12 | 2025-04-12 | Done |
 | 6.2 | ConductorServiceProvider | Register SDK client from config | 2025-04-12 | 2025-04-14 | Done |
 | 6.3 | Publish config | config/conductor.php | 2025-04-13 | 2025-04-14 | Done |
-| 6.4 | Facade Conductor | Conductor::workflow(), etc. | 2025-04-14 | 2025-04-16 | Done |
+| 6.4 | Facade Conductor | Conductor::workflow(), tasks(), workers() | 2025-04-14 | 2025-04-16 | Done |
 | 6.5 | Config: base_url, auth_token, worker_concurrency, poll_interval | Env-driven config | 2025-04-15 | 2025-04-18 | Done |
 
 ### Deliverables
