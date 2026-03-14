@@ -15,7 +15,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 3 | Task client | 2025-03-22 | 2025-03-28 | Done |
 | 4 | Worker system | 2025-03-29 | 2025-04-04 | Done |
 | 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Done |
-| 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Planned |
+| 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Done |
 | 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Planned |
 | 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Planned |
 | 9 | Testing utilities | 2025-05-10 | 2025-05-16 | Planned |
@@ -154,23 +154,23 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-12  
 **Completion:** 2025-04-18  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 6.1 | Package skeleton | composer.json, src layout | 2025-04-12 | 2025-04-12 | Planned |
-| 6.2 | ConductorServiceProvider | Register SDK client from config | 2025-04-12 | 2025-04-14 | Planned |
-| 6.3 | Publish config | config/conductor.php | 2025-04-13 | 2025-04-14 | Planned |
-| 6.4 | Facade Conductor | Conductor::workflow(), etc. | 2025-04-14 | 2025-04-16 | Planned |
-| 6.5 | Config: base_url, auth_token, worker_concurrency, poll_interval | Env-driven config | 2025-04-15 | 2025-04-18 | Planned |
+| 6.1 | Package skeleton | composer.json, src layout | 2025-04-12 | 2025-04-12 | Done |
+| 6.2 | ConductorServiceProvider | Register SDK client from config | 2025-04-12 | 2025-04-14 | Done |
+| 6.3 | Publish config | config/conductor.php | 2025-04-13 | 2025-04-14 | Done |
+| 6.4 | Facade Conductor | Conductor::workflow(), etc. | 2025-04-14 | 2025-04-16 | Done |
+| 6.5 | Config: base_url, auth_token, worker_concurrency, poll_interval | Env-driven config | 2025-04-15 | 2025-04-18 | Done |
 
 ### Deliverables
 
-- `src/Providers/ConductorServiceProvider.php`
-- `src/Facades/Conductor.php`
-- `config/conductor.php` (publishable)
+- `src/Laravel/Providers/ConductorServiceProvider.php` — registers ConductorClient singleton from config, optional RetryHandler when `retry_enabled`
+- `src/Laravel/Facades/Conductor.php`
+- `config/conductor.php` (publishable); keys: base_url, auth_token, timeout, worker_concurrency, poll_interval, retry_enabled, retry_max_attempts, retry_initial_delay_ms
 
 ---
 
