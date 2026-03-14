@@ -139,5 +139,6 @@ final class WorkflowDefinitionTest extends TestCase
         $body = json_decode((string) $request->getBody(), true);
         $this->assertSame('test_wf', $body['name']);
         $this->assertCount(1, $body['tasks']);
+        $this->assertSame('SIMPLE', $body['tasks'][0]['type']);
     }
 }

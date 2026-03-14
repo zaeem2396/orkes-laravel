@@ -1,5 +1,7 @@
 # Examples
 
+See [docs/dsl.md](../docs/dsl.md) for the Workflow DSL reference.
+
 ## order_processing_workflow.php
 
 Defines an `order_processing` workflow using the Workflow DSL and outputs the Conductor JSON definition.
