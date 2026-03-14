@@ -44,6 +44,7 @@ final class WorkflowDefinition
         return $this->name;
     }
 
+    /** Add a SIMPLE task to the workflow (appended to task list). */
     public function task(string $taskName): self
     {
         $this->taskNames[] = $taskName;
@@ -51,6 +52,7 @@ final class WorkflowDefinition
         return $this;
     }
 
+    /** Set workflow description (optional). */
     public function description(string $description): self
     {
         $this->description = $description;
@@ -58,6 +60,7 @@ final class WorkflowDefinition
         return $this;
     }
 
+    /** Set workflow definition version (default 1). */
     public function version(int $version): self
     {
         $this->version = $version;
@@ -65,6 +68,7 @@ final class WorkflowDefinition
         return $this;
     }
 
+    /** Set owner email (required by Conductor; default conductor@example.com). */
     public function ownerEmail(string $ownerEmail): self
     {
         $this->ownerEmail = $ownerEmail;
@@ -155,6 +159,7 @@ final class WorkflowDefinition
         $workflowClient->registerWorkflowDefinition($this->toArray());
     }
 
+    /** Conductor taskReferenceName: taskName + '_ref'. */
     private function taskReferenceName(string $taskName): string
     {
         return $taskName . '_ref';

@@ -56,7 +56,7 @@ $def = Workflow::define('order_processing')
     ->task('send_confirmation');
 $def->register(Conductor::workflow());  // or $client->workflow()
 // Optional: ->inputParameters(['order_id']), ->outputParameters([...]), ->version(2), ->ownerEmail('...')
-// Or: $def->toArray() / $def->toJson() for the Conductor JSON definition
+// Or: $def->toArray() / $def->toJson() for the Conductor JSON definition. See examples/ for a runnable example.
 ```
 
 See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–8 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
