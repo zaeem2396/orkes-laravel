@@ -89,14 +89,14 @@ The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflo
 
 ## Development
 
-Run DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`.
-
 ```bash
 composer install
 composer test
 composer phpstan
 composer cs-check
 ```
+
+To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`.
 
 ## License
 
