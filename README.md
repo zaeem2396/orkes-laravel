@@ -1,6 +1,6 @@
 # Conductor PHP SDK & Laravel Integration
 
-Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, DSL, and testing utilities.
+Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities.
 
 ## Installation
 
@@ -44,7 +44,23 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–7 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
+**Workflow DSL:** Define workflows in PHP (Conductor schema v2, SIMPLE tasks) and register with Conductor:
+
+```php
+use Conductor\Laravel\DSL\Workflow;
+
+$def = Workflow::define('order_processing')
+    ->description('Order processing workflow')
+    ->task('validate_order')
+    ->task('charge_payment')
+    ->task('send_confirmation');
+$def->register(Conductor::workflow());  // or $client->workflow()
+// Optional: ->inputParameters(['order_id']), ->outputParameters([...]), ->version(2), ->ownerEmail('...')
+// Or: $def->toArray() / $def->toJson() for the Conductor JSON definition.
+// See examples/ and docs/dsl.md for details.
+```
+
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–8 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
 
 ### Laravel setup
 
@@ -79,6 +95,8 @@ composer test
 composer phpstan
 composer cs-check
 ```
+
+To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`.
 
 ## License
 
