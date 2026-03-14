@@ -224,8 +224,8 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 - `src/Laravel/DSL/Workflow.php`, `src/Laravel/DSL/WorkflowDefinition.php`
 - Developer-friendly API: `Workflow::define('order_processing')->task('validate_order')->task('charge_payment')->task('send_confirmation');`
-- toArray(), toJson(), register(WorkflowClient); description(), version(), ownerEmail() builders
-- Auto-generation of Conductor JSON definitions (schemaVersion 2, SIMPLE tasks)
+- toArray(), toJson(), register(WorkflowClient); description(), version(), ownerEmail(), inputParameters(), outputParameters() builders
+- Auto-generation of Conductor JSON definitions (schemaVersion 2, SIMPLE tasks). See docs/dsl.md and examples/.
 
 ---
 
