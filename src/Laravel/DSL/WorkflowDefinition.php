@@ -27,6 +27,9 @@ final class WorkflowDefinition
 
     private string $ownerEmail = 'conductor@example.com';
 
+    /** @var list<string> */
+    private array $inputParameters = [];
+
     public function __construct(
         private readonly string $name,
     ) {
@@ -61,6 +64,18 @@ final class WorkflowDefinition
     }
 
     /**
+     * Set workflow input parameter names (documentation for Conductor).
+     *
+     * @param  list<string>  $inputParameters
+     */
+    public function inputParameters(array $inputParameters): self
+    {
+        $this->inputParameters = array_values($inputParameters);
+
+        return $this;
+    }
+
+    /**
      * Export as Conductor workflow definition (JSON-compatible array).
      * Tasks are SIMPLE type with taskReferenceName = taskName + '_ref'.
      *
@@ -87,6 +102,9 @@ final class WorkflowDefinition
         ];
         if ($this->description !== '') {
             $def['description'] = $this->description;
+        }
+        if ($this->inputParameters !== []) {
+            $def['inputParameters'] = $this->inputParameters;
         }
 
         return $def;
