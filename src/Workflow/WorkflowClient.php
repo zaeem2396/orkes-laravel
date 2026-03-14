@@ -147,6 +147,7 @@ final class WorkflowClient
     /**
      * Search workflow executions (GET /workflow/search).
      * Query examples: "status = RUNNING", "status IN (FAILED, TIMED_OUT)", "workflowType = my_workflow".
+     * freeText defaults to '*' for full-text match.
      *
      * @return array{totalHits: int, results: array<int, array<string, mixed>>}
      *
