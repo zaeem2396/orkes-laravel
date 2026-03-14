@@ -288,7 +288,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 4. Worker system  
 5. Retry logic & exceptions  
 6. Laravel service provider  
-7. Artisan commands  
+7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
 8. Workflow DSL  
 9. Testing utilities  
 10. Documentation & CI  
