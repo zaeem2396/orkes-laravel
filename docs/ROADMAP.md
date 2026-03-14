@@ -171,6 +171,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 - `src/Laravel/Providers/ConductorServiceProvider.php` — registers ConductorClient singleton from config, optional RetryHandler when `retry_enabled`
 - `src/Laravel/Facades/Conductor.php`
 - `config/conductor.php` (publishable); keys: base_url, auth_token, timeout, worker_concurrency, poll_interval, retry_enabled, retry_max_attempts, retry_initial_delay_ms
+- `composer.json` extra.laravel (providers, aliases) for auto-discovery
 
 ---
 
