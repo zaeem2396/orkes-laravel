@@ -74,6 +74,7 @@ final class ConductorServiceProviderTest extends TestCase
         $config = $this->app['config']->get('conductor');
 
         $this->assertSame('https://conductor.example/api', $config['base_url']);
+        $this->assertIsString($config['base_url']);
         $this->assertSame('test-token', $config['auth_token']);
         $this->assertSame(60, $config['timeout']);
         $this->assertSame(3, $config['worker_concurrency']);
