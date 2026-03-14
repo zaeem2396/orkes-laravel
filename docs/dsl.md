@@ -20,8 +20,8 @@ $def = Workflow::define('order_processing')
 - `->task(string $taskName)` — Add a SIMPLE task (chainable).
 - `->description(string)`, `->version(int)`, `->ownerEmail(string)` — Optional metadata.
 - `->inputParameters(array)` — List of input parameter names (documentation). `->outputParameters(array)` — Output template (e.g. JSONPath expressions).
-- `->toArray()` — Conductor workflow definition as array.
-- `->toJson(int $flags)` — JSON string.
+- `->toArray()` — Conductor workflow definition as array (name, version, tasks, schemaVersion, ownerEmail, etc.).
+- `->toJson(int $flags)` — JSON string (e.g. use JSON_PRETTY_PRINT for readability).
 - `->register(WorkflowClient $client)` — Register this definition with Conductor (POST metadata/workflow).
 
 ## Example

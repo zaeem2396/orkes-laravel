@@ -60,6 +60,7 @@ final class WorkflowDefinitionTest extends TestCase
         $this->assertSame('SIMPLE', $arr['tasks'][0]['type']);
         $this->assertSame('charge_payment', $arr['tasks'][1]['name']);
         $this->assertSame('send_confirmation', $arr['tasks'][2]['name']);
+        $this->assertSame('send_confirmation_ref', $arr['tasks'][2]['taskReferenceName']);
     }
 
     public function test_to_array_includes_schema_version_and_owner(): void

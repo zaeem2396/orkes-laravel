@@ -21,7 +21,7 @@ final class WorkflowDefinition
     /** Task type for worker tasks. */
     private const TASK_TYPE_SIMPLE = 'SIMPLE';
 
-    /** @var list<string> */
+    /** @var list<string> Task type names in order (SIMPLE tasks). */
     private array $taskNames = [];
 
     private string $description = '';
