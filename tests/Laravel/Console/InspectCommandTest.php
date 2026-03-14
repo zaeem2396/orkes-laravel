@@ -48,5 +48,6 @@ final class InspectCommandTest extends TestCase
         $output = Artisan::output();
         $this->assertStringContainsString('Running', $output);
         $this->assertStringContainsString('Failed', $output);
+        $this->assertStringContainsString('wf-1', $output);
     }
 }
