@@ -38,6 +38,11 @@ final class WorkflowDefinition
     ) {
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function task(string $taskName): self
     {
         $this->taskNames[] = $taskName;
