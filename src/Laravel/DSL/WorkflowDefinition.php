@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Conductor\Laravel\DSL;
 
+use Conductor\Workflow\WorkflowClient;
+
 /**
  * Fluent builder for a single workflow definition.
  * Builds Conductor workflow definition (schemaVersion 2) with SIMPLE tasks.
@@ -87,6 +89,24 @@ final class WorkflowDefinition
         }
 
         return $def;
+    }
+
+    /**
+     * Export as Conductor workflow definition JSON string.
+     */
+    public function toJson(int $flags = JSON_UNESCAPED_SLASHES): string
+    {
+        $json = json_encode($this->toArray(), $flags | JSON_THROW_ON_ERROR);
+
+        return $json;
+    }
+
+    /**
+     * Register this workflow definition with Conductor via WorkflowClient.
+     */
+    public function register(WorkflowClient $workflowClient): void
+    {
+        $workflowClient->registerWorkflowDefinition($this->toArray());
     }
 
     private function taskReferenceName(string $taskName): string
