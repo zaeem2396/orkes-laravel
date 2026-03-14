@@ -27,7 +27,7 @@ Conductor::workers()->listen('my_task', $handler)->run();
 Artisan commands:
 
 ```bash
-php artisan conductor:start order_processing --input='{"order_id":123}'
+php artisan conductor:start order_processing --input='{"order_id":123}' --wf-version=2
 php artisan conductor:work --task=process_payment
 php artisan conductor:inspect
 php artisan conductor:local --once
