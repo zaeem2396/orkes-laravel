@@ -52,6 +52,11 @@ final class ConductorServiceProviderTest extends TestCase
         $this->assertSame($tasks, Conductor::tasks());
     }
 
+    public function test_facade_workers_returns_worker_instance(): void
+    {
+        $this->assertInstanceOf(\Conductor\Task\Worker::class, Conductor::workers());
+    }
+
     public function test_config_is_merged(): void
     {
         $config = $this->app['config']->get('conductor');
