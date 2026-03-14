@@ -37,6 +37,27 @@ final class WorkflowDefinition
         return $this;
     }
 
+    public function description(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function version(int $version): self
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    public function ownerEmail(string $ownerEmail): self
+    {
+        $this->ownerEmail = $ownerEmail;
+
+        return $this;
+    }
+
     /**
      * Export as Conductor workflow definition (JSON-compatible array).
      *
