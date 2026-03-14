@@ -19,7 +19,7 @@ final class FailuresCommand extends Command
                             {--size=50 : Max workflows to list}
                             {--retry : Retry each listed failed workflow}';
 
-    protected $description = 'List failed workflows and optionally retry them';
+    protected $description = 'List failed workflows (optional --retry to retry each)';
 
     public function handle(ConductorClient $client): int
     {

@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
  * Inspect Conductor: active workflows, failed workflows, pending tasks, workers.
  *
  * Example: php artisan conductor:inspect
+ * Example: php artisan conductor:inspect --size=50
  */
 final class InspectCommand extends Command
 {

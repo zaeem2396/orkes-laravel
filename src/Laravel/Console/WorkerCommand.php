@@ -22,7 +22,7 @@ final class WorkerCommand extends Command
                             {--concurrency= : Number of concurrent workers (reserved)}
                             {--queue= : Queue/domain name}';
 
-    protected $description = 'Run Conductor task workers';
+    protected $description = 'Run Conductor task workers (uses config task_handlers, --task filter, --queue domain)';
 
     public function handle(ConductorClient $client): int
     {
