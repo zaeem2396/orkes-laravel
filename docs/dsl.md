@@ -16,7 +16,7 @@ $def = Workflow::define('order_processing')
 
 ## Methods
 
-- `Workflow::define(string $name)` — Start a new definition.
+- `Workflow::define(string $name)` — Start a new workflow definition.
 - `->task(string $taskName)` — Add a SIMPLE task (chainable).
 - `->description(string)`, `->version(int)`, `->ownerEmail(string)` — Optional metadata.
 - `->inputParameters(array)`, `->outputParameters(array)` — Conductor input/output docs/template.

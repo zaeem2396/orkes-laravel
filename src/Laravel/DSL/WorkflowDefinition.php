@@ -41,6 +41,7 @@ final class WorkflowDefinition
     ) {
     }
 
+    /** Return the workflow name. */
     public function getName(): string
     {
         return $this->name;

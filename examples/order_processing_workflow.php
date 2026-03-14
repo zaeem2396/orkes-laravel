@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Example: Define order_processing workflow with DSL and register with Conductor.
+ * Example: Define order_processing workflow with DSL and output Conductor JSON.
  *
  * Run from project root (after composer install):
  *   php examples/order_processing_workflow.php
