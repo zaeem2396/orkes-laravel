@@ -129,4 +129,12 @@ final class ConductorServiceProviderTest extends TestCase
         $this->assertIsInt($config['worker_concurrency']);
         $this->assertIsInt($config['poll_interval']);
     }
+
+    public function test_config_includes_task_handlers_when_merged(): void
+    {
+        $config = $this->app['config']->get('conductor');
+
+        $this->assertArrayHasKey('task_handlers', $config);
+        $this->assertIsArray($config['task_handlers']);
+    }
 }
