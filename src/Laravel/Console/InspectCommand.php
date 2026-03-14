@@ -17,7 +17,7 @@ final class InspectCommand extends Command
     protected $signature = 'conductor:inspect
                             {--size=20 : Max workflows to show per status}';
 
-    protected $description = 'Show active workflows, failed workflows, pending tasks, and workers';
+    protected $description = 'Show active workflows, failed workflows, and summary counts';
 
     public function handle(ConductorClient $client): int
     {
