@@ -309,6 +309,8 @@ Conductor::workflow()->start('order_processing', ['order_id' => 1]);
 
 ```bash
 php artisan conductor:work
+php artisan conductor:inspect
+php artisan conductor:failures --retry
 ```
 
 ---
