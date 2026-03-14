@@ -21,7 +21,7 @@ final class StartWorkflowCommand extends Command
                             {--correlation-id= : Correlation ID for the workflow}
                             {--wf-version= : Workflow definition version}';
 
-    protected $description = 'Start a Conductor workflow';
+    protected $description = 'Start a Conductor workflow by name and output workflow ID';
 
     public function handle(ConductorClient $client): int
     {
