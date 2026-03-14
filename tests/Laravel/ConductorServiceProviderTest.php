@@ -8,6 +8,9 @@ use Conductor\Client\ConductorClient;
 use Conductor\Laravel\Facades\Conductor;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * Tests for ConductorServiceProvider: binding, config merge, commands, facade.
+ */
 final class ConductorServiceProviderTest extends TestCase
 {
     protected function getEnvironmentSetUp($app): void
