@@ -90,6 +90,14 @@ final class WorkflowDefinitionTest extends TestCase
         $this->assertSame(['orderId', 'amount'], $arr['inputParameters']);
     }
 
+    public function test_output_parameters_included_in_to_array(): void
+    {
+        $def = Workflow::define('wf')->outputParameters(['result' => '${last_task_ref.output}'])->task('t1');
+        $arr = $def->toArray();
+
+        $this->assertSame(['result' => '${last_task_ref.output}'], $arr['outputParameters']);
+    }
+
     public function test_to_json_returns_valid_json(): void
     {
         $def = Workflow::define('order_processing')->task('validate_order');
