@@ -25,5 +25,5 @@ $def = Workflow::define('order_processing')
 echo "Workflow definition JSON:\n";
 echo $def->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 
-// To register with Conductor (when you have a client):
+// To register with Conductor when you have a WorkflowClient (e.g. Laravel: Conductor::workflow()):
 // $def->register($workflowClient);
