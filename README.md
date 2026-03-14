@@ -24,6 +24,11 @@ Conductor::tasks()->poll('process_payment');
 Conductor::workers()->listen('my_task', $handler)->run();
 ```
 
+```bash
+php artisan conductor:start order_processing --input='{"order_id":123}'
+php artisan conductor:work --task=process_payment
+```
+
 **Standalone SDK:** Use the client directly:
 
 ```php
