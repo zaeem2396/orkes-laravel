@@ -27,6 +27,9 @@ Conductor::workers()->listen('my_task', $handler)->run();
 ```bash
 php artisan conductor:start order_processing --input='{"order_id":123}'
 php artisan conductor:work --task=process_payment
+php artisan conductor:inspect
+php artisan conductor:local --once
+php artisan conductor:failures --retry
 ```
 
 **Standalone SDK:** Use the client directly:
@@ -39,7 +42,7 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–6 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–7 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
 
 ### Laravel setup
 
