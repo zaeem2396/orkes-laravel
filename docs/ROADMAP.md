@@ -17,7 +17,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Done |
 | 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Done |
 | 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Done |
-| 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Planned |
+| 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Done |
 | 9 | Testing utilities | 2025-05-10 | 2025-05-16 | Planned |
 | 10 | Documentation & CI | 2025-05-17 | 2025-05-30 | Planned |
 
@@ -208,23 +208,24 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-26  
 **Completion:** 2025-05-09  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 8.1 | Workflow::define(name) | Entry point, fluent builder | 2025-04-26 | 2025-04-28 | Planned |
-| 8.2 | ->task(name) chaining | Linear task chain | 2025-04-28 | 2025-05-01 | Planned |
-| 8.3 | Conductor JSON generation | Emit Conductor workflow definition JSON | 2025-05-01 | 2025-05-05 | Planned |
-| 8.4 | Register via SDK | registerWorkflowDefinition from DSL | 2025-05-05 | 2025-05-07 | Planned |
-| 8.5 | Docs & examples | README + examples for DSL | 2025-05-07 | 2025-05-09 | Planned |
+| 8.1 | Workflow::define(name) | Entry point, fluent builder | 2025-04-26 | 2025-04-28 | Done |
+| 8.2 | ->task(name) chaining | Linear task chain | 2025-04-28 | 2025-05-01 | Done |
+| 8.3 | Conductor JSON generation | Emit Conductor workflow definition JSON | 2025-05-01 | 2025-05-05 | Done |
+| 8.4 | Register via SDK | registerWorkflowDefinition from DSL | 2025-05-05 | 2025-05-07 | Done |
+| 8.5 | Docs & examples | README, docs/dsl.md, examples/ for DSL | 2025-05-07 | 2025-05-09 | Done |
 
 ### Deliverables
 
-- `src/DSL/Workflow.php`
-- Developer-friendly API: `Workflow::define('order_processing')->task('validate_order')->task('charge_payment')->task('send_confirmation');`
-- Auto-generation of Conductor JSON definitions
+- `src/Laravel/DSL/Workflow.php` (entry point), `src/Laravel/DSL/WorkflowDefinition.php` (fluent builder)
+- Developer-friendly API: `Workflow::define('order_processing')->task('validate_order')->task('charge_payment')->task('send_confirmation');` with optional description, version, ownerEmail, inputParameters, outputParameters.
+- toArray(), toJson(), register(WorkflowClient); description(), version(), ownerEmail(), inputParameters(), outputParameters() builders
+- Auto-generation of Conductor JSON definitions (schemaVersion 2, SIMPLE tasks). Tests in tests/Laravel/DSL/. See docs/dsl.md and examples/.
 
 ---
 
@@ -289,7 +290,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 5. Retry logic & exceptions  
 6. Laravel service provider  
 7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
-8. Workflow DSL  
+8. Workflow DSL (Workflow::define, ->task(), toArray, toJson, register; docs/dsl.md, examples/)  
 9. Testing utilities  
 10. Documentation & CI  
 
@@ -305,6 +306,9 @@ composer require conductor/orkes-laravel
 
 ```php
 Conductor::workflow()->start('order_processing', ['order_id' => 1]);
+
+// Or define with DSL and register:
+Workflow::define('order_processing')->task('validate_order')->task('charge_payment')->register(Conductor::workflow());
 ```
 
 ```bash
