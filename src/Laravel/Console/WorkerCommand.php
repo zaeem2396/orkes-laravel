@@ -12,8 +12,8 @@ use Illuminate\Console\Command;
 /**
  * Run Conductor task workers.
  *
- * Options: --task, --concurrency, --queue (domain)
- * Example: php artisan conductor:work --task=process_payment --concurrency=5
+ * Options: --task (filter task type), --queue (domain), --concurrency (reserved).
+ * Example: php artisan conductor:work --task=process_payment --queue=my-queue
  */
 final class WorkerCommand extends Command
 {
