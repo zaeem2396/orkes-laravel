@@ -143,4 +143,28 @@ final class WorkflowClient
     {
         $this->http->request('PUT', 'metadata/workflow', $definitions);
     }
+
+    /**
+     * Search workflow executions (GET /workflow/search).
+     * Query examples: "status = RUNNING", "status IN (FAILED, TIMED_OUT)", "workflowType = my_workflow".
+     *
+     * @return array{totalHits: int, results: array<int, array<string, mixed>>}
+     *
+     * @throws WorkflowException
+     */
+    public function search(string $query, int $start = 0, int $size = 100, string $sort = 'startTime:DESC', string $freeText = '*'): array
+    {
+        $result = $this->http->request('GET', 'workflow/search', [
+            'query' => $query,
+            'start' => $start,
+            'size' => $size,
+            'sort' => $sort,
+            'freeText' => $freeText,
+        ]);
+
+        return [
+            'totalHits' => (int) ($result['totalHits'] ?? 0),
+            'results' => isset($result['results']) && is_array($result['results']) ? $result['results'] : [],
+        ];
+    }
 }
