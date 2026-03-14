@@ -15,8 +15,10 @@ use Conductor\Workflow\WorkflowClient;
  */
 final class WorkflowDefinition
 {
+    /** Conductor schema version (must be 2). */
     private const SCHEMA_VERSION = 2;
 
+    /** Task type for worker tasks. */
     private const TASK_TYPE_SIMPLE = 'SIMPLE';
 
     /** @var list<string> */
