@@ -4,9 +4,6 @@ parameters:
         - src
         - tests
     ignoreErrors:
-        # Stub classes - properties used in later phases
-        - message: '#.*#'
-          path: src/Retry/RetryHandler.php
         # Intentional infinite loop for worker daemon
         - message: '#While loop condition is always true\.#'
           path: src/Task/Worker.php

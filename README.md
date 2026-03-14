@@ -34,7 +34,7 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–4 (HTTP client, Workflow client, Task client, Worker system) are complete.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–5 (HTTP client, Workflow client, Task client, Worker system, retry logic & exceptions) are complete. The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflow errors, and `TaskException` for task errors. Optional retry with exponential/linear backoff is available via `RetryHandler` when constructing `HttpClient`.
 
 ## Development
 
