@@ -54,7 +54,7 @@ Configure in `.env`:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `CONDUCTOR_SERVER` | Conductor API base URL | `http://localhost:8080/api` |
-| `CONDUCTOR_TOKEN` | Bearer token (optional) | — |
+| `CONDUCTOR_TOKEN` | Bearer token (optional; omit for no auth) | — |
 | `CONDUCTOR_TIMEOUT` | Request timeout (seconds) | `30` |
 | `CONDUCTOR_WORKER_CONCURRENCY` | Worker concurrency | `5` |
 | `CONDUCTOR_POLL_INTERVAL` | Poll interval (seconds) | `5` |
