@@ -129,6 +129,7 @@ final class WorkflowDefinition
             'schemaVersion' => self::SCHEMA_VERSION,
             'ownerEmail' => $this->ownerEmail,
         ];
+        // Optional Conductor workflow fields
         if ($this->description !== '') {
             $def['description'] = $this->description;
         }
