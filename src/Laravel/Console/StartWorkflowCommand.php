@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 /**
  * Start a Conductor workflow by name.
  *
+ * Options: workflow (name), --input (JSON), --correlation-id, --wf-version.
  * Example: php artisan conductor:start order_processing
  * Example: php artisan conductor:start order_processing --input='{"order_id":123}' --correlation-id=ord-1 --wf-version=2
  */
