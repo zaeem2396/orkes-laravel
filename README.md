@@ -57,6 +57,8 @@ Configure in `.env`:
 | `CONDUCTOR_RETRY_MAX_ATTEMPTS` | Max retry attempts | `3` |
 | `CONDUCTOR_RETRY_INITIAL_DELAY_MS` | Initial retry delay (ms) | `1000` |
 
+See `config/conductor.php` for all options.
+
 The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflow errors, and `TaskException` for task errors. Optional retry with exponential backoff is available via `RetryHandler` when constructing `HttpClient`, or by setting `CONDUCTOR_RETRY_ENABLED=true` in Laravel.
 
 ## Development
