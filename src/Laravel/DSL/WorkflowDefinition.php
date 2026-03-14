@@ -135,6 +135,8 @@ final class WorkflowDefinition
 
     /**
      * Export as Conductor workflow definition JSON string.
+     *
+     * @param  int  $flags  JSON encode flags (e.g. JSON_PRETTY_PRINT)
      */
     public function toJson(int $flags = JSON_UNESCAPED_SLASHES): string
     {
@@ -145,6 +147,7 @@ final class WorkflowDefinition
 
     /**
      * Register this workflow definition with Conductor via WorkflowClient.
+     * Calls registerWorkflowDefinition with toArray().
      */
     public function register(WorkflowClient $workflowClient): void
     {
