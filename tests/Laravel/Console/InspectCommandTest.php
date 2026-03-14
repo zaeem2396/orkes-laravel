@@ -42,7 +42,7 @@ final class InspectCommandTest extends TestCase
         );
         $this->app->instance(ConductorClient::class, new ConductorClient($http));
 
-        $exitCode = Artisan::call('conductor:inspect');
+        $exitCode = Artisan::call('conductor:inspect', ['--size' => 10]);
 
         $this->assertSame(0, $exitCode);
         $output = Artisan::output();

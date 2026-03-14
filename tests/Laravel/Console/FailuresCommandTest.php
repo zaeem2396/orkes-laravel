@@ -20,7 +20,7 @@ final class FailuresCommandTest extends TestCase
         $app['config']->set('conductor', ['base_url' => 'https://conductor.example/api']);
     }
 
-    public function test_conductor_failures_lists_failed_workflows(): void
+    public function test_conductor_failures_reports_no_failed_workflows(): void
     {
         $mock = new MockHandler([
             new Response(200, ['Content-Type' => 'application/json'], json_encode([
