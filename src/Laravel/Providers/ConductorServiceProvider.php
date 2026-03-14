@@ -6,7 +6,9 @@ namespace Conductor\Laravel\Providers;
 
 use Conductor\Client\ConductorClient;
 use Conductor\Client\HttpClient;
+use Conductor\Laravel\Console\FailuresCommand;
 use Conductor\Laravel\Console\InspectCommand;
+use Conductor\Laravel\Console\LocalCommand;
 use Conductor\Laravel\Console\StartWorkflowCommand;
 use Conductor\Laravel\Console\WorkerCommand;
 use Conductor\Retry\ExponentialDelayStrategy;
@@ -67,6 +69,8 @@ final class ConductorServiceProvider extends ServiceProvider
                 StartWorkflowCommand::class,
                 WorkerCommand::class,
                 InspectCommand::class,
+                LocalCommand::class,
+                FailuresCommand::class,
             ]);
         }
     }
