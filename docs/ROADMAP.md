@@ -290,7 +290,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 5. Retry logic & exceptions  
 6. Laravel service provider  
 7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
-8. Workflow DSL (Workflow::define, ->task(), toArray, toJson, register)  
+8. Workflow DSL (Workflow::define, ->task(), toArray, toJson, register; docs/dsl.md, examples/)  
 9. Testing utilities  
 10. Documentation & CI  
 

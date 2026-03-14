@@ -22,7 +22,7 @@ $def = Workflow::define('order_processing')
     ->task('charge_payment')
     ->task('send_confirmation');
 
-echo "Workflow definition JSON:\n";
+echo "Workflow definition JSON (Conductor schema v2):\n";
 echo $def->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 
 // To register with Conductor when you have a WorkflowClient (e.g. Laravel: Conductor::workflow()):
