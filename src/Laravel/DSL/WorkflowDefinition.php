@@ -92,7 +92,7 @@ final class WorkflowDefinition
     }
 
     /**
-     * Set workflow output parameters template (Conductor outputParameters).
+     * Set workflow output parameters template (Conductor outputParameters; optional).
      *
      * @param  array<string, mixed>  $outputParameters
      */

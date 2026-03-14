@@ -26,4 +26,4 @@ $def = Workflow::define('order_processing')
 
 ## Example
 
-See [examples/order_processing_workflow.php](../examples/order_processing_workflow.php).
+See [examples/order_processing_workflow.php](../examples/order_processing_workflow.php) and [examples/README.md](../examples/README.md).
