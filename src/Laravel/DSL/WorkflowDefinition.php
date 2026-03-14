@@ -30,6 +30,9 @@ final class WorkflowDefinition
     /** @var list<string> */
     private array $inputParameters = [];
 
+    /** @var array<string, mixed> */
+    private array $outputParameters = [];
+
     public function __construct(
         private readonly string $name,
     ) {
@@ -76,6 +79,18 @@ final class WorkflowDefinition
     }
 
     /**
+     * Set workflow output parameters template (Conductor outputParameters).
+     *
+     * @param  array<string, mixed>  $outputParameters
+     */
+    public function outputParameters(array $outputParameters): self
+    {
+        $this->outputParameters = $outputParameters;
+
+        return $this;
+    }
+
+    /**
      * Export as Conductor workflow definition (JSON-compatible array).
      * Tasks are SIMPLE type with taskReferenceName = taskName + '_ref'.
      *
@@ -105,6 +120,9 @@ final class WorkflowDefinition
         }
         if ($this->inputParameters !== []) {
             $def['inputParameters'] = $this->inputParameters;
+        }
+        if ($this->outputParameters !== []) {
+            $def['outputParameters'] = $this->outputParameters;
         }
 
         return $def;
