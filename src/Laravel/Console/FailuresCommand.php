@@ -11,7 +11,7 @@ use Illuminate\Console\Command;
  * Observability: list failed workflows, optional retry.
  *
  * Example: php artisan conductor:failures
- * Example: php artisan conductor:failures --retry
+ * Example: php artisan conductor:failures --size=100 --retry
  */
 final class FailuresCommand extends Command
 {
