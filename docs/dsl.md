@@ -1,0 +1,29 @@
+# Workflow DSL
+
+Define Conductor workflows in PHP with a fluent API.
+
+## Usage
+
+```php
+use Conductor\Laravel\DSL\Workflow;
+
+$def = Workflow::define('order_processing')
+    ->description('Order processing workflow')
+    ->task('validate_order')
+    ->task('charge_payment')
+    ->task('send_confirmation');
+```
+
+## Methods
+
+- `Workflow::define(string $name)` — Start a new definition.
+- `->task(string $taskName)` — Add a SIMPLE task (chainable).
+- `->description(string)`, `->version(int)`, `->ownerEmail(string)` — Optional metadata.
+- `->inputParameters(array)`, `->outputParameters(array)` — Conductor input/output docs/template.
+- `->toArray()` — Conductor workflow definition as array.
+- `->toJson(int $flags)` — JSON string.
+- `->register(WorkflowClient $client)` — Register with Conductor.
+
+## Example
+
+See [examples/order_processing_workflow.php](../examples/order_processing_workflow.php).
