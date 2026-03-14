@@ -1,6 +1,6 @@
 # Conductor PHP SDK & Laravel Integration
 
-Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, DSL, and testing utilities.
+Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities.
 
 ## Installation
 

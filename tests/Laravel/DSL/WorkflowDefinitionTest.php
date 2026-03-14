@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Conductor\Laravel\Tests\DSL;
 
+/**
+ * Tests for WorkflowDefinition: define, task chaining, toArray, toJson, register.
+ */
 use Conductor\Client\HttpClient;
 use Conductor\Laravel\DSL\Workflow;
 use Conductor\Laravel\DSL\WorkflowDefinition;
