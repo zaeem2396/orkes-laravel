@@ -14,4 +14,10 @@ return [
 
     'poll_interval' => (int) env('CONDUCTOR_POLL_INTERVAL', 5),
 
+    'retry_enabled' => (bool) env('CONDUCTOR_RETRY_ENABLED', false),
+
+    'retry_max_attempts' => (int) env('CONDUCTOR_RETRY_MAX_ATTEMPTS', 3),
+
+    'retry_initial_delay_ms' => (int) env('CONDUCTOR_RETRY_INITIAL_DELAY_MS', 1000),
+
 ];
