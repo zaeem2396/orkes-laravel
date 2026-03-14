@@ -20,7 +20,7 @@ namespace Conductor\Laravel\DSL;
 final class Workflow
 {
     /**
-     * Start defining a workflow by name.
+     * Start defining a workflow by name. Chain with ->task(), ->description(), etc.
      */
     public static function define(string $name): WorkflowDefinition
     {
