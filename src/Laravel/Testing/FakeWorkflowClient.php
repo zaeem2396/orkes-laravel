@@ -22,7 +22,7 @@ final class FakeWorkflowClient
     /**
      * @param  array<string, mixed>  $input
      */
-    public function start(string $name, array $input = [], ?string $correlationId = null): string
+    public function start(string $name, array $input = [], ?string $correlationId = null, ?int $version = null): string
     {
         ($this->onStart)($name, $input);
 
