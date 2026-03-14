@@ -10,7 +10,7 @@ return [
 
     'base_url' => env('CONDUCTOR_SERVER', 'http://localhost:8080/api'),
 
-    'auth_token' => env('CONDUCTOR_TOKEN'),
+    'auth_token' => env('CONDUCTOR_TOKEN'), // optional; leave unset for no auth
 
     'timeout' => (int) env('CONDUCTOR_TIMEOUT', 30),
 
