@@ -91,6 +91,8 @@ final class ConductorServiceProviderTest extends TestCase
         $this->assertArrayHasKey('conductor:start', $commands);
         $this->assertArrayHasKey('conductor:work', $commands);
         $this->assertArrayHasKey('conductor:inspect', $commands);
+        $this->assertArrayHasKey('conductor:local', $commands);
+        $this->assertArrayHasKey('conductor:failures', $commands);
     }
 
     public function test_conductor_client_works_with_retry_enabled(): void
