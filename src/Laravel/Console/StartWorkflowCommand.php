@@ -11,7 +11,7 @@ use Illuminate\Console\Command;
  * Start a Conductor workflow by name.
  *
  * Example: php artisan conductor:start order_processing
- * Example: php artisan conductor:start order_processing --input='{"order_id":123}' --correlation-id=ord-1 --version=2
+ * Example: php artisan conductor:start order_processing --input='{"order_id":123}' --correlation-id=ord-1 --wf-version=2
  */
 final class StartWorkflowCommand extends Command
 {
@@ -19,7 +19,7 @@ final class StartWorkflowCommand extends Command
                             {workflow : Workflow definition name}
                             {--input= : JSON input data}
                             {--correlation-id= : Correlation ID for the workflow}
-                            {--version= : Workflow definition version}';
+                            {--wf-version= : Workflow definition version}';
 
     protected $description = 'Start a Conductor workflow';
 
@@ -29,8 +29,8 @@ final class StartWorkflowCommand extends Command
         $input = $this->option('input') ? json_decode($this->option('input'), true) ?? [] : [];
 
         $correlationId = $this->option('correlation-id') ? (string) $this->option('correlation-id') : null;
-        $version = $this->option('version') !== null && $this->option('version') !== ''
-            ? (int) $this->option('version')
+        $version = $this->option('wf-version') !== null && $this->option('wf-version') !== ''
+            ? (int) $this->option('wf-version')
             : null;
 
         try {
