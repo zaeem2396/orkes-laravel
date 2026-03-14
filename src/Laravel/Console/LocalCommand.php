@@ -22,7 +22,7 @@ final class LocalCommand extends Command
                             {--task= : Task type to poll}
                             {--queue= : Queue/domain name}';
 
-    protected $description = 'Local dev: run workers (use --once for one cycle)';
+    protected $description = 'Local dev: run workers; use --once to run one poll cycle then exit';
 
     public function handle(ConductorClient $client): int
     {
