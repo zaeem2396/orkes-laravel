@@ -9,6 +9,8 @@ use Conductor\Client\HttpClient;
 use Conductor\Laravel\Console\InspectCommand;
 use Conductor\Laravel\Console\StartWorkflowCommand;
 use Conductor\Laravel\Console\WorkerCommand;
+use Conductor\Retry\ExponentialDelayStrategy;
+use Conductor\Retry\RetryHandler;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -20,10 +22,29 @@ final class ConductorServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ConductorClient::class, function ($app) {
             $config = $app['config']->get('conductor', []);
+            $baseUrl = (string) ($config['base_url'] ?? '');
+            $token = isset($config['auth_token']) && (string) $config['auth_token'] !== ''
+                ? (string) $config['auth_token']
+                : null;
+            $timeout = (int) ($config['timeout'] ?? 30);
+
+            $retryHandler = null;
+            if (! empty($config['retry_enabled'])) {
+                $retryHandler = new RetryHandler(
+                    maxAttempts: (int) ($config['retry_max_attempts'] ?? 3),
+                    delayStrategy: new ExponentialDelayStrategy(
+                        initialDelayMs: (int) ($config['retry_initial_delay_ms'] ?? 1000),
+                        multiplier: 2.0,
+                    ),
+                );
+            }
+
             $http = new HttpClient(
-                baseUrl: (string) ($config['base_url'] ?? ''),
-                token: isset($config['auth_token']) ? (string) $config['auth_token'] : null,
-                timeout: (int) ($config['timeout'] ?? 30),
+                baseUrl: $baseUrl,
+                token: $token,
+                timeout: $timeout,
+                guzzle: null,
+                retryHandler: $retryHandler,
             );
 
             return new ConductorClient($http);
