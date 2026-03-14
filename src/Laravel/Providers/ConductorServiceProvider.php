@@ -18,7 +18,8 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Registers the Conductor SDK client from config and publishes config/conductor.php.
  * Config keys: base_url, auth_token, timeout, worker_concurrency, poll_interval,
- * retry_enabled, retry_max_attempts, retry_initial_delay_ms.
+ * retry_enabled, retry_max_attempts, retry_initial_delay_ms, task_handlers.
+ * Commands: conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures.
  */
 final class ConductorServiceProvider extends ServiceProvider
 {
