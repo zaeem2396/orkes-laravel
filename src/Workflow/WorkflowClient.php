@@ -10,9 +10,9 @@ use Conductor\Exceptions\WorkflowException;
 /**
  * Conductor workflow operations.
  *
- * Methods: startWorkflow, getWorkflow, terminateWorkflow, retryWorkflow,
- * pauseWorkflow, resumeWorkflow, getWorkflowStatus, registerWorkflowDefinition,
- * updateWorkflowDefinition.
+ * Methods: start, getWorkflow, terminateWorkflow, retryWorkflow, pauseWorkflow,
+ * resumeWorkflow, getWorkflowStatus, registerWorkflowDefinition,
+ * updateWorkflowDefinition, search.
  *
  * @see https://conductor-oss.github.io/conductor/documentation/api/workflow.html
  * @see https://conductor-oss.github.io/conductor/documentation/api/startworkflow.html
