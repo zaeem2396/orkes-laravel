@@ -50,10 +50,12 @@ $client->workflow()->start('order_processing', ['order_id' => 123]);
 use Conductor\Laravel\DSL\Workflow;
 
 $def = Workflow::define('order_processing')
+    ->description('Order processing workflow')
     ->task('validate_order')
     ->task('charge_payment')
     ->task('send_confirmation');
 $def->register(Conductor::workflow());  // or $client->workflow()
+// Optional: ->inputParameters(['order_id']), ->outputParameters([...]), ->version(2), ->ownerEmail('...')
 // Or: $def->toArray() / $def->toJson() for the Conductor JSON definition
 ```
 

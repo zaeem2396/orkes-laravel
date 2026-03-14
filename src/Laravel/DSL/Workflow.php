@@ -14,6 +14,8 @@ namespace Conductor\Laravel\DSL;
  *       ->task('send_confirmation');
  *
  * Then: $def->toArray(), $def->toJson(), or $def->register(Conductor::workflow()) to register with Conductor.
+ *
+ * @see WorkflowDefinition
  */
 final class Workflow
 {
