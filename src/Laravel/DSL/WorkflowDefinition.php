@@ -6,22 +6,33 @@ namespace Conductor\Laravel\DSL;
 
 /**
  * Fluent builder for a single workflow definition.
+ * Builds Conductor workflow definition (schemaVersion 2) with SIMPLE tasks.
  *
  * @internal
  */
 final class WorkflowDefinition
 {
+    private const SCHEMA_VERSION = 2;
+
+    private const TASK_TYPE_SIMPLE = 'SIMPLE';
+
     /** @var list<string> */
-    private array $tasks = [];
+    private array $taskNames = [];
+
+    private string $description = '';
+
+    private int $version = 1;
+
+    private string $ownerEmail = 'conductor@example.com';
 
     public function __construct(
         private readonly string $name,
     ) {
     }
 
-    public function task(string $taskRefName): self
+    public function task(string $taskName): self
     {
-        $this->tasks[] = $taskRefName;
+        $this->taskNames[] = $taskName;
 
         return $this;
     }
@@ -33,10 +44,32 @@ final class WorkflowDefinition
      */
     public function toArray(): array
     {
-        // TODO: Build Conductor schema (tasks array, inputParameters, etc.).
-        return [
+        $tasks = [];
+        foreach ($this->taskNames as $taskName) {
+            $taskRefName = $this->taskReferenceName($taskName);
+            $tasks[] = [
+                'name' => $taskName,
+                'taskReferenceName' => $taskRefName,
+                'type' => self::TASK_TYPE_SIMPLE,
+            ];
+        }
+
+        $def = [
             'name' => $this->name,
-            'tasks' => $this->tasks,
+            'version' => $this->version,
+            'tasks' => $tasks,
+            'schemaVersion' => self::SCHEMA_VERSION,
+            'ownerEmail' => $this->ownerEmail,
         ];
+        if ($this->description !== '') {
+            $def['description'] = $this->description;
+        }
+
+        return $def;
+    }
+
+    private function taskReferenceName(string $taskName): string
+    {
+        return $taskName . '_ref';
     }
 }
