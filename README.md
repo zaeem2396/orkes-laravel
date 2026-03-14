@@ -44,7 +44,20 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–7 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
+**Workflow DSL:** Define workflows in PHP and register with Conductor:
+
+```php
+use Conductor\Laravel\DSL\Workflow;
+
+$def = Workflow::define('order_processing')
+    ->task('validate_order')
+    ->task('charge_payment')
+    ->task('send_confirmation');
+$def->register(Conductor::workflow());  // or $client->workflow()
+// Or: $def->toArray() / $def->toJson() for the Conductor JSON definition
+```
+
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–8 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
 
 ### Laravel setup
 
