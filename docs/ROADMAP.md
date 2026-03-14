@@ -218,7 +218,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 8.2 | ->task(name) chaining | Linear task chain | 2025-04-28 | 2025-05-01 | Done |
 | 8.3 | Conductor JSON generation | Emit Conductor workflow definition JSON | 2025-05-01 | 2025-05-05 | Done |
 | 8.4 | Register via SDK | registerWorkflowDefinition from DSL | 2025-05-05 | 2025-05-07 | Done |
-| 8.5 | Docs & examples | README + examples for DSL | 2025-05-07 | 2025-05-09 | Done |
+| 8.5 | Docs & examples | README, docs/dsl.md, examples/ for DSL | 2025-05-07 | 2025-05-09 | Done |
 
 ### Deliverables
 
