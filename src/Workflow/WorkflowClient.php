@@ -10,9 +10,9 @@ use Conductor\Exceptions\WorkflowException;
 /**
  * Conductor workflow operations.
  *
- * Methods: startWorkflow, getWorkflow, terminateWorkflow, retryWorkflow,
- * pauseWorkflow, resumeWorkflow, getWorkflowStatus, registerWorkflowDefinition,
- * updateWorkflowDefinition.
+ * Methods: start, getWorkflow, terminateWorkflow, retryWorkflow, pauseWorkflow,
+ * resumeWorkflow, getWorkflowStatus, registerWorkflowDefinition,
+ * updateWorkflowDefinition, search.
  *
  * @see https://conductor-oss.github.io/conductor/documentation/api/workflow.html
  * @see https://conductor-oss.github.io/conductor/documentation/api/startworkflow.html
@@ -142,5 +142,30 @@ final class WorkflowClient
     public function updateWorkflowDefinition(array $definitions): void
     {
         $this->http->request('PUT', 'metadata/workflow', $definitions);
+    }
+
+    /**
+     * Search workflow executions (GET /workflow/search).
+     * Query examples: "status = RUNNING", "status IN (FAILED, TIMED_OUT)", "workflowType = my_workflow".
+     * freeText defaults to '*' for full-text match.
+     *
+     * @return array{totalHits: int, results: array<int, array<string, mixed>>}
+     *
+     * @throws WorkflowException
+     */
+    public function search(string $query, int $start = 0, int $size = 100, string $sort = 'startTime:DESC', string $freeText = '*'): array
+    {
+        $result = $this->http->request('GET', 'workflow/search', [
+            'query' => $query,
+            'start' => $start,
+            'size' => $size,
+            'sort' => $sort,
+            'freeText' => $freeText,
+        ]);
+
+        return [
+            'totalHits' => (int) ($result['totalHits'] ?? 0),
+            'results' => isset($result['results']) && is_array($result['results']) ? $result['results'] : [],
+        ];
     }
 }

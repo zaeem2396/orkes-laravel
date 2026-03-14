@@ -10,19 +10,19 @@ use Conductor\Task\Worker;
 use Illuminate\Console\Command;
 
 /**
- * Run Conductor task workers.
+ * Local development: run workers with optional single cycle (--once).
  *
- * Options: --task (filter task type), --queue (domain), --concurrency (reserved).
- * Example: php artisan conductor:work --task=process_payment --queue=my-queue
+ * Example: php artisan conductor:local
+ * Example: php artisan conductor:local --once
  */
-final class WorkerCommand extends Command
+final class LocalCommand extends Command
 {
-    protected $signature = 'conductor:work
-                            {--task= : Task type to poll (default: all registered)}
-                            {--concurrency= : Number of concurrent workers (reserved)}
+    protected $signature = 'conductor:local
+                            {--once : Run one poll cycle then exit}
+                            {--task= : Task type to poll}
                             {--queue= : Queue/domain name}';
 
-    protected $description = 'Run Conductor task workers (uses config task_handlers, --task filter, --queue domain)';
+    protected $description = 'Local dev: run workers; use --once to run one poll cycle then exit';
 
     public function handle(ConductorClient $client): int
     {
@@ -66,7 +66,13 @@ final class WorkerCommand extends Command
             return self::SUCCESS;
         }
 
-        $this->info('Worker started (poll interval: ' . $pollInterval . 's). Press Ctrl+C to stop.');
+        if ($this->option('once')) {
+            $worker->runOneCycle();
+
+            return self::SUCCESS;
+        }
+
+        $this->info('Local worker started. Press Ctrl+C to stop.');
         $worker->run();
 
         return self::SUCCESS;

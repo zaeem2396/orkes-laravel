@@ -16,7 +16,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 4 | Worker system | 2025-03-29 | 2025-04-04 | Done |
 | 5 | Retry logic & exceptions | 2025-04-05 | 2025-04-11 | Done |
 | 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Done |
-| 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Planned |
+| 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Done |
 | 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Planned |
 | 9 | Testing utilities | 2025-05-10 | 2025-05-16 | Planned |
 | 10 | Documentation & CI | 2025-05-17 | 2025-05-30 | Planned |
@@ -180,24 +180,26 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-04-19  
 **Completion:** 2025-04-25  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 7.1 | conductor:start | Start workflow by name (e.g. order_processing) | 2025-04-19 | 2025-04-20 | Planned |
-| 7.2 | conductor:work | Worker daemon; options: --task, --concurrency, --queue | 2025-04-20 | 2025-04-22 | Planned |
-| 7.3 | conductor:inspect | Active workflows, failed workflows, pending tasks, workers | 2025-04-22 | 2025-04-24 | Planned |
-| 7.4 | conductor:local | Local dev: simulate workflow, run workers, debug tasks | 2025-04-23 | 2025-04-25 | Planned |
-| 7.5 | conductor:failures | Observability: workflow status, task retries, worker health | 2025-04-24 | 2025-04-25 | Planned |
+| 7.1 | conductor:start | Start workflow by name (e.g. order_processing) | 2025-04-19 | 2025-04-20 | Done |
+| 7.2 | conductor:work | Worker daemon; options: --task, --concurrency, --queue | 2025-04-20 | 2025-04-22 | Done |
+| 7.3 | conductor:inspect | Active workflows, failed workflows, pending tasks, workers | 2025-04-22 | 2025-04-24 | Done |
+| 7.4 | conductor:local | Local dev: run workers with --once for single cycle | 2025-04-23 | 2025-04-25 | Done |
+| 7.5 | conductor:failures | Observability: list failed workflows, optional --retry | 2025-04-24 | 2025-04-25 | Done |
 
 ### Deliverables
 
-- `src/Console/StartWorkflowCommand.php`
-- `src/Console/WorkerCommand.php`
-- `src/Console/InspectCommand.php`
-- Local + failures CLI commands
+- `src/Laravel/Console/StartWorkflowCommand.php` — conductor:start with --input, --correlation-id, --wf-version
+- `src/Laravel/Console/WorkerCommand.php` — conductor:work using config task_handlers, --task, --queue
+- `src/Laravel/Console/InspectCommand.php` — conductor:inspect via WorkflowClient::search
+- `src/Laravel/Console/LocalCommand.php` — conductor:local with --once
+- `src/Laravel/Console/FailuresCommand.php` — conductor:failures with --retry
+- WorkflowClient::search() for workflow search API
 
 ---
 
@@ -286,7 +288,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 4. Worker system  
 5. Retry logic & exceptions  
 6. Laravel service provider  
-7. Artisan commands  
+7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
 8. Workflow DSL  
 9. Testing utilities  
 10. Documentation & CI  
@@ -307,6 +309,8 @@ Conductor::workflow()->start('order_processing', ['order_id' => 1]);
 
 ```bash
 php artisan conductor:work
+php artisan conductor:inspect
+php artisan conductor:failures --retry
 ```
 
 ---

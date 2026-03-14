@@ -6,7 +6,9 @@ namespace Conductor\Laravel\Providers;
 
 use Conductor\Client\ConductorClient;
 use Conductor\Client\HttpClient;
+use Conductor\Laravel\Console\FailuresCommand;
 use Conductor\Laravel\Console\InspectCommand;
+use Conductor\Laravel\Console\LocalCommand;
 use Conductor\Laravel\Console\StartWorkflowCommand;
 use Conductor\Laravel\Console\WorkerCommand;
 use Conductor\Retry\ExponentialDelayStrategy;
@@ -16,7 +18,8 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Registers the Conductor SDK client from config and publishes config/conductor.php.
  * Config keys: base_url, auth_token, timeout, worker_concurrency, poll_interval,
- * retry_enabled, retry_max_attempts, retry_initial_delay_ms.
+ * retry_enabled, retry_max_attempts, retry_initial_delay_ms, task_handlers.
+ * Commands: conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures.
  */
 final class ConductorServiceProvider extends ServiceProvider
 {
@@ -63,10 +66,13 @@ final class ConductorServiceProvider extends ServiceProvider
                 $configPath => $this->app->configPath('conductor.php'),
             ], 'conductor-config');
 
+            // Register Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)
             $this->commands([
                 StartWorkflowCommand::class,
                 WorkerCommand::class,
                 InspectCommand::class,
+                LocalCommand::class,
+                FailuresCommand::class,
             ]);
         }
     }
