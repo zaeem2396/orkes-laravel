@@ -306,6 +306,9 @@ composer require conductor/orkes-laravel
 
 ```php
 Conductor::workflow()->start('order_processing', ['order_id' => 1]);
+
+// Or define with DSL and register:
+Workflow::define('order_processing')->task('validate_order')->task('charge_payment')->register(Conductor::workflow());
 ```
 
 ```bash
