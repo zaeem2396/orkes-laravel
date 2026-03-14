@@ -31,6 +31,15 @@ final class WorkflowDefinitionTest extends TestCase
         $this->assertInstanceOf(WorkflowDefinition::class, $def);
     }
 
+    public function test_to_array_with_no_tasks_returns_empty_tasks(): void
+    {
+        $def = Workflow::define('empty_workflow');
+        $arr = $def->toArray();
+
+        $this->assertSame('empty_workflow', $arr['name']);
+        $this->assertSame([], $arr['tasks']);
+    }
+
     public function test_task_chaining_adds_tasks(): void
     {
         $def = Workflow::define('order_processing')
