@@ -62,6 +62,7 @@ final class WorkflowDefinition
 
     /**
      * Export as Conductor workflow definition (JSON-compatible array).
+     * Tasks are SIMPLE type with taskReferenceName = taskName + '_ref'.
      *
      * @return array<string, mixed>
      */
