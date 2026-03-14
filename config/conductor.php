@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+/**
+ * Conductor Laravel configuration.
+ * Publish with: php artisan vendor:publish --tag=conductor-config
+ */
 return [
 
     'base_url' => env('CONDUCTOR_SERVER', 'http://localhost:8080/api'),
