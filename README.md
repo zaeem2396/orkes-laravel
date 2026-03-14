@@ -12,7 +12,7 @@ composer require conductor/orkes-laravel
 
 - PHP 8.2+
 - Composer 2.x
-- Laravel 11 or 12 (for Laravel integration)
+- Laravel 11 or 12 (for Laravel integration; service provider and facade auto-discovered)
 
 ## Usage
 
@@ -39,7 +39,7 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–6 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider) are complete.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–6 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider) are complete. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered.
 
 ### Laravel setup
 
