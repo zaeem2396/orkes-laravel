@@ -99,4 +99,20 @@ final class ConductorServiceProviderTest extends TestCase
 
         $this->assertInstanceOf(ConductorClient::class, $client);
     }
+
+    public function test_config_includes_retry_keys_when_merged(): void
+    {
+        $config = $this->app['config']->get('conductor');
+
+        $this->assertArrayHasKey('retry_enabled', $config);
+        $this->assertArrayHasKey('retry_max_attempts', $config);
+        $this->assertArrayHasKey('retry_initial_delay_ms', $config);
+    }
+
+    public function test_config_timeout_is_integer(): void
+    {
+        $config = $this->app['config']->get('conductor');
+
+        $this->assertIsInt($config['timeout']);
+    }
 }
