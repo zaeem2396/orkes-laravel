@@ -16,7 +16,7 @@ use Illuminate\Console\Command;
 final class FailuresCommand extends Command
 {
     protected $signature = 'conductor:failures
-                            {--size=50 : Max workflows to list}
+                            {--size=50 : Max failed workflows to list (1-200)}
                             {--retry : Retry each listed failed workflow}';
 
     protected $description = 'List failed workflows (optional --retry to retry each)';
