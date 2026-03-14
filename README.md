@@ -44,7 +44,7 @@ $client = new ConductorClient(new HttpClient('http://localhost:8080/api', 'your-
 $client->workflow()->start('order_processing', ['order_id' => 123]);
 ```
 
-**Workflow DSL:** Define workflows in PHP and register with Conductor:
+**Workflow DSL:** Define workflows in PHP (Conductor schema v2, SIMPLE tasks) and register with Conductor:
 
 ```php
 use Conductor\Laravel\DSL\Workflow;

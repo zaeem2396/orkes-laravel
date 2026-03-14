@@ -80,7 +80,7 @@ final class WorkflowDefinition
     }
 
     /**
-     * Set workflow input parameter names (documentation for Conductor).
+     * Set workflow input parameter names (documentation for Conductor; optional).
      *
      * @param  list<string>  $inputParameters
      */
