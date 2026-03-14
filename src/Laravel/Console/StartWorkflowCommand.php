@@ -16,7 +16,9 @@ final class StartWorkflowCommand extends Command
 {
     protected $signature = 'conductor:start
                             {workflow : Workflow definition name}
-                            {--input= : JSON input data}';
+                            {--input= : JSON input data}
+                            {--correlation-id= : Correlation ID for the workflow}
+                            {--version= : Workflow definition version}';
 
     protected $description = 'Start a Conductor workflow';
 
@@ -25,9 +27,25 @@ final class StartWorkflowCommand extends Command
         $name = $this->argument('workflow');
         $input = $this->option('input') ? json_decode($this->option('input'), true) ?? [] : [];
 
-        // TODO: Start workflow, output workflow ID.
-        $this->info("Starting workflow: {$name}");
+        $correlationId = $this->option('correlation-id') ? (string) $this->option('correlation-id') : null;
+        $version = $this->option('version') !== null && $this->option('version') !== ''
+            ? (int) $this->option('version')
+            : null;
 
-        return self::SUCCESS;
+        try {
+            $workflowId = $client->workflow()->start(
+                $name,
+                is_array($input) ? $input : [],
+                $correlationId,
+                $version,
+            );
+            $this->info("Workflow started: {$workflowId}");
+
+            return self::SUCCESS;
+        } catch (\Conductor\Exceptions\ConductorException $e) {
+            $this->error($e->getMessage());
+
+            return self::FAILURE;
+        }
     }
 }
