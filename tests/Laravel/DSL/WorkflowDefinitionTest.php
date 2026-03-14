@@ -123,7 +123,7 @@ final class WorkflowDefinitionTest extends TestCase
         $this->assertSame('wf', $decoded['name']);
     }
 
-    public function test_register_calls_workflow_client(): void
+    public function test_register_sends_definition_to_workflow_client(): void
     {
         $mock = new MockHandler([
             new Response(200, ['Content-Type' => 'application/json'], '{}'),

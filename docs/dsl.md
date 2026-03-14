@@ -22,7 +22,7 @@ $def = Workflow::define('order_processing')
 - `->inputParameters(array)` — List of input parameter names (documentation). `->outputParameters(array)` — Output template (e.g. JSONPath expressions).
 - `->toArray()` — Conductor workflow definition as array.
 - `->toJson(int $flags)` — JSON string.
-- `->register(WorkflowClient $client)` — Register with Conductor.
+- `->register(WorkflowClient $client)` — Register this definition with Conductor (POST metadata/workflow).
 
 ## Example
 
