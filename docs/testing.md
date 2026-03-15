@@ -24,7 +24,7 @@ public function test_order_flow_starts_workflow(): void
 ## Assertion methods
 
 - **assertWorkflowStarted(string $name)** — Asserts at least one workflow with the given name was started. Throws RuntimeException if not found.
-- **assertWorkflowStartedWithInput(string $name, array $input)** — Asserts a workflow was started with the given name and that its input contains the given key/value subset.
+- **assertWorkflowStartedWithInput(string $name, array $input)** — Asserts a workflow was started with the given name and that its input contains the given key/value subset. Throws RuntimeException if not found or input does not match.
 - **assertNoWorkflowsStarted()** — Asserts no workflows were started. Throws RuntimeException if any were started.
 - **recordedStartedWorkflows()** — Returns the list of recorded started workflows (`[['name' => '...', 'input' => [...]], ...]`) for custom assertions. Does not clear the list.
 

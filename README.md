@@ -98,7 +98,7 @@ Conductor::fake();
 Conductor::workflow()->start('order_processing', ['order_id' => 1]);
 Conductor::assertWorkflowStarted('order_processing');
 Conductor::assertWorkflowStartedWithInput('order_processing', ['order_id' => 1]);
-// Conductor::assertNoWorkflowsStarted(); Conductor::recordedStartedWorkflows();
+// Optional: Conductor::assertNoWorkflowsStarted(); $list = Conductor::recordedStartedWorkflows();
 ```
 
 See [docs/testing.md](docs/testing.md) for details.
