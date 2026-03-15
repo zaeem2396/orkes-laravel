@@ -6,6 +6,7 @@ namespace Conductor\Laravel\Testing;
 
 /**
  * Fake workflow client that records started workflows for assertions.
+ * start() returns 'fake-workflow-id' and records name/input via callback.
  *
  * @internal
  */

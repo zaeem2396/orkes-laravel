@@ -37,6 +37,7 @@ final class ConductorFake
         return new FakeWorker();
     }
 
+    /** Assert that a workflow with the given name was started (at least once). */
     public function assertWorkflowStarted(string $name): void
     {
         $found = false;
