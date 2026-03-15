@@ -90,6 +90,6 @@ final class ConductorFakeTest extends TestCase
         $fake->assertWorkflowStartedWithInput('wf', ['a' => 1]);
         $fake->assertWorkflowStartedWithInput('wf', ['b' => 2]);
         $fake->assertWorkflowStartedWithInput('wf', ['a' => 1, 'b' => 2]);
-        $this->addToAssertionCount(1);
+        $this->addToAssertionCount(1); // no exception
     }
 }

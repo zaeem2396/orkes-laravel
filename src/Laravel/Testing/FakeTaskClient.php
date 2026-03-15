@@ -6,7 +6,7 @@ namespace Conductor\Laravel\Testing;
 
 /**
  * Fake task client for tests. poll() always returns null (no task); complete, fail, ack, update are no-ops.
- * Returned by ConductorFake::tasks() when using Conductor::fake().
+ * Returned by ConductorFake::tasks() when using Conductor::fake(). Compatible surface with TaskClient for tests.
  *
  * @internal
  */
