@@ -112,7 +112,7 @@ composer phpstan
 composer cs-check
 ```
 
-To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`.
+To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. To run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
 
 ## License
 

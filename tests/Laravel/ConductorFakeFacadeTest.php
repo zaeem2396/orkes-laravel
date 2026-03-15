@@ -7,7 +7,7 @@ namespace Conductor\Laravel\Tests;
 use Conductor\Laravel\Facades\Conductor;
 
 /**
- * Tests for Conductor::fake() with the Facade (Laravel app).
+ * Tests for Conductor::fake() with the Facade (Laravel app). Requires TestCase with ConductorServiceProvider.
  */
 final class ConductorFakeFacadeTest extends TestCase
 {
