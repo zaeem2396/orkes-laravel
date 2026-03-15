@@ -27,4 +27,55 @@ final class ConductorFakeTest extends TestCase
         $fake->workflow()->start('order_processing', []);
         $fake->assertWorkflowStarted('other_workflow');
     }
+
+    public function test_assert_workflow_started_with_input_passes_when_matching(): void
+    {
+        $fake = new ConductorFake();
+        $fake->workflow()->start('order_processing', ['order_id' => 123, 'customer_id' => 456]);
+
+        $fake->assertWorkflowStartedWithInput('order_processing', ['order_id' => 123]);
+        $fake->assertWorkflowStartedWithInput('order_processing', ['customer_id' => 456]);
+        $this->addToAssertionCount(1);
+    }
+
+    public function test_assert_workflow_started_with_input_fails_when_input_mismatch(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Expected workflow [order_processing] to be started with input matching');
+
+        $fake = new ConductorFake();
+        $fake->workflow()->start('order_processing', ['order_id' => 123]);
+        $fake->assertWorkflowStartedWithInput('order_processing', ['order_id' => 999]);
+    }
+
+    public function test_assert_no_workflows_started_passes_when_none(): void
+    {
+        $fake = new ConductorFake();
+        $fake->assertNoWorkflowsStarted();
+        $this->addToAssertionCount(1);
+    }
+
+    public function test_assert_no_workflows_started_fails_when_any_started(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Expected no workflows to be started, but 1 were started.');
+
+        $fake = new ConductorFake();
+        $fake->workflow()->start('wf', []);
+        $fake->assertNoWorkflowsStarted();
+    }
+
+    public function test_recorded_started_workflows_returns_list(): void
+    {
+        $fake = new ConductorFake();
+        $this->assertSame([], $fake->recordedStartedWorkflows());
+
+        $fake->workflow()->start('a', ['x' => 1]);
+        $fake->workflow()->start('b', []);
+        $recorded = $fake->recordedStartedWorkflows();
+        $this->assertCount(2, $recorded);
+        $this->assertSame('a', $recorded[0]['name']);
+        $this->assertSame(['x' => 1], $recorded[0]['input']);
+        $this->assertSame('b', $recorded[1]['name']);
+    }
 }
