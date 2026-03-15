@@ -4,7 +4,7 @@ Use the Conductor fake to test code that starts workflows or uses the Conductor 
 
 ## Conductor::fake()
 
-In Laravel tests, call `Conductor::fake()` to replace the real client with a fake. The fake records started workflows and provides assertion methods.
+In Laravel tests, call `Conductor::fake()` to replace the real client with a fake. The fake records started workflows and provides assertion methods. The method returns the fake instance (you can also call assertions on the facade).
 
 ```php
 use Conductor\Laravel\Facades\Conductor;
