@@ -32,4 +32,13 @@ final class ConductorFakeFacadeTest extends TestCase
 
         $this->assertSame($fake, Conductor::getFacadeRoot());
     }
+
+    public function test_after_fake_tasks_poll_returns_null(): void
+    {
+        Conductor::fake();
+
+        $result = Conductor::tasks()->poll('any_task');
+
+        $this->assertNull($result);
+    }
 }
