@@ -17,7 +17,7 @@ namespace Conductor\Laravel\Testing;
  */
 final class ConductorFake
 {
-    /** @var list<array{name: string, input: array}> */
+    /** @var list<array{name: string, input: array}> Recorded workflow starts for assertions. */
     private array $startedWorkflows = [];
 
     public function workflow(): FakeWorkflowClient
@@ -74,6 +74,7 @@ final class ConductorFake
         throw new \RuntimeException("Expected workflow [{$name}] to be started with input matching " . json_encode($input));
     }
 
+    /** Assert that no workflows were started. */
     public function assertNoWorkflowsStarted(): void
     {
         if ($this->startedWorkflows !== []) {
