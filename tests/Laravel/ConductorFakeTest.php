@@ -8,7 +8,7 @@ use Conductor\Laravel\Testing\ConductorFake;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for ConductorFake (direct instantiation, no Laravel app).
+ * Tests for ConductorFake with direct instantiation (no Laravel app). For Facade tests see ConductorFakeFacadeTest.
  */
 final class ConductorFakeTest extends TestCase
 {
