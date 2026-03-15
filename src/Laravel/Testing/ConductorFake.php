@@ -24,9 +24,14 @@ final class ConductorFake
         });
     }
 
-    public function tasks(): void
+    public function tasks(): FakeTaskClient
     {
-        // Stub for tests that only assert workflow started.
+        return new FakeTaskClient();
+    }
+
+    public function workers(): FakeWorker
+    {
+        return new FakeWorker();
     }
 
     public function assertWorkflowStarted(string $name): void
@@ -41,5 +46,45 @@ final class ConductorFake
         if (! $found) {
             throw new \RuntimeException("Expected workflow [{$name}] to be started.");
         }
+    }
+
+    /**
+     * Assert a workflow was started with the given name and input (array subset).
+     *
+     * @param  array<string, mixed>  $input  Subset of input to match (all keys must match)
+     */
+    public function assertWorkflowStartedWithInput(string $name, array $input): void
+    {
+        foreach ($this->startedWorkflows as $w) {
+            if ($w['name'] !== $name) {
+                continue;
+            }
+            foreach ($input as $key => $value) {
+                if (! array_key_exists($key, $w['input']) || $w['input'][$key] !== $value) {
+                    continue 2;
+                }
+            }
+
+            return;
+        }
+        throw new \RuntimeException("Expected workflow [{$name}] to be started with input matching " . json_encode($input));
+    }
+
+    public function assertNoWorkflowsStarted(): void
+    {
+        if ($this->startedWorkflows !== []) {
+            $count = count($this->startedWorkflows);
+            throw new \RuntimeException("Expected no workflows to be started, but {$count} were started.");
+        }
+    }
+
+    /**
+     * Return recorded started workflows for custom assertions.
+     *
+     * @return list<array{name: string, input: array}>
+     */
+    public function recordedStartedWorkflows(): array
+    {
+        return $this->startedWorkflows;
     }
 }
