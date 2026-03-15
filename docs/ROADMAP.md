@@ -18,7 +18,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 6 | Laravel service provider | 2025-04-12 | 2025-04-18 | Done |
 | 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Done |
 | 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Done |
-| 9 | Testing utilities | 2025-05-10 | 2025-05-16 | Planned |
+| 9 | Testing utilities | 2025-05-10 | 2025-05-16 | Done |
 | 10 | Documentation & CI | 2025-05-17 | 2025-05-30 | Planned |
 
 **Status legend:** `Planned` | `In progress` | `Done` | `Blocked`
@@ -234,23 +234,24 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 **Package:** `conductor/orkes-laravel`  
 **Begin:** 2025-05-10  
 **Completion:** 2025-05-16  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 9.1 | ConductorFake | Fake implementation for tests | 2025-05-10 | 2025-05-12 | Planned |
-| 9.2 | Conductor::fake() | Swap real client with fake | 2025-05-11 | 2025-05-13 | Planned |
-| 9.3 | assertWorkflowStarted | Assertion helpers | 2025-05-12 | 2025-05-14 | Planned |
-| 9.4 | PHPUnit tests for SDK | tests/ | 2025-05-13 | 2025-05-15 | Planned |
-| 9.5 | PHPUnit tests for Laravel | tests/Laravel/ | 2025-05-14 | 2025-05-16 | Planned |
+| 9.1 | ConductorFake | Fake workflow/tasks/workers for tests | 2025-05-10 | 2025-05-12 | Done |
+| 9.2 | Conductor::fake() | Swap real client with fake via Facade | 2025-05-11 | 2025-05-13 | Done |
+| 9.3 | assertWorkflowStarted | Assertion helpers (assertWorkflowStartedWithInput, assertNoWorkflowsStarted, recordedStartedWorkflows) | 2025-05-12 | 2025-05-14 | Done |
+| 9.4 | PHPUnit tests for SDK | tests/ (Client, Workflow, Task, Retry, etc.) | 2025-05-13 | 2025-05-15 | Done |
+| 9.5 | PHPUnit tests for Laravel | tests/Laravel/ (ConductorFakeTest, ConductorFakeFacadeTest, Console, DSL, etc.) | 2025-05-14 | 2025-05-16 | Done |
 
 ### Deliverables
 
-- `src/Testing/ConductorFake.php`
-- Example: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');`
-- PHPUnit tests for SDK and Laravel in single repo
+- `src/Laravel/Testing/ConductorFake.php`, `FakeWorkflowClient.php`, `FakeTaskClient.php`, `FakeWorker.php` (fakes for workflow, tasks, workers). FakeWorkflowClient::start() returns 'fake-workflow-id'.
+- `Conductor::fake()` on Facade (returns ConductorFake); example: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');`
+- Assertion helpers: `assertWorkflowStarted`, `assertWorkflowStartedWithInput`, `assertNoWorkflowsStarted`, `recordedStartedWorkflows`. docs/testing.md.
+- PHPUnit tests in tests/ (SDK) and tests/Laravel/ (Laravel, ConductorFakeTest, ConductorFakeFacadeTest, Console, DSL). See docs/testing.md.
 
 ---
 
@@ -291,7 +292,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 6. Laravel service provider  
 7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
 8. Workflow DSL (Workflow::define, ->task(), toArray, toJson, register; docs/dsl.md, examples/)  
-9. Testing utilities  
+9. Testing utilities (Conductor::fake(), ConductorFake, FakeTaskClient, FakeWorker, assertion helpers, docs/testing.md)  
 10. Documentation & CI  
 
 ---
@@ -316,6 +317,8 @@ php artisan conductor:work
 php artisan conductor:inspect
 php artisan conductor:failures --retry
 ```
+
+Testing: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');` (see docs/testing.md).
 
 ---
 

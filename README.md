@@ -1,6 +1,6 @@
 # Conductor PHP SDK & Laravel Integration
 
-Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities.
+Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities (Conductor::fake() and assertion helpers for workflow starts).
 
 ## Installation
 
@@ -60,7 +60,7 @@ $def->register(Conductor::workflow());  // or $client->workflow()
 // See examples/ and docs/dsl.md for details.
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–8 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–9 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL, Testing utilities) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
 
 ### Laravel setup
 
@@ -87,6 +87,22 @@ See `config/conductor.php` for all options.
 
 The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflow errors, and `TaskException` for task errors. Optional retry with exponential backoff is available via `RetryHandler` when constructing `HttpClient`, or by setting `CONDUCTOR_RETRY_ENABLED=true` in Laravel.
 
+### Testing
+
+In Laravel tests, use `Conductor::fake()` to swap the client with a fake and avoid hitting the real Conductor API:
+
+```php
+use Conductor\Laravel\Facades\Conductor;
+
+Conductor::fake();
+Conductor::workflow()->start('order_processing', ['order_id' => 1]);
+Conductor::assertWorkflowStarted('order_processing');
+Conductor::assertWorkflowStartedWithInput('order_processing', ['order_id' => 1]);
+// Optional: Conductor::assertNoWorkflowsStarted(); $list = Conductor::recordedStartedWorkflows();
+```
+
+See [docs/testing.md](docs/testing.md) for all assertion methods and examples.
+
 ## Development
 
 ```bash
@@ -96,7 +112,7 @@ composer phpstan
 composer cs-check
 ```
 
-To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`.
+To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. Run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
 
 ## License
 
