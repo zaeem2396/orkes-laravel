@@ -77,9 +77,13 @@ final class ConductorFakeTest extends TestCase
         $fake->workflow()->start('b', []);
         $recorded = $fake->recordedStartedWorkflows();
         $this->assertCount(2, $recorded);
-        $this->assertSame('a', $recorded[0]['name']);
-        $this->assertSame(['x' => 1], $recorded[0]['input']);
-        $this->assertSame('b', $recorded[1]['name']);
+        $first = array_shift($recorded);
+        $second = array_shift($recorded);
+        $this->assertNotNull($first);
+        $this->assertNotNull($second);
+        $this->assertSame('a', $first['name']);
+        $this->assertSame(['x' => 1], $first['input']);
+        $this->assertSame('b', $second['name']);
     }
 
     public function test_assert_workflow_started_with_input_passes_for_subset(): void

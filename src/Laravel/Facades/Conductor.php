@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Facade;
  *
  * @mixin ConductorClient|ConductorFake
  *
+ * @method static \Conductor\Laravel\Testing\ConductorFake fake()
+ * @method static void assertWorkflowStarted(string $name)
+ * @method static void assertWorkflowStartedWithInput(string $name, array $input)
+ * @method static void assertNoWorkflowsStarted()
+ * @method static list<array{name: string, input: array}> recordedStartedWorkflows()
+ *
  * @see ConductorClient
  *
  * Usage:
