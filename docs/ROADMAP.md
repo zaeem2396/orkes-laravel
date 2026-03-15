@@ -243,8 +243,8 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 9.1 | ConductorFake | Fake workflow/tasks/workers for tests | 2025-05-10 | 2025-05-12 | Done |
 | 9.2 | Conductor::fake() | Swap real client with fake via Facade | 2025-05-11 | 2025-05-13 | Done |
 | 9.3 | assertWorkflowStarted | Assertion helpers (assertWorkflowStartedWithInput, assertNoWorkflowsStarted, recordedStartedWorkflows) | 2025-05-12 | 2025-05-14 | Done |
-| 9.4 | PHPUnit tests for SDK | tests/ (Client, Workflow, Task, Retry) | 2025-05-13 | 2025-05-15 | Done |
-| 9.5 | PHPUnit tests for Laravel | tests/Laravel/ (ConductorFakeTest, ConductorFakeFacadeTest, etc.) | 2025-05-14 | 2025-05-16 | Done |
+| 9.4 | PHPUnit tests for SDK | tests/ (Client, Workflow, Task, Retry, etc.) | 2025-05-13 | 2025-05-15 | Done |
+| 9.5 | PHPUnit tests for Laravel | tests/Laravel/ (ConductorFakeTest, ConductorFakeFacadeTest, Console, DSL, etc.) | 2025-05-14 | 2025-05-16 | Done |
 
 ### Deliverables
 

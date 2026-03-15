@@ -28,7 +28,7 @@ final class ConductorFakeFacadeTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    public function test_fake_returns_conductor_fake_instance(): void
+    public function test_fake_returns_same_instance_as_facade_root(): void
     {
         $fake = Conductor::fake();
 

@@ -21,7 +21,7 @@ public function test_order_flow_starts_workflow(): void
 }
 ```
 
-## Assertion methods
+## Assertion methods (on the fake or via facade after Conductor::fake())
 
 - **assertWorkflowStarted(string $name)** — Asserts at least one workflow with the given name was started. Throws RuntimeException if not found.
 - **assertWorkflowStartedWithInput(string $name, array $input)** — Asserts a workflow was started with the given name and that its input contains the given key/value subset. Throws RuntimeException if not found or input does not match.
