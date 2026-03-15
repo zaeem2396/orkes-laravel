@@ -89,7 +89,7 @@ The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflo
 
 ### Testing
 
-In Laravel tests, use `Conductor::fake()` to avoid hitting the real Conductor API:
+In Laravel tests, use `Conductor::fake()` to swap the client with a fake and avoid hitting the real Conductor API:
 
 ```php
 use Conductor\Laravel\Facades\Conductor;

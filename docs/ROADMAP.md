@@ -318,7 +318,7 @@ php artisan conductor:inspect
 php artisan conductor:failures --retry
 ```
 
-Testing: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');`
+Testing: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');` (see docs/testing.md).
 
 ---
 

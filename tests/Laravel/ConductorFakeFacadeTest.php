@@ -18,7 +18,7 @@ final class ConductorFakeFacadeTest extends TestCase
         ]);
     }
 
-    public function test_fake_swaps_client_then_assert_workflow_started(): void
+    public function test_fake_swaps_client_and_assert_workflow_started_passes(): void
     {
         Conductor::fake();
 

@@ -30,7 +30,7 @@ public function test_order_flow_starts_workflow(): void
 
 ## Using the fake without the Facade (unit tests)
 
-You can instantiate `Conductor\Laravel\Testing\ConductorFake` directly in unit tests that do not bootstrap Laravel:
+You can instantiate `\Conductor\Laravel\Testing\ConductorFake` directly in unit tests that do not bootstrap Laravel:
 
 ```php
 use Conductor\Laravel\Testing\ConductorFake;
