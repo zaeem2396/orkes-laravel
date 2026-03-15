@@ -48,7 +48,7 @@ final class ConductorFakeTest extends TestCase
 
         $fake = new ConductorFake();
         $fake->workflow()->start('order_processing', ['order_id' => 123]);
-        $fake->assertWorkflowStartedWithInput('order_processing', ['order_id' => 999]);
+        $fake->assertWorkflowStartedWithInput('order_processing', ['order_id' => 999]); // wrong value
     }
 
     public function test_assert_no_workflows_started_passes_when_none(): void

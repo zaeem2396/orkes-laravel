@@ -42,7 +42,7 @@ $fake->assertWorkflowStarted('order_processing');
 
 ## Tasks and workers
 
-When using the fake, `Conductor::tasks()->poll()` always returns `null` (no task available). `Conductor::workers()->listen(...)->run()` is a no-op. This lets you test workflow-starting code without running workers or hitting the Conductor API.
+When using the fake, `Conductor::tasks()->poll()` always returns `null` (no task available). `Conductor::workers()->listen(...)->run()` is a no-op. Workflow `start()` returns `'fake-workflow-id'`. This lets you test workflow-starting code without running workers or hitting the Conductor API.
 
 ## PHPUnit
 
