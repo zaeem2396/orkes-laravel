@@ -251,7 +251,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 - `src/Laravel/Testing/ConductorFake.php`, `FakeWorkflowClient.php`, `FakeTaskClient.php`, `FakeWorker.php` (fakes for workflow, tasks, workers)
 - `Conductor::fake()` on Facade; example: `Conductor::fake(); Conductor::workflow()->start('order_processing'); Conductor::assertWorkflowStarted('order_processing');`
 - Assertion helpers: `assertWorkflowStarted`, `assertWorkflowStartedWithInput`, `assertNoWorkflowsStarted`, `recordedStartedWorkflows`
-- PHPUnit tests in tests/ (SDK) and tests/Laravel/ (Laravel + ConductorFakeFacadeTest)
+- PHPUnit tests in tests/ (SDK) and tests/Laravel/ (Laravel, ConductorFakeTest, ConductorFakeFacadeTest). See docs/testing.md.
 
 ---
 

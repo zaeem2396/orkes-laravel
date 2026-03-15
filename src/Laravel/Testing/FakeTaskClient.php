@@ -22,24 +22,22 @@ final class FakeTaskClient
         return null;
     }
 
-    /**
-     * @param  array<string, mixed>  $outputData
-     */
+    /** No-op. */
     public function complete(string $taskId, array $outputData = [], ?string $workflowInstanceId = null): void
     {
     }
 
+    /** No-op. */
     public function fail(string $taskId, string $reasonForIncompletion, array $outputData = [], ?string $workflowInstanceId = null): void
     {
     }
 
+    /** No-op. */
     public function ack(string $taskId, ?string $workflowInstanceId = null): void
     {
     }
 
-    /**
-     * @param  array<string, mixed>  $outputData
-     */
+    /** No-op. */
     public function update(string $taskId, string $status, array $outputData = [], ?string $reasonForIncompletion = null, ?int $callbackAfterSeconds = null, ?string $workflowInstanceId = null): void
     {
     }

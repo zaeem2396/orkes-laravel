@@ -28,7 +28,7 @@ public function test_order_flow_starts_workflow(): void
 - **assertNoWorkflowsStarted()** — Asserts no workflows were started. Throws RuntimeException if any were started.
 - **recordedStartedWorkflows()** — Returns the list of recorded started workflows (`[['name' => '...', 'input' => [...]], ...]`) for custom assertions. Does not clear the list.
 
-## Using the fake without the Facade
+## Using the fake without the Facade (unit tests)
 
 You can instantiate `Conductor\Laravel\Testing\ConductorFake` directly (e.g. in unit tests that do not bootstrap Laravel):
 
