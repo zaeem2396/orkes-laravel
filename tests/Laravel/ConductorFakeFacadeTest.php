@@ -39,9 +39,16 @@ final class ConductorFakeFacadeTest extends TestCase
     {
         Conductor::fake();
 
-        $result = Conductor::tasks()->poll('any_task');
+        $this->assertNull(Conductor::tasks()->poll('any_task'));
+    }
 
-        $this->assertNull($result);
+    public function test_after_fake_workflow_start_returns_fake_id(): void
+    {
+        Conductor::fake();
+
+        $id = Conductor::workflow()->start('wf', []);
+
+        $this->assertSame('fake-workflow-id', $id);
     }
 
     public function test_after_fake_workers_run_is_no_op(): void

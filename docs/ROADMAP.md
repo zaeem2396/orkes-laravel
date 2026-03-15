@@ -292,7 +292,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 6. Laravel service provider  
 7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
 8. Workflow DSL (Workflow::define, ->task(), toArray, toJson, register; docs/dsl.md, examples/)  
-9. Testing utilities (Conductor::fake(), ConductorFake, assertion helpers)  
+9. Testing utilities (Conductor::fake(), ConductorFake, FakeTaskClient, FakeWorker, assertion helpers, docs/testing.md)  
 10. Documentation & CI  
 
 ---
