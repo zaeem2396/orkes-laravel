@@ -18,7 +18,7 @@ final class ConductorFakeTest extends TestCase
         $fake->workflow()->start('order_processing', ['order_id' => 1]);
 
         $fake->assertWorkflowStarted('order_processing');
-        $this->addToAssertionCount(1);
+        $this->addToAssertionCount(1); // assertWorkflowStarted does not throw
     }
 
     public function test_assert_workflow_started_fails_when_not_started(): void

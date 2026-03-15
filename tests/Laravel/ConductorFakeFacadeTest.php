@@ -13,7 +13,9 @@ final class ConductorFakeFacadeTest extends TestCase
 {
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('conductor', ['base_url' => 'https://conductor.example/api']);
+        $app['config']->set('conductor', [
+            'base_url' => 'https://conductor.example/api',
+        ]);
     }
 
     public function test_fake_swaps_client_then_assert_workflow_started(): void
