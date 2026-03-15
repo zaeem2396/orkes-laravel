@@ -40,7 +40,11 @@ final class ConductorFake
         return new FakeWorker();
     }
 
-    /** Assert that a workflow with the given name was started (at least once). */
+    /**
+     * Assert that a workflow with the given name was started (at least once).
+     *
+     * @throws \RuntimeException if no such workflow was started
+     */
     public function assertWorkflowStarted(string $name): void
     {
         $found = false;
@@ -59,6 +63,8 @@ final class ConductorFake
      * Assert a workflow was started with the given name and input subset (all given keys must match).
      *
      * @param  array<string, mixed>  $input  Subset of input to match
+     *
+     * @throws \RuntimeException if not found or input does not match
      */
     public function assertWorkflowStartedWithInput(string $name, array $input): void
     {
@@ -77,7 +83,11 @@ final class ConductorFake
         throw new \RuntimeException("Expected workflow [{$name}] to be started with input matching " . json_encode($input));
     }
 
-    /** Assert that no workflows were started. */
+    /**
+     * Assert that no workflows were started.
+     *
+     * @throws \RuntimeException if any workflow was started
+     */
     public function assertNoWorkflowsStarted(): void
     {
         if ($this->startedWorkflows !== []) {
