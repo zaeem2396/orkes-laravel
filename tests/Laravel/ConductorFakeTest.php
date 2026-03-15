@@ -7,6 +7,9 @@ namespace Conductor\Laravel\Tests;
 use Conductor\Laravel\Testing\ConductorFake;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Tests for ConductorFake (direct instantiation, no Laravel app).
+ */
 final class ConductorFakeTest extends TestCase
 {
     public function test_assert_workflow_started_passes_when_started(): void
