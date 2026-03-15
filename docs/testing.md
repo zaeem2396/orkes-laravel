@@ -1,6 +1,6 @@
 # Testing
 
-Use the Conductor fake to test code that starts workflows or uses the Conductor client without calling the real Conductor API. See also [README](../README.md) Testing section.
+Use the Conductor fake to test code that starts workflows or uses the Conductor client without calling the real Conductor API. See also [README](../README.md) § Testing.
 
 ## Conductor::fake()
 

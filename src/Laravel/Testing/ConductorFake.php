@@ -20,7 +20,7 @@ final class ConductorFake
     /** @var list<array{name: string, input: array}> Recorded workflow starts for assertions. */
     private array $startedWorkflows = [];
 
-    /** Return fake workflow client that records start() calls. */
+    /** Return fake workflow client that records start() calls; start() returns 'fake-workflow-id'. */
     public function workflow(): FakeWorkflowClient
     {
         return new FakeWorkflowClient(function (string $name, array $input): void {
