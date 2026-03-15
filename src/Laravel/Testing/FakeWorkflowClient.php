@@ -21,6 +21,8 @@ final class FakeWorkflowClient
     }
 
     /**
+     * Records the start call and returns 'fake-workflow-id'.
+     *
      * @param  array<string, mixed>  $input
      */
     public function start(string $name, array $input = [], ?string $correlationId = null, ?int $version = null): string

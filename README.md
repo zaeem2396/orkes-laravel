@@ -101,7 +101,7 @@ Conductor::assertWorkflowStartedWithInput('order_processing', ['order_id' => 1])
 // Optional: Conductor::assertNoWorkflowsStarted(); $list = Conductor::recordedStartedWorkflows();
 ```
 
-See [docs/testing.md](docs/testing.md) for details.
+See [docs/testing.md](docs/testing.md) for assertion details and examples.
 
 ## Development
 
