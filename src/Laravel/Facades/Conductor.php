@@ -31,7 +31,7 @@ final class Conductor extends Facade
 
     /**
      * Swap the Conductor client with a fake for testing. Returns the fake instance.
-     * After calling, Conductor::workflow(), ::tasks(), ::workers() use fakes; use ::assertWorkflowStarted() etc. on the returned fake or via the facade.
+     * After calling, Conductor::workflow(), ::tasks(), ::workers() use fakes. Assert via Conductor::assertWorkflowStarted() etc. (facade root is the fake).
      */
     public static function fake(): ConductorFake
     {
