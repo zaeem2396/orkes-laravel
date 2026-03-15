@@ -26,7 +26,7 @@ public function test_order_flow_starts_workflow(): void
 - **assertWorkflowStarted(string $name)** — Asserts at least one workflow with the given name was started. Throws RuntimeException if not found.
 - **assertWorkflowStartedWithInput(string $name, array $input)** — Asserts a workflow was started with the given name and that its input contains the given key/value subset.
 - **assertNoWorkflowsStarted()** — Asserts no workflows were started. Throws RuntimeException if any were started.
-- **recordedStartedWorkflows()** — Returns the list of recorded started workflows (`[['name' => '...', 'input' => [...]], ...]`) for custom assertions.
+- **recordedStartedWorkflows()** — Returns the list of recorded started workflows (`[['name' => '...', 'input' => [...]], ...]`) for custom assertions. Does not clear the list.
 
 ## Using the fake without the Facade
 

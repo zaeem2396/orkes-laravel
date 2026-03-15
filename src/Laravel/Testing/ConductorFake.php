@@ -53,9 +53,9 @@ final class ConductorFake
     }
 
     /**
-     * Assert a workflow was started with the given name and input (array subset).
+     * Assert a workflow was started with the given name and input subset (all given keys must match).
      *
-     * @param  array<string, mixed>  $input  Subset of input to match (all keys must match)
+     * @param  array<string, mixed>  $input  Subset of input to match
      */
     public function assertWorkflowStartedWithInput(string $name, array $input): void
     {
@@ -84,7 +84,7 @@ final class ConductorFake
     }
 
     /**
-     * Return recorded started workflows for custom assertions.
+     * Return recorded started workflows for custom assertions. Each element: ['name' => string, 'input' => array].
      *
      * @return list<array{name: string, input: array}>
      */
