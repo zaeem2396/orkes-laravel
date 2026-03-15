@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Conductor\Laravel\Testing;
 
 /**
- * Fake task client for tests. poll() always returns null; complete/fail/ack no-op.
+ * Fake task client for tests. poll() always returns null (no task); complete, fail, ack, update are no-ops.
+ * Returned by ConductorFake::tasks() when using Conductor::fake().
  *
  * @internal
  */

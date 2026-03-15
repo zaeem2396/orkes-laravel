@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Conductor\Laravel\Testing;
 
 /**
- * Fake Conductor client for tests. Use via Conductor::fake().
+ * Fake Conductor client for tests. Use via Conductor::fake() in Laravel or instantiate directly.
  *
  * Example:
  *   Conductor::fake();
  *   Conductor::workflow()->start('order_processing');
  *   Conductor::assertWorkflowStarted('order_processing');
+ *
+ * Assertions: assertWorkflowStarted, assertWorkflowStartedWithInput, assertNoWorkflowsStarted.
+ * recordedStartedWorkflows() for custom assertions.
  */
 final class ConductorFake
 {

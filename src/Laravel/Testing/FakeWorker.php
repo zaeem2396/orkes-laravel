@@ -6,6 +6,7 @@ namespace Conductor\Laravel\Testing;
 
 /**
  * Fake worker for tests. listen() and run() / runOneCycle() are no-ops.
+ * Returned by ConductorFake::workers() when using Conductor::fake().
  *
  * @internal
  */
