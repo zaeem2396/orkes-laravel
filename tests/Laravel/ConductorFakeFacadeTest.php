@@ -41,4 +41,13 @@ final class ConductorFakeFacadeTest extends TestCase
 
         $this->assertNull($result);
     }
+
+    public function test_after_fake_workers_run_is_no_op(): void
+    {
+        Conductor::fake();
+
+        Conductor::workers()->listen('task', fn () => [])->run();
+
+        $this->addToAssertionCount(1);
+    }
 }
