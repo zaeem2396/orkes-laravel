@@ -46,7 +46,7 @@ When using the fake, `Conductor::tasks()->poll()` always returns `null` (no task
 
 ## PHPUnit
 
-Run all tests: `composer test` or `./vendor/bin/phpunit`. Run only Conductor fake tests:
+Run all tests: `composer test` or `./vendor/bin/phpunit`. Run PHPStan: `composer phpstan`. Run only Conductor fake tests:
 
 ```bash
 ./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php

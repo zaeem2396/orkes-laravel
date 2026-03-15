@@ -13,7 +13,7 @@ namespace Conductor\Laravel\Testing;
  *   Conductor::assertWorkflowStarted('order_processing');
  *
  * Assertions: assertWorkflowStarted, assertWorkflowStartedWithInput, assertNoWorkflowsStarted.
- * recordedStartedWorkflows() for custom assertions. When faked, tasks()->poll() returns null, workers() no-op.
+ * recordedStartedWorkflows() for custom assertions. When faked, tasks()->poll() returns null, workers() no-op. See docs/testing.md.
  */
 final class ConductorFake
 {
