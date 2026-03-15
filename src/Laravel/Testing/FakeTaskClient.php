@@ -13,6 +13,8 @@ namespace Conductor\Laravel\Testing;
 final class FakeTaskClient
 {
     /**
+     * Always returns null (no task available).
+     *
      * @return array<string, mixed>|null
      */
     public function poll(string $taskType, ?string $workerId = null, ?string $domain = null): ?array

@@ -12,15 +12,18 @@ namespace Conductor\Laravel\Testing;
  */
 final class FakeWorker
 {
+    /** No-op; returns $this for chaining. */
     public function listen(string $taskType, callable $handler): self
     {
         return $this;
     }
 
+    /** No-op. */
     public function run(): void
     {
     }
 
+    /** No-op. */
     public function runOneCycle(): void
     {
     }
