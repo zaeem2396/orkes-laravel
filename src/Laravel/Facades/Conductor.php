@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Facade;
  *   Conductor::tasks()->poll('process_payment');
  *   Conductor::workers()->listen('my_task', $handler)->run();
  *
- * Testing: Conductor::fake(); then Conductor::workflow()->start(...); Conductor::assertWorkflowStarted('...');
+ * Testing: Conductor::fake(); Conductor::workflow()->start(...); Conductor::assertWorkflowStarted('...'); See docs/testing.md.
  */
 final class Conductor extends Facade
 {
