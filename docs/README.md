@@ -1,6 +1,6 @@
 # Documentation
 
-Index of guides and references:
+Index of guides and references (Phase 10):
 
 - **[Installation](installation.md)** — Install the package (Laravel and standalone)
 - **[Workflow example](workflow-example.md)** — Start workflows and use the DSL
