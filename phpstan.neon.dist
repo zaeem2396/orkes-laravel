@@ -1,4 +1,4 @@
-# Phase 10: Static analysis level 5
+# Static analysis (level 5)
 parameters:
     level: 5
     paths:
