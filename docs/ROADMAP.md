@@ -325,9 +325,9 @@ Testing: `Conductor::fake(); Conductor::workflow()->start('order_processing'); C
 
 ## Coding standards
 
-- PSR-12  
-- PHP 8.2+  
-- Strict types  
-- SOLID, dependency injection  
-- Typed properties  
-- Docblocks, usage examples, and proper exception handling on every class  
+- PSR-12 (enforced by PHP-CS-Fixer in CI)
+- PHP 8.2+
+- Strict types
+- SOLID, dependency injection
+- Typed properties
+- Docblocks, usage examples, and proper exception handling on every class
