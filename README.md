@@ -8,7 +8,7 @@ Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conduc
 composer require conductor/orkes-laravel
 ```
 
-For a step-by-step guide (Laravel vs standalone), see [docs/installation.md](docs/installation.md).
+For a step-by-step installation guide (Laravel vs standalone), see [docs/installation.md](docs/installation.md).
 
 ## Requirements
 

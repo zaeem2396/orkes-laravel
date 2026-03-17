@@ -1,5 +1,7 @@
 # Documentation
 
+Index of guides and references:
+
 - **[Installation](installation.md)** — Install the package (Laravel and standalone)
 - **[Workflow example](workflow-example.md)** — Start workflows and use the DSL
 - **[Worker example](worker-example.md)** — Task handlers and `conductor:work`

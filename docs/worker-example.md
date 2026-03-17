@@ -1,6 +1,6 @@
 # Worker example
 
-This guide shows how to run Conductor task workers that poll for tasks and execute your handlers.
+This guide shows how to run Conductor task workers: implement TaskHandler, register in config, and run via Artisan or in code.
 
 ## Implement a task handler (Laravel)
 
