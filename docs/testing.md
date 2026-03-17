@@ -83,7 +83,7 @@ final class OrderServiceTest extends TestCase
 
 ### Example: custom assertions with recordedStartedWorkflows
 
-For more control, use the recorded list:
+For more control than the assertion helpers, use the recorded list:
 
 ```php
 Conductor::fake();
