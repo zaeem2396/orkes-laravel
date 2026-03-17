@@ -38,7 +38,7 @@ To fail the task, throw an exception from `handle()`. The worker will call `fail
 
 ## Register handlers in config
 
-In `config/conductor.php`, add your handler class names to `task_handlers`:
+In `config/conductor.php`, add your handler class names to `task_handlers` so `conductor:work` can resolve them:
 
 ```php
 'task_handlers' => [

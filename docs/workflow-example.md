@@ -63,6 +63,8 @@ php artisan conductor:start order_processing --input='{"order_id":123}' --correl
 
 ## Get workflow status
 
+After starting a workflow, you can fetch its state:
+
 ```php
 $status = Conductor::workflow()->getWorkflow($workflowId, includeTasks: true);
 // Or status only (no tasks)
