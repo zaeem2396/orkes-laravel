@@ -28,7 +28,7 @@ On push and pull requests to `main` and `feature/**`, GitHub Actions run:
 - **PHPStan** — Static analysis (level 5)
 - **Code style** — PHP-CS-Fixer (dry run)
 
-Ensure all pass before submitting a pull request.
+Ensure all pass before submitting a PR.
 
 ## Documentation
 

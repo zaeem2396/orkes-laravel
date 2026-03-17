@@ -9,4 +9,4 @@ Index of guides and references (Phase 10):
 - **[Testing](testing.md)** — `Conductor::fake()` and assertion helpers (Phase 10.6)
 - **[ROADMAP](ROADMAP.md)** — Implementation phases and status
 
-See also [examples/](../examples/) for runnable examples. CI: [.github/workflows/](../.github/workflows/).
+See also [examples/](../examples/) for runnable examples. CI: [.github/workflows/](../.github/workflows/) (tests, PHPStan, format).
