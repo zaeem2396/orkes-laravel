@@ -22,7 +22,7 @@ composer cs-check
 
 ## CI
 
-On push and pull requests, GitHub Actions run:
+On push and pull requests to `main` and `feature/**`, GitHub Actions run:
 
 - **Tests** — PHPUnit on PHP 8.2, 8.3, 8.4
 - **PHPStan** — Static analysis (level 5)

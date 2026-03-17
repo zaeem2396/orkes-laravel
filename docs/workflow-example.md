@@ -35,7 +35,7 @@ $workflowId = $client->workflow()->start('order_processing', ['order_id' => 123]
 
 ## Define a workflow with the DSL
 
-Define workflows in PHP and register them with Conductor so they can be started by name:
+Define workflows in PHP and register them with Conductor so they can be started by name. Task types (e.g. `validate_order`) must exist as Conductor task definitions:
 
 ```php
 use Conductor\Laravel\DSL\Workflow;
