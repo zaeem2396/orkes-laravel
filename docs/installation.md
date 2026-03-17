@@ -10,7 +10,7 @@ Install the Conductor PHP SDK and Laravel integration via Composer. This guide c
 
 ## Install the package
 
-From your project root:
+From your project root (Laravel app or any PHP project):
 
 ```bash
 composer require conductor/orkes-laravel

@@ -1,6 +1,6 @@
 # Conductor PHP SDK & Laravel Integration
 
-Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities. Documentation and CI (PHPUnit, PHPStan, PHP-CS-Fixer) included.
+Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities. Documentation (docs/, examples/) and CI (GitHub Actions: PHPUnit, PHPStan, PHP-CS-Fixer) are included.
 
 ## Installation
 

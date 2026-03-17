@@ -69,7 +69,7 @@ php artisan conductor:local --once
 
 ## Worker usage in code (standalone SDK)
 
-Without Laravel, you can run a worker in code:
+Without Laravel, you can run a worker in PHP code (e.g. a long-running script):
 
 ```php
 use Conductor\Client\ConductorClient;
