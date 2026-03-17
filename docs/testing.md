@@ -50,6 +50,8 @@ When using the fake, `Conductor::tasks()->poll()` always returns `null` (no task
 
 ### Example: test a service that starts a workflow
 
+Assume `OrderService::placeOrder()` starts a Conductor workflow. In tests, fake Conductor and assert:
+
 ```php
 namespace Tests\Feature;
 
