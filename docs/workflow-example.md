@@ -85,4 +85,4 @@ $running = $result['results'];
 $total = $result['totalHits'];
 ```
 
-See the [README](../README.md) for more usage. Conductor API: [workflow](https://conductor-oss.github.io/conductor/documentation/api/workflow.html), [start workflow](https://conductor-oss.github.io/conductor/documentation/api/startworkflow.html).
+See [README](../README.md) for more usage. Conductor API: [workflow](https://conductor-oss.github.io/conductor/documentation/api/workflow.html), [start workflow](https://conductor-oss.github.io/conductor/documentation/api/startworkflow.html).
