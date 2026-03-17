@@ -9,7 +9,7 @@ on:
 
 jobs:
   format:
-    name: Check code style
+    name: PHP-CS-Fixer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
