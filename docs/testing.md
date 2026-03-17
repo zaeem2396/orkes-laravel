@@ -46,6 +46,50 @@ $fake->assertWorkflowStarted('order_processing');
 
 When using the fake, `Conductor::tasks()->poll()` always returns `null` (no task available). `Conductor::workers()->listen(...)->run()` is a no-op. Workflow `start()` returns `'fake-workflow-id'`. This lets you test workflow-starting code without running workers or hitting the Conductor API.
 
+## Testing examples
+
+### Example: test a service that starts a workflow
+
+```php
+namespace Tests\Feature;
+
+use Conductor\Laravel\Facades\Conductor;
+use Conductor\Laravel\Tests\TestCase;
+
+final class OrderServiceTest extends TestCase
+{
+    public function test_place_order_starts_workflow(): void
+    {
+        Conductor::fake();
+
+        $this->app->make(OrderService::class)->placeOrder(orderId: 123);
+
+        Conductor::assertWorkflowStarted('order_processing');
+        Conductor::assertWorkflowStartedWithInput('order_processing', ['order_id' => 123]);
+    }
+
+    public function test_place_order_does_not_start_when_invalid(): void
+    {
+        Conductor::fake();
+
+        $this->app->make(OrderService::class)->placeOrder(orderId: 0); // invalid
+
+        Conductor::assertNoWorkflowsStarted();
+    }
+}
+```
+
+### Example: custom assertions with recordedStartedWorkflows
+
+```php
+Conductor::fake();
+// ... trigger code that starts workflows ...
+$started = Conductor::recordedStartedWorkflows();
+$this->assertCount(2, $started);
+$this->assertSame('order_processing', $started[0]['name']);
+$this->assertSame('refund_workflow', $started[1]['name']);
+```
+
 ## PHPUnit
 
 Run all tests: `composer test` or `./vendor/bin/phpunit`. Run PHPStan: `composer phpstan`. Run only Conductor fake tests (ConductorFakeTest + ConductorFakeFacadeTest):
