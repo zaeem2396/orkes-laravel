@@ -279,7 +279,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 - `docs/` — installation.md, workflow-example.md, worker-example.md, dsl.md, testing.md, ROADMAP.md
 - `examples/` — order_processing_workflow.php, README
 - `.github/workflows/` — tests.yml (PHP 8.2/8.3/8.4), phpstan.yml, format.yml (PHP-CS-Fixer)
-- PHPStan level 5; clean docblocks and examples
+- PHPStan level 5 (phpstan.neon.dist); clean docblocks and examples
 
 ---
 
