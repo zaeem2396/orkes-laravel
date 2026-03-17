@@ -85,7 +85,7 @@ $worker->listen('process_payment', function (array $task) {
 $worker->run(); // infinite loop; use runOneCycle() for a single poll
 ```
 
-Handler return format: `['status' => 'COMPLETED'|'FAILED', 'outputData' => array, 'reasonForIncompletion' => string (if FAILED)]`.
+Handler return format: `['status' => 'COMPLETED'|'FAILED', 'outputData' => array]`. For FAILED, include `'reasonForIncompletion' => string`.
 
 ## Task definitions in Conductor
 
