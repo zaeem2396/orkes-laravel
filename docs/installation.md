@@ -24,7 +24,7 @@ If you use Laravel, the service provider and `Conductor` facade are auto-discove
 php artisan vendor:publish --tag=conductor-config
 ```
 
-This creates `config/conductor.php`. Configure your Conductor server URL and token in `.env`:
+This creates `config/conductor.php`. Configure your Conductor server URL and (optionally) token in `.env`:
 
 ```env
 CONDUCTOR_SERVER=http://localhost:8080/api
