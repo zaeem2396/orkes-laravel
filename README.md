@@ -14,7 +14,7 @@ For a step-by-step installation guide (Laravel vs standalone), see [docs/install
 
 - PHP 8.2+
 - Composer 2.x
-- Laravel 11 or 12 (for Laravel integration; service provider and facade auto-discovered)
+- Laravel 11 or 12 (for Laravel integration; service provider and facade are auto-discovered)
 
 ## Usage
 

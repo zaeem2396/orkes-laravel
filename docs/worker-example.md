@@ -89,6 +89,6 @@ Handler return format: `['status' => 'COMPLETED'|'FAILED', 'outputData' => array
 
 ## Task definitions in Conductor
 
-Ensure your task types (e.g. `process_payment`) are registered as task definitions in Conductor before starting workflows that use them. The workflow DSL only registers workflow definitions; task definitions are registered separately in Conductor.
+Ensure your task types (e.g. `process_payment`) are registered as task definitions in Conductor before starting workflows that use them. The package does not register task definitions; only workflow definitions (e.g. via the DSL). The workflow DSL only registers workflow definitions; task definitions are registered separately in Conductor.
 
 See the [README](../README.md) for Artisan commands and [testing](testing.md) for using `Conductor::fake()` so workers are not needed in tests. Task definitions: [Conductor task API](https://conductor-oss.github.io/conductor/documentation/api/task.html).

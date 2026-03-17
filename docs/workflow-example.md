@@ -54,7 +54,7 @@ $json = $def->toJson(JSON_PRETTY_PRINT);
 
 See [DSL reference](dsl.md) and [examples/order_processing_workflow.php](../examples/order_processing_workflow.php).
 
-## Artisan: start from the command line
+## Artisan: start workflow from the command line
 
 ```bash
 php artisan conductor:start order_processing --input='{"order_id":123}'
