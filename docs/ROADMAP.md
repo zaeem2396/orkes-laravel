@@ -268,10 +268,10 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 |---|------------|-------------|-------|------------|--------|
 | 10.1 | README.md (SDK) | Installation, usage, standalone examples | 2025-05-17 | 2025-05-19 | Done |
 | 10.2 | README.md (Laravel) | Laravel setup, config, Artisan commands | 2025-05-18 | 2025-05-20 | Done |
-| 10.3 | docs/ + examples/ | Installation guide, workflow/worker examples | 2025-05-19 | 2025-05-23 | Done |
-| 10.4 | GitHub Actions CI | PHPUnit, PHP 8.2+ matrix | 2025-05-22 | 2025-05-25 | Done |
-| 10.5 | PHPStan | Static analysis, level 5+ | 2025-05-24 | 2025-05-28 | Done |
-| 10.6 | Testing examples in docs | Testing examples section | 2025-05-26 | 2025-05-30 | Done |
+| 10.3 | docs/ + examples/ | installation.md, workflow-example.md, worker-example.md, docs/README | 2025-05-19 | 2025-05-23 | Done |
+| 10.4 | GitHub Actions CI | tests.yml (PHP 8.2/8.3/8.4), phpstan.yml, format.yml | 2025-05-22 | 2025-05-25 | Done |
+| 10.5 | PHPStan | Static analysis level 5 (phpstan.neon.dist) | 2025-05-24 | 2025-05-28 | Done |
+| 10.6 | Testing examples in docs | testing.md Testing examples section | 2025-05-26 | 2025-05-30 | Done |
 
 ### Deliverables
 

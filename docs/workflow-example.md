@@ -1,6 +1,6 @@
 # Workflow example
 
-This guide shows how to start Conductor workflows and define them with the Workflow DSL.
+This guide shows how to start Conductor workflows (Laravel and SDK), define them with the Workflow DSL, and use Artisan.
 
 ## Start a workflow (Laravel)
 
