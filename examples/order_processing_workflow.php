@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 /**
  * Example: Define order_processing workflow with DSL and output Conductor JSON.
+ * Phase 10 documentation example.
  *
  * Run from project root (after composer install):
  *   php examples/order_processing_workflow.php

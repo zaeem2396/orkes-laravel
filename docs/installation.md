@@ -31,7 +31,7 @@ CONDUCTOR_SERVER=http://localhost:8080/api
 CONDUCTOR_TOKEN=your-token-if-required
 ```
 
-See [README](../README.md) for the full list of environment variables and [docs/ROADMAP.md](ROADMAP.md) for the implementation roadmap.
+See the [README](../README.md) for the full list of environment variables. Implementation roadmap: [ROADMAP.md](ROADMAP.md).
 
 ## Standalone (no Laravel)
 

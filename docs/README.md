@@ -9,4 +9,4 @@ Index of guides and references:
 - **[Testing](testing.md)** — `Conductor::fake()` and assertion helpers
 - **[ROADMAP](ROADMAP.md)** — Implementation phases and status
 
-See also [examples/](../examples/) for runnable examples.
+See also [examples/](../examples/) for runnable examples. CI: [.github/workflows/](../.github/workflows/).
