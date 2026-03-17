@@ -1,0 +1,54 @@
+# Installation
+
+Install the Conductor PHP SDK and Laravel integration via Composer.
+
+## Requirements
+
+- **PHP** 8.2 or higher
+- **Composer** 2.x
+- **Laravel** 11 or 12 (optional; only if you use the Laravel integration)
+
+## Install the package
+
+```bash
+composer require conductor/orkes-laravel
+```
+
+## Laravel setup (optional)
+
+If you use Laravel, the service provider and `Conductor` facade are auto-discovered. To customize configuration, publish the config file:
+
+```bash
+php artisan vendor:publish --tag=conductor-config
+```
+
+This creates `config/conductor.php`. Configure your Conductor server URL and token in `.env`:
+
+```env
+CONDUCTOR_SERVER=http://localhost:8080/api
+CONDUCTOR_TOKEN=your-token-if-required
+```
+
+See [README](../README.md) for the full list of environment variables and [docs/ROADMAP.md](ROADMAP.md) for the implementation roadmap.
+
+## Standalone (no Laravel)
+
+Use the SDK without Laravel by constructing the client manually:
+
+```php
+use Conductor\Client\ConductorClient;
+use Conductor\Client\HttpClient;
+
+$client = new ConductorClient(new HttpClient(
+    'http://localhost:8080/api',
+    'your-token',
+    30
+));
+$client->workflow()->start('my_workflow', ['key' => 'value']);
+```
+
+## Next steps
+
+- [Workflow example](workflow-example.md) — start workflows and use the DSL
+- [Worker example](worker-example.md) — run task workers
+- [Testing](testing.md) — use `Conductor::fake()` in tests
