@@ -257,7 +257,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 10 — Documentation & CI
 
-**Scope:** Repository-wide  
+**Scope:** Repository-wide (README, docs/, examples/, .github/workflows).  
 **Begin:** 2025-05-17  
 **Completion:** 2025-05-30  
 **Status:** Done

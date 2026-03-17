@@ -62,7 +62,7 @@ $def->register(Conductor::workflow());  // or $client->workflow()
 // See examples/ and docs/dsl.md for details.
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–10 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL, Testing utilities, Documentation & CI) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap and [docs/README.md](docs/README.md) for the full documentation index. Phases 1–10 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL, Testing utilities, Documentation & CI) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
 
 ### Laravel setup
 
