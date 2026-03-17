@@ -300,7 +300,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Expected final result (Phase 10 complete)
 
-Developers will be able to:
+CI runs PHPUnit (8.2–8.4), PHPStan (level 5), and PHP-CS-Fixer on push/PR. Developers will be able to:
 
 ```bash
 composer require conductor/orkes-laravel
