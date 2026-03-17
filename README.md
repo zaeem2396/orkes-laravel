@@ -8,6 +8,8 @@ Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conduc
 composer require conductor/orkes-laravel
 ```
 
+For a step-by-step guide (Laravel vs standalone), see [docs/installation.md](docs/installation.md).
+
 ## Requirements
 
 - PHP 8.2+
@@ -111,6 +113,8 @@ composer test
 composer phpstan
 composer cs-check
 ```
+
+CI runs on push/PR: tests (PHP 8.2, 8.3, 8.4), PHPStan, and PHP-CS-Fixer. See [.github/workflows/](.github/workflows/).
 
 To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. Run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
 
