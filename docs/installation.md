@@ -55,3 +55,5 @@ $client->workflow()->start('my_workflow', ['key' => 'value']);
 - [Worker example](worker-example.md) — run task workers and register handlers
 - [Testing](testing.md) — use `Conductor::fake()` in tests
 - [DSL reference](dsl.md) — define workflows in PHP
+
+Implementation roadmap: [ROADMAP.md](ROADMAP.md).
