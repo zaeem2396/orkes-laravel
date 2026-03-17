@@ -50,5 +50,6 @@ $client->workflow()->start('my_workflow', ['key' => 'value']);
 ## Next steps
 
 - [Workflow example](workflow-example.md) — start workflows and use the DSL
-- [Worker example](worker-example.md) — run task workers
+- [Worker example](worker-example.md) — run task workers and register handlers
 - [Testing](testing.md) — use `Conductor::fake()` in tests
+- [DSL reference](dsl.md) — define workflows in PHP

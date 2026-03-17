@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [main, 'feature/**']
 
+# PHPUnit on PHP 8.2, 8.3, 8.4 (Phase 10: Documentation & CI)
 jobs:
   test:
     name: conductor/orkes-laravel (PHP ${{ matrix.php }})
