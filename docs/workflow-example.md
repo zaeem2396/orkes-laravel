@@ -52,7 +52,7 @@ $def->register(Conductor::workflow());
 $json = $def->toJson(JSON_PRETTY_PRINT);
 ```
 
-See [DSL reference](dsl.md) and [examples/order_processing_workflow.php](../examples/order_processing_workflow.php).
+See [DSL reference](dsl.md) and the runnable [examples/order_processing_workflow.php](../examples/order_processing_workflow.php).
 
 ## Artisan: start workflow from the command line
 
