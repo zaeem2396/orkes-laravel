@@ -116,7 +116,7 @@ composer cs-check
 
 CI runs on push/PR: tests (PHP 8.2, 8.3, 8.4), PHPStan, and PHP-CS-Fixer. See [.github/workflows/](.github/workflows/). Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
 
-To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. Run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
+To run only DSL tests (Workflow DSL): `./vendor/bin/phpunit tests/Laravel/DSL/`. Run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
 
 ## License
 

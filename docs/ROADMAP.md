@@ -278,7 +278,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 - `README.md` — SDK and Laravel usage, installation, testing, development
 - `docs/` — installation.md, workflow-example.md, worker-example.md, dsl.md, testing.md, ROADMAP.md
 - `examples/` — order_processing_workflow.php, README
-- `.github/workflows/` — tests.yml (PHP 8.2/8.3/8.4), phpstan.yml, format.yml (PHP-CS-Fixer)
+- `.github/workflows/` — tests.yml (PHP 8.2/8.3/8.4 matrix), phpstan.yml, format.yml (PHP-CS-Fixer). See CONTRIBUTING.md.
 - PHPStan level 5 (phpstan.neon.dist); clean docblocks and examples
 
 ---

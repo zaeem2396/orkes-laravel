@@ -4,6 +4,8 @@ Thanks for your interest in contributing to conductor/orkes-laravel.
 
 ## Development setup
 
+Clone the repo and install dependencies. Then run tests and static analysis:
+
 ```bash
 composer install
 composer test
