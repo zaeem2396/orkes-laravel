@@ -6,7 +6,7 @@ Install the Conductor PHP SDK and Laravel integration via Composer.
 
 - **PHP** 8.2 or higher
 - **Composer** 2.x
-- **Laravel** 11 or 12 (optional; only if you use the Laravel integration)
+- **Laravel** 11 or 12 (optional; only if you use the Laravel integration and Artisan commands)
 
 ## Install the package
 

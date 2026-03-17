@@ -1,6 +1,6 @@
 # Examples
 
-See [docs/dsl.md](../docs/dsl.md) for the Workflow DSL reference.
+See [docs/dsl.md](../docs/dsl.md) for the Workflow DSL reference and [docs/README.md](../docs/README.md) for all documentation.
 
 ## order_processing_workflow.php
 
