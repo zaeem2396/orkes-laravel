@@ -13,7 +13,7 @@ composer cs-check
 
 ## Code standards
 
-- PSR-12 code style (enforced by PHP-CS-Fixer; run `composer cs-fix` to fix)
+- PSR-12 code style (enforced by PHP-CS-Fixer; run `composer cs-fix` to auto-fix)
 - PHP 8.2+
 - Strict types and docblocks on public APIs
 - See [docs/ROADMAP.md](docs/ROADMAP.md) for coding standards

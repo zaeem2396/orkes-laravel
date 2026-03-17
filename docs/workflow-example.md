@@ -73,6 +73,8 @@ $status = Conductor::workflow()->getWorkflowStatus($workflowId);
 
 ## Search workflows
 
+Search by status, workflow type, etc.:
+
 ```php
 $result = Conductor::workflow()->search('status = RUNNING', start: 0, size: 20);
 $running = $result['results'];

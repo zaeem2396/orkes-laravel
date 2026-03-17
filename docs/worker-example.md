@@ -49,7 +49,7 @@ In `config/conductor.php`, add your handler class names to `task_handlers` so `c
 
 ## Run the worker (Artisan)
 
-Run the worker daemon (polls for tasks and runs handlers):
+Run the worker daemon (infinite loop; polls for tasks and runs handlers):
 
 ```bash
 php artisan conductor:work
