@@ -35,7 +35,7 @@ See the [README](../README.md) for the full list of environment variables. Imple
 
 ## Standalone (no Laravel)
 
-Use the SDK without Laravel by constructing the client manually:
+Use the SDK without Laravel by constructing the client manually (e.g. in a CLI script or another framework):
 
 ```php
 use Conductor\Client\ConductorClient;
