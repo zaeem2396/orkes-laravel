@@ -120,4 +120,4 @@ To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. Run Conductor 
 
 ## License
 
-MIT. See [LICENSE](LICENSE) if present.
+MIT. See [LICENSE](LICENSE) file if present in the repo.
