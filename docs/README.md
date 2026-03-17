@@ -2,7 +2,7 @@
 
 Index of guides and references (Phase 10):
 
-- **[Installation](installation.md)** — Install the package (Laravel and standalone)
+- **[Installation](installation.md)** — Composer, requirements (PHP 8.2+), Laravel setup
 - **[Workflow example](workflow-example.md)** — Start workflows and use the DSL
 - **[Worker example](worker-example.md)** — Task handlers and `conductor:work`
 - **[Workflow DSL](dsl.md)** — Define workflows in PHP (toArray, toJson, register)

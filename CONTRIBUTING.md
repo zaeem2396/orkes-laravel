@@ -32,5 +32,5 @@ Ensure all pass before submitting a pull request.
 
 ## Documentation
 
-- Update [README.md](README.md) and [docs/](docs/) as needed for new features
+- README and `docs/` are the source of truth; update them when adding or changing behaviour
 - See [docs/README.md](docs/README.md) for the documentation index and [docs/installation.md](docs/installation.md) for the installation guide
