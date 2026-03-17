@@ -18,7 +18,7 @@ composer require conductor/orkes-laravel
 
 ## Laravel setup (optional)
 
-If you use Laravel, the service provider and `Conductor` facade are auto-discovered. To customize Conductor configuration, publish the config file:
+If you use Laravel, the service provider and `Conductor` facade are auto-discovered (no manual registration). To customize Conductor configuration, publish the config file:
 
 ```bash
 php artisan vendor:publish --tag=conductor-config

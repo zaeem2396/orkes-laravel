@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to conductor/orkes-laravel.
+Thanks for your interest in contributing to conductor/orkes-laravel. This file is part of Phase 10 (Documentation & CI).
 
 ## Development setup
 
