@@ -20,6 +20,8 @@ echo "Started: {$workflowId}\n";
 
 ## Start a workflow (standalone SDK)
 
+Without Laravel, build the client yourself:
+
 ```php
 use Conductor\Client\ConductorClient;
 use Conductor\Client\HttpClient;

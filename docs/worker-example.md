@@ -11,6 +11,7 @@ namespace App\Workers;
 
 use Conductor\Laravel\Workers\TaskHandler;
 
+/** Example task handler for conductor:work */
 final class ProcessPaymentTaskHandler implements TaskHandler
 {
     public function taskType(): string
