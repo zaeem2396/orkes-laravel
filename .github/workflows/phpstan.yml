@@ -1,5 +1,6 @@
 name: Code analysis (PHPStan)
 
+# PHPStan level 5 (Phase 10)
 on:
   push:
     branches: [main, 'feature/**']

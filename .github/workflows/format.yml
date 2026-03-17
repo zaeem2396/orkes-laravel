@@ -1,5 +1,6 @@
 name: Code formatter (PHP-CS-Fixer)
 
+# PSR-12 / project code style (Phase 10)
 on:
   push:
     branches: [main, 'feature/**']
