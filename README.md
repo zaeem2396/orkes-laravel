@@ -120,4 +120,4 @@ To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. To run Conduct
 
 ## License
 
-MIT. See [LICENSE](LICENSE) file if present in the repo.
+MIT. See [LICENSE](LICENSE) if present. Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
