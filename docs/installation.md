@@ -1,6 +1,6 @@
 # Installation
 
-Install the Conductor PHP SDK and Laravel integration via Composer. This guide covers both Laravel and standalone usage.
+Install the Conductor PHP SDK and Laravel integration via Composer. This guide covers Laravel and standalone (no framework) usage.
 
 ## Requirements
 

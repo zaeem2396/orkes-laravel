@@ -4,6 +4,8 @@ This guide shows how to start Conductor workflows (Laravel and SDK), define them
 
 ## Start a workflow (Laravel)
 
+Using the Conductor facade (auto-discovered):
+
 ```php
 use Conductor\Laravel\Facades\Conductor;
 

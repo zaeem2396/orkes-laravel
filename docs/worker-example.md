@@ -4,7 +4,7 @@ This guide shows how to run Conductor task workers: implement TaskHandler, regis
 
 ## Implement a task handler (Laravel)
 
-Create a class that implements `Conductor\Laravel\Workers\TaskHandler`:
+Create a class that implements `Conductor\Laravel\Workers\TaskHandler` and register it in config:
 
 ```php
 namespace App\Workers;
