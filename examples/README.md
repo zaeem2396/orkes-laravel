@@ -1,6 +1,6 @@
 # Examples
 
-See [docs/dsl.md](../docs/dsl.md) for the Workflow DSL reference.
+Runnable examples for the Conductor PHP SDK. See [docs/README.md](../docs/README.md) for the full documentation index. See [docs/dsl.md](../docs/dsl.md) for the Workflow DSL reference and [docs/README.md](../docs/README.md) for all documentation.
 
 ## order_processing_workflow.php
 

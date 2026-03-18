@@ -19,7 +19,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 7 | Artisan commands | 2025-04-19 | 2025-04-25 | Done |
 | 8 | Workflow DSL | 2025-04-26 | 2025-05-09 | Done |
 | 9 | Testing utilities | 2025-05-10 | 2025-05-16 | Done |
-| 10 | Documentation & CI | 2025-05-17 | 2025-05-30 | Planned |
+| 10 | Documentation & CI | 2025-05-17 | 2025-05-30 | Done |
 
 **Status legend:** `Planned` | `In progress` | `Done` | `Blocked`
 
@@ -257,28 +257,29 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 
 ## Phase 10 — Documentation & CI
 
-**Scope:** Repository-wide  
+**Scope:** Repository-wide (README, docs/, examples/, .github/workflows).  
 **Begin:** 2025-05-17  
 **Completion:** 2025-05-30  
-**Status:** Planned
+**Status:** Done
 
 ### Sub-modules
 
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
-| 10.1 | README.md (SDK) | Installation, usage, examples | 2025-05-17 | 2025-05-19 | Planned |
-| 10.2 | README.md (Laravel) | Laravel setup, config, commands | 2025-05-18 | 2025-05-20 | Planned |
-| 10.3 | docs/ + examples/ | Installation guide, workflow/worker examples | 2025-05-19 | 2025-05-23 | Planned |
-| 10.4 | GitHub Actions CI | PHPUnit, PHP 8.2+ matrix | 2025-05-22 | 2025-05-25 | Planned |
-| 10.5 | PHPStan | Static analysis, level 5+ | 2025-05-24 | 2025-05-28 | Planned |
-| 10.6 | Testing examples in docs | Testing examples section | 2025-05-26 | 2025-05-30 | Planned |
+| 10.1 | README.md (SDK) | Installation, usage, standalone examples | 2025-05-17 | 2025-05-19 | Done |
+| 10.2 | README.md (Laravel) | Laravel setup, config, Artisan commands | 2025-05-18 | 2025-05-20 | Done |
+| 10.3 | docs/ + examples/ | installation.md, workflow-example.md, worker-example.md, docs/README | 2025-05-19 | 2025-05-23 | Done |
+| 10.4 | GitHub Actions CI | tests.yml (PHP 8.2/8.3/8.4), phpstan.yml, format.yml | 2025-05-22 | 2025-05-25 | Done |
+| 10.5 | PHPStan | Static analysis level 5 (phpstan.neon.dist) | 2025-05-24 | 2025-05-28 | Done |
+| 10.6 | Testing examples in docs | testing.md Testing examples section | 2025-05-26 | 2025-05-30 | Done |
 
 ### Deliverables
 
-- `README.md`
-- `docs/` and `examples/`
-- `.github/workflows/` CI (PHPUnit, PHPStan)
-- Clean, open-source-ready code with docblocks and examples
+- `README.md` — SDK and Laravel usage, installation, testing, development
+- `docs/` — installation.md, workflow-example.md, worker-example.md, dsl.md, testing.md, ROADMAP.md
+- `examples/` — order_processing_workflow.php, README
+- `.github/workflows/` — tests.yml (PHP 8.2/8.3/8.4 matrix), phpstan.yml, format.yml (PHP-CS-Fixer). See CONTRIBUTING.md.
+- PHPStan level 5 (phpstan.neon.dist); clean docblocks and examples
 
 ---
 
@@ -293,13 +294,13 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 7. Artisan commands (conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures)  
 8. Workflow DSL (Workflow::define, ->task(), toArray, toJson, register; docs/dsl.md, examples/)  
 9. Testing utilities (Conductor::fake(), ConductorFake, FakeTaskClient, FakeWorker, assertion helpers, docs/testing.md)  
-10. Documentation & CI  
+10. Documentation & CI (README, docs/, examples/, .github/workflows, testing examples)  
 
 ---
 
-## Expected final result
+## Expected final result (Phase 10 complete)
 
-Developers will be able to:
+CI runs PHPUnit (8.2–8.4), PHPStan (level 5), and PHP-CS-Fixer on push/PR. Developers will be able to:
 
 ```bash
 composer require conductor/orkes-laravel
@@ -324,9 +325,9 @@ Testing: `Conductor::fake(); Conductor::workflow()->start('order_processing'); C
 
 ## Coding standards
 
-- PSR-12  
-- PHP 8.2+  
-- Strict types  
-- SOLID, dependency injection  
-- Typed properties  
-- Docblocks, usage examples, and proper exception handling on every class  
+- PSR-12 (enforced by PHP-CS-Fixer in CI)
+- PHP 8.2+
+- Strict types
+- SOLID, dependency injection
+- Typed properties
+- Docblocks, usage examples, and proper exception handling on every class

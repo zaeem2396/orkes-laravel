@@ -1,6 +1,6 @@
 # Workflow DSL
 
-Define Conductor workflows in PHP with a fluent API. Generates Conductor schema version 2 definitions with SIMPLE (worker) tasks.
+Define Conductor workflows in PHP with a fluent API. Generates Conductor schema version 2 definitions with SIMPLE (worker) tasks. See also [workflow-example.md](workflow-example.md), [examples/](../examples/), and [README](README.md) for the doc index.
 
 ## Usage
 

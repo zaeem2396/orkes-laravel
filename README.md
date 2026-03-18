@@ -1,6 +1,6 @@
 # Conductor PHP SDK & Laravel Integration
 
-Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities (Conductor::fake() and assertion helpers for workflow starts).
+Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conductor): framework-agnostic SDK plus Laravel service provider, Artisan commands, Workflow DSL, and testing utilities. Documentation (docs/, examples/) and CI (GitHub Actions: PHPUnit, PHPStan, PHP-CS-Fixer) are included.
 
 ## Installation
 
@@ -8,11 +8,13 @@ Single package for Conductor workflows (Orkes Conductor Cloud and Netflix Conduc
 composer require conductor/orkes-laravel
 ```
 
+For a step-by-step installation guide (Laravel vs standalone), see [docs/installation.md](docs/installation.md).
+
 ## Requirements
 
 - PHP 8.2+
 - Composer 2.x
-- Laravel 11 or 12 (for Laravel integration; service provider and facade auto-discovered)
+- Laravel 11 or 12 (for Laravel integration; service provider and facade are auto-discovered)
 
 ## Usage
 
@@ -60,7 +62,7 @@ $def->register(Conductor::workflow());  // or $client->workflow()
 // See examples/ and docs/dsl.md for details.
 ```
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap. Phases 1–9 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL, Testing utilities) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the implementation roadmap and [docs/README.md](docs/README.md) for the full documentation index. Phases 1–10 (HTTP client, Workflow client, Task client, Worker system, retry & exceptions, Laravel service provider, Artisan commands, Workflow DSL, Testing utilities, Documentation & CI) are complete. Use the Workflow DSL to define workflows in PHP and register them with Conductor. The Laravel service provider registers the SDK from config and the Conductor facade is auto-discovered; Artisan commands include conductor:start, conductor:work, conductor:inspect, conductor:local, and conductor:failures.
 
 ### Laravel setup
 
@@ -112,8 +114,10 @@ composer phpstan
 composer cs-check
 ```
 
-To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. Run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
+**CI:** Runs on push/PR to `main` and `feature/**`: tests (PHP 8.2, 8.3, 8.4), PHPStan, and PHP-CS-Fixer. See [.github/workflows/](.github/workflows/). Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+To run only DSL tests: `./vendor/bin/phpunit tests/Laravel/DSL/`. To run Conductor fake tests: `./vendor/bin/phpunit tests/Laravel/ConductorFakeTest.php tests/Laravel/ConductorFakeFacadeTest.php`.
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE) if present. Contributing: [CONTRIBUTING.md](CONTRIBUTING.md).
