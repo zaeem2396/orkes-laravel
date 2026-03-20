@@ -46,4 +46,26 @@ final class ConductorClientTest extends TestCase
 
         $this->assertInstanceOf(ConductorClient::class, $client);
     }
+
+    public function test_from_array_enables_http_retry_when_configured(): void
+    {
+        $client = ConductorClient::fromArray([
+            'base_url' => 'http://localhost:8080/api',
+            'retry_enabled' => true,
+            'retry_max_attempts' => 4,
+            'retry_initial_delay_ms' => 500,
+        ]);
+
+        $ref = new \ReflectionClass($client);
+        $prop = $ref->getProperty('http');
+        $prop->setAccessible(true);
+        $http = $prop->getValue($client);
+        $this->assertInstanceOf(HttpClient::class, $http);
+
+        $httpRef = new \ReflectionClass($http);
+        $retryProp = $httpRef->getProperty('retryHandler');
+        $retryProp->setAccessible(true);
+
+        $this->assertNotNull($retryProp->getValue($http));
+    }
 }

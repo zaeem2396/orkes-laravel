@@ -49,6 +49,19 @@ $client = new ConductorClient(new HttpClient(
 $client->workflow()->start('my_workflow', ['key' => 'value']);
 ```
 
+You can also use **`ConductorClient::fromArray()`**, including the same HTTP retry options as Laravel’s `config/conductor.php`:
+
+```php
+$client = ConductorClient::fromArray([
+    'base_url' => 'http://localhost:8080/api',
+    'token' => 'your-token',
+    'timeout' => 30,
+    'retry_enabled' => true,
+    'retry_max_attempts' => 3,
+    'retry_initial_delay_ms' => 1000,
+]);
+```
+
 ## Next steps
 
 - [Workflow example](workflow-example.md) — start workflows and use the DSL

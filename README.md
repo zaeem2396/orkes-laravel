@@ -79,7 +79,7 @@ Configure in `.env`:
 | `CONDUCTOR_SERVER` | Conductor API base URL | `http://localhost:8080/api` |
 | `CONDUCTOR_TOKEN` | Bearer token (optional; omit for no auth) | — |
 | `CONDUCTOR_TIMEOUT` | Request timeout (seconds) | `30` |
-| `CONDUCTOR_WORKER_CONCURRENCY` | Worker concurrency | `5` |
+| `CONDUCTOR_WORKER_MAX_RETRIES` | Handler exception retries per task (not Conductor task retries); scale with multiple worker processes | `0` |
 | `CONDUCTOR_POLL_INTERVAL` | Poll interval (seconds) | `5` |
 | `CONDUCTOR_RETRY_ENABLED` | Enable HTTP retry on 5xx/timeouts | `false` |
 | `CONDUCTOR_RETRY_MAX_ATTEMPTS` | Max retry attempts | `3` |

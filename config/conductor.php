@@ -14,7 +14,11 @@ return [
 
     'timeout' => (int) env('CONDUCTOR_TIMEOUT', 30),
 
-    'worker_concurrency' => (int) env('CONDUCTOR_WORKER_CONCURRENCY', 5),
+    /*
+     * Retries when the task handler throws (per task pick-up), not Conductor task retries.
+     * Scale throughput by running multiple `php artisan conductor:work` processes.
+     */
+    'worker_max_retries' => (int) env('CONDUCTOR_WORKER_MAX_RETRIES', 0),
 
     'poll_interval' => (int) env('CONDUCTOR_POLL_INTERVAL', 5),
 

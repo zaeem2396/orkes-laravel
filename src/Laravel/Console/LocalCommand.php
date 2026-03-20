@@ -28,6 +28,7 @@ final class LocalCommand extends Command
     {
         $config = config('conductor', []);
         $pollInterval = (int) ($config['poll_interval'] ?? 5);
+        $maxRetries = (int) ($config['worker_max_retries'] ?? 0);
         $taskHandlers = $config['task_handlers'] ?? [];
         $taskFilter = $this->option('task') ? (string) $this->option('task') : null;
         $domain = $this->option('queue') ? (string) $this->option('queue') : null;
@@ -37,6 +38,7 @@ final class LocalCommand extends Command
             $pollInterval,
             null,
             $domain,
+            $maxRetries,
         );
 
         $registered = 0;

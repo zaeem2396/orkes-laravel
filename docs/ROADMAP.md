@@ -164,13 +164,13 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | 6.2 | ConductorServiceProvider | Register SDK client from config | 2025-04-12 | 2025-04-14 | Done |
 | 6.3 | Publish config | config/conductor.php | 2025-04-13 | 2025-04-14 | Done |
 | 6.4 | Facade Conductor | Conductor::workflow(), tasks(), workers() | 2025-04-14 | 2025-04-16 | Done |
-| 6.5 | Config: base_url, auth_token, worker_concurrency, poll_interval | Env-driven config | 2025-04-15 | 2025-04-18 | Done |
+| 6.5 | Config: base_url, auth_token, worker_max_retries, poll_interval | Env-driven config | 2025-04-15 | 2025-04-18 | Done |
 
 ### Deliverables
 
 - `src/Laravel/Providers/ConductorServiceProvider.php` — registers ConductorClient singleton from config, optional RetryHandler when `retry_enabled`
 - `src/Laravel/Facades/Conductor.php`
-- `config/conductor.php` (publishable); keys: base_url, auth_token, timeout, worker_concurrency, poll_interval, retry_enabled, retry_max_attempts, retry_initial_delay_ms
+- `config/conductor.php` (publishable); keys: base_url, auth_token, timeout, worker_max_retries, poll_interval, retry_enabled, retry_max_attempts, retry_initial_delay_ms
 - `composer.json` extra.laravel (providers, aliases) for auto-discovery
 
 ---
@@ -187,7 +187,7 @@ This roadmap is based on the Cursor master prompt. It divides the implementation
 | # | Sub-module | Description | Begin | Completion | Status |
 |---|------------|-------------|-------|------------|--------|
 | 7.1 | conductor:start | Start workflow by name (e.g. order_processing) | 2025-04-19 | 2025-04-20 | Done |
-| 7.2 | conductor:work | Worker daemon; options: --task, --concurrency, --queue | 2025-04-20 | 2025-04-22 | Done |
+| 7.2 | conductor:work | Worker daemon; options: --task, --queue | 2025-04-20 | 2025-04-22 | Done |
 | 7.3 | conductor:inspect | Active workflows, failed workflows, pending tasks, workers | 2025-04-22 | 2025-04-24 | Done |
 | 7.4 | conductor:local | Local dev: run workers with --once for single cycle | 2025-04-23 | 2025-04-25 | Done |
 | 7.5 | conductor:failures | Observability: list failed workflows, optional --retry | 2025-04-24 | 2025-04-25 | Done |

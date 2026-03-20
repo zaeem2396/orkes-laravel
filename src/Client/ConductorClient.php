@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Conductor\Client;
 
+use Conductor\Retry\ExponentialDelayStrategy;
+use Conductor\Retry\RetryHandler;
 use Conductor\Task\TaskClient;
 use Conductor\Task\Worker;
 use Conductor\Workflow\WorkflowClient;
@@ -32,14 +34,39 @@ final class ConductorClient
     /**
      * Create client from config array.
      *
-     * @param  array{base_url?: string, token?: string|null, timeout?: int}  $config
+     * @param  array{
+     *     base_url?: string,
+     *     token?: string|null,
+     *     timeout?: int,
+     *     retry_enabled?: bool,
+     *     retry_max_attempts?: int,
+     *     retry_initial_delay_ms?: int
+     * }  $config
      */
     public static function fromArray(array $config): self
     {
         $baseUrl = (string) ($config['base_url'] ?? '');
         $token = isset($config['token']) ? (string) $config['token'] : null;
         $timeout = isset($config['timeout']) ? (int) $config['timeout'] : 30;
-        $http = new HttpClient($baseUrl, $token !== '' ? $token : null, $timeout);
+
+        $retryHandler = null;
+        if (! empty($config['retry_enabled'])) {
+            $retryHandler = new RetryHandler(
+                maxAttempts: (int) ($config['retry_max_attempts'] ?? 3),
+                delayStrategy: new ExponentialDelayStrategy(
+                    initialDelayMs: (int) ($config['retry_initial_delay_ms'] ?? 1000),
+                    multiplier: 2.0,
+                ),
+            );
+        }
+
+        $http = new HttpClient(
+            baseUrl: $baseUrl,
+            token: $token !== '' ? $token : null,
+            timeout: $timeout,
+            guzzle: null,
+            retryHandler: $retryHandler,
+        );
 
         return new self($http);
     }
