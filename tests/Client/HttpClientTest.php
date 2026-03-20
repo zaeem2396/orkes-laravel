@@ -87,6 +87,20 @@ final class HttpClientTest extends TestCase
         $this->assertSame('http://localhost:8080/api/workflow/123', (string) $request->getUri());
     }
 
+    public function test_request_maps_plain_uuid_body_to_workflow_id_on_success(): void
+    {
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'text/plain'], "59e73499-23c5-11f1-9a8f-3ad7b569bd26\n"),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $http = new HttpClient('http://localhost:8080/api', null, 30, $client);
+
+        $result = $http->request('POST', 'workflow', ['name' => 'demo', 'input' => []]);
+
+        $this->assertSame(['workflowId' => '59e73499-23c5-11f1-9a8f-3ad7b569bd26'], $result);
+    }
+
     public function test_request_throws_on_invalid_json(): void
     {
         $mock = new MockHandler([

@@ -92,7 +92,7 @@ final class WorkerTest extends TestCase
 
     public function test_run_one_cycle_fails_task_on_handler_exception(): void
     {
-        $taskPayload = ['taskId' => 't3', 'workflowInstanceId' => null, 'taskType' => 'boom'];
+        $taskPayload = ['taskId' => 't3', 'workflowInstanceId' => 'w3', 'taskType' => 'boom'];
         $mock = new MockHandler([
             new Response(200, ['Content-Type' => 'application/json'], (string) json_encode($taskPayload)),
             new Response(200, [], '{}'),
@@ -136,8 +136,53 @@ final class WorkerTest extends TestCase
         $worker->runOneCycle();
 
         $this->assertSame(2, $attempts);
-        $completeBody = json_decode((string) $container[2]['request']->getBody(), true);
+        $completeRaw = (string) $container[2]['request']->getBody();
+        $this->assertStringContainsString('"outputData":{}', $completeRaw);
+        $completeBody = json_decode($completeRaw, true);
         $this->assertSame('COMPLETED', $completeBody['status']);
+    }
+
+    public function test_run_one_cycle_failed_terminal_posts_failed_with_terminal_error(): void
+    {
+        $taskPayload = ['taskId' => 't7', 'workflowInstanceId' => 'w7', 'taskType' => 'terminal_task'];
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode($taskPayload)),
+            new Response(200, [], '{}'),
+            new Response(200, [], '{}'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $worker = new Worker($client, 5);
+        $worker->listen('terminal_task', fn () => [
+            'status' => 'FAILED',
+            'reasonForIncompletion' => 'Stop workflow',
+            'outputData' => ['x' => 1],
+            'terminal' => true,
+        ]);
+
+        $worker->runOneCycle();
+
+        $body = json_decode((string) $container[2]['request']->getBody(), true);
+        $this->assertSame('FAILED_WITH_TERMINAL_ERROR', $body['status']);
+    }
+
+    public function test_run_one_cycle_accepts_workflow_id_when_workflow_instance_id_missing(): void
+    {
+        $taskPayload = ['taskId' => 't6', 'workflowId' => 'wf-alias-1', 'taskType' => 'alias_task'];
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode($taskPayload)),
+            new Response(200, [], '{}'),
+            new Response(200, [], '{}'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $worker = new Worker($client, 5);
+        $worker->listen('alias_task', fn () => ['status' => 'COMPLETED', 'outputData' => ['ok' => true]]);
+
+        $worker->runOneCycle();
+
+        $ackBody = json_decode((string) $container[1]['request']->getBody(), true);
+        $this->assertSame('wf-alias-1', $ackBody['workflowInstanceId']);
     }
 
     public function test_run_one_cycle_does_nothing_when_no_task_available(): void

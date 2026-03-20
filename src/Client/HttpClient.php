@@ -78,20 +78,32 @@ final class HttpClient
             return [];
         }
 
+        $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if ($body === '') {
             return [];
         }
 
         $decoded = json_decode($body, true);
-        if (! is_array($decoded)) {
-            throw new ConductorException(
-                'Invalid JSON response from Conductor API',
-                0,
-            );
+        if (is_array($decoded)) {
+            return $decoded;
         }
 
-        return $decoded;
+        // Conductor OSS 3.x returns a raw workflow execution id (UUID) for POST /workflow.
+        if ($status >= 200 && $status < 300) {
+            $trimmed = trim($body, "\" \n\r\t");
+            if ($trimmed !== '' && preg_match(
+                '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
+                $trimmed,
+            ) === 1) {
+                return ['workflowId' => $trimmed];
+            }
+        }
+
+        throw new ConductorException(
+            'Invalid JSON response from Conductor API',
+            0,
+        );
     }
 
     /**

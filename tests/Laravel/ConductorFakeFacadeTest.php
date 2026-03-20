@@ -59,4 +59,18 @@ final class ConductorFakeFacadeTest extends TestCase
 
         $this->addToAssertionCount(1);
     }
+
+    public function test_after_fake_workflow_register_update_and_get_workflow_are_safe(): void
+    {
+        Conductor::fake();
+
+        Conductor::workflow()->registerWorkflowDefinition(['name' => 'order_processing', 'version' => 1]);
+        Conductor::workflow()->updateWorkflowDefinition([['name' => 'order_processing', 'version' => 1]]);
+
+        $state = Conductor::workflow()->getWorkflow('wf-test-uuid', true);
+
+        $this->assertSame('wf-test-uuid', $state['workflowId']);
+        $this->assertArrayHasKey('status', $state);
+        $this->assertSame([], $state['tasks']);
+    }
 }

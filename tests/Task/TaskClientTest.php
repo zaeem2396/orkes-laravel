@@ -92,6 +92,22 @@ final class TaskClientTest extends TestCase
         $this->assertStringContainsString('tasks', (string) $container[0]['request']->getUri());
     }
 
+    public function test_fail_with_terminal_uses_failed_with_terminal_error(): void
+    {
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], '{}'),
+        ]);
+        $container = [];
+        $http = $this->createClientWithHistory($mock, $container);
+        $client = new TaskClient($http);
+
+        $client->fail('t1', 'Fraud detected', ['code' => 'FRAUD'], 'w1', true);
+
+        $body = json_decode((string) $container[0]['request']->getBody(), true);
+        $this->assertSame('FAILED_WITH_TERMINAL_ERROR', $body['status']);
+        $this->assertSame('Fraud detected', $body['reasonForIncompletion']);
+    }
+
     public function test_fail_posts_with_reason_and_status_failed(): void
     {
         $mock = new MockHandler([
@@ -101,12 +117,13 @@ final class TaskClientTest extends TestCase
         $http = $this->createClientWithHistory($mock, $container);
         $client = new TaskClient($http);
 
-        $client->fail('t1', 'Payment declined', ['code' => 'DECLINED']);
+        $client->fail('t1', 'Payment declined', ['code' => 'DECLINED'], 'w1', false);
 
         $body = json_decode((string) $container[0]['request']->getBody(), true);
         $this->assertSame('FAILED', $body['status']);
         $this->assertSame('Payment declined', $body['reasonForIncompletion']);
         $this->assertSame(['code' => 'DECLINED'], $body['outputData']);
+        $this->assertSame('w1', $body['workflowInstanceId']);
     }
 
     public function test_update_posts_with_status_and_optional_callback(): void
@@ -137,7 +154,9 @@ final class TaskClientTest extends TestCase
 
         $client->ack('t1', 'w1');
 
-        $body = json_decode((string) $container[0]['request']->getBody(), true);
+        $raw = (string) $container[0]['request']->getBody();
+        $this->assertStringContainsString('"outputData":{}', $raw);
+        $body = json_decode($raw, true);
         $this->assertSame('t1', $body['taskId']);
         $this->assertSame('IN_PROGRESS', $body['status']);
         $this->assertSame([], $body['outputData']);
@@ -155,6 +174,21 @@ final class TaskClientTest extends TestCase
         $this->expectException(TaskException::class);
         $this->expectExceptionMessage('Task update failed');
 
-        $client->complete('t1', []);
+        $client->complete('t1', [], null);
+    }
+
+    public function test_complete_with_empty_output_data_serializes_output_data_as_json_object(): void
+    {
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], '{}'),
+        ]);
+        $container = [];
+        $http = $this->createClientWithHistory($mock, $container);
+        $client = new TaskClient($http);
+
+        $client->complete('t1', [], 'w1');
+
+        $raw = (string) $container[0]['request']->getBody();
+        $this->assertStringContainsString('"outputData":{}', $raw);
     }
 }

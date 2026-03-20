@@ -20,6 +20,8 @@ final class TaskClient
 
     private const STATUS_FAILED = 'FAILED';
 
+    private const STATUS_FAILED_TERMINAL = 'FAILED_WITH_TERMINAL_ERROR';
+
     public function __construct(
         private readonly HttpClient $http,
     ) {
@@ -67,12 +69,19 @@ final class TaskClient
      * Mark a task as failed.
      *
      * @param  array<string, mixed>  $outputData  Optional output to store.
+     * @param  bool  $terminal  When true, uses FAILED_WITH_TERMINAL_ERROR (no Conductor retries; workflow stops).
      *
      * @throws TaskException
      */
-    public function fail(string $taskId, string $reasonForIncompletion, array $outputData = [], ?string $workflowInstanceId = null): void
-    {
-        $this->updateTask($taskId, self::STATUS_FAILED, $outputData, $reasonForIncompletion, $workflowInstanceId);
+    public function fail(
+        string $taskId,
+        string $reasonForIncompletion,
+        array $outputData = [],
+        ?string $workflowInstanceId = null,
+        bool $terminal = false,
+    ): void {
+        $status = $terminal ? self::STATUS_FAILED_TERMINAL : self::STATUS_FAILED;
+        $this->updateTask($taskId, $status, $outputData, $reasonForIncompletion, $workflowInstanceId);
     }
 
     /**
@@ -114,7 +123,8 @@ final class TaskClient
         $body = [
             'taskId' => $taskId,
             'status' => $status,
-            'outputData' => $outputData,
+            // Conductor deserializes outputData as Map<String, Object>; JSON [] breaks Jackson.
+            'outputData' => $this->outputDataAsJsonObject($outputData),
         ];
         if ($workflowInstanceId !== null && $workflowInstanceId !== '') {
             $body['workflowInstanceId'] = $workflowInstanceId;
@@ -134,5 +144,29 @@ final class TaskClient
                 $e,
             );
         }
+    }
+
+    /**
+     * Ensure JSON encodes as a JSON object {} so the server can bind to Map<String, ?>.
+     * PHP's json_encode([]) produces [] (array), which Jackson cannot map to LinkedHashMap.
+     *
+     * @param  array<string, mixed>  $outputData
+     * @return array<string, mixed>|\stdClass
+     */
+    private function outputDataAsJsonObject(array $outputData): array|\stdClass
+    {
+        $clean = [];
+        foreach ($outputData as $key => $value) {
+            if ($value === null) {
+                continue;
+            }
+            $clean[(string) $key] = $value;
+        }
+
+        if ($clean === []) {
+            return new \stdClass();
+        }
+
+        return $clean;
     }
 }

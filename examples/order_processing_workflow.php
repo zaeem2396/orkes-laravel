@@ -26,5 +26,18 @@ $def = Workflow::define('order_processing')
 echo "Workflow definition JSON (Conductor schema v2):\n";
 echo $def->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
 
+// Workers need task inputData: map workflow start input onto each SIMPLE task (Conductor does not do this automatically).
+$withTaskInputs = $def->toArray();
+$taskInput = [
+    'order_id' => '${workflow.input.order_id}',
+    'customer_id' => '${workflow.input.customer_id}',
+];
+foreach ($withTaskInputs['tasks'] as &$t) {
+    $t['inputParameters'] = $taskInput;
+}
+unset($t);
+echo "\nSame workflow with per-task inputParameters (for real workers):\n";
+echo json_encode($withTaskInputs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+
 // To register with Conductor when you have a WorkflowClient (e.g. Laravel: Conductor::workflow()):
-// $def->register($workflowClient);
+// $workflowClient->registerWorkflowDefinition($withTaskInputs);

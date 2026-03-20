@@ -103,6 +103,8 @@ Conductor::assertWorkflowStartedWithInput('order_processing', ['order_id' => 1])
 // Optional: Conductor::assertNoWorkflowsStarted(); $list = Conductor::recordedStartedWorkflows();
 ```
 
+The fake’s **`workflow()`** client also implements **`registerWorkflowDefinition`**, **`updateWorkflowDefinition`** (no-ops), and **`getWorkflow`** (minimal stub) so services that register metadata or poll workflow state in HTTP tests do not need a live Conductor.
+
 See [docs/testing.md](docs/testing.md) for all assertion methods and examples.
 
 ## Development

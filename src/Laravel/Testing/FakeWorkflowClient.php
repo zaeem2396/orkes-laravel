@@ -7,6 +7,7 @@ namespace Conductor\Laravel\Testing;
 /**
  * Fake workflow client that records started workflows for assertions.
  * start() returns 'fake-workflow-id' and records name/input via callback.
+ * registerWorkflowDefinition / updateWorkflowDefinition are no-ops; getWorkflow returns a minimal stub.
  *
  * @internal
  */
@@ -30,5 +31,40 @@ final class FakeWorkflowClient
         ($this->onStart)($name, $input);
 
         return 'fake-workflow-id';
+    }
+
+    /**
+     * No-op: real client POSTs metadata/workflow.
+     *
+     * @param  array<string, mixed>  $definition
+     */
+    public function registerWorkflowDefinition(array $definition): void
+    {
+        // Intentionally empty — tests avoid hitting Conductor.
+    }
+
+    /**
+     * No-op: real client PUTs metadata/workflow.
+     *
+     * @param  array<int, array<string, mixed>>  $definitions
+     */
+    public function updateWorkflowDefinition(array $definitions): void
+    {
+        // Intentionally empty — tests avoid hitting Conductor.
+    }
+
+    /**
+     * Stub response for status polling in apps that call getWorkflow() in tests.
+     *
+     * @return array<string, mixed>
+     */
+    public function getWorkflow(string $workflowId, bool $includeTasks = true): array
+    {
+        return [
+            'workflowId' => $workflowId,
+            'status' => 'RUNNING',
+            'workflowType' => 'order_processing',
+            'tasks' => [],
+        ];
     }
 }

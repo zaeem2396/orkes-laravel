@@ -15,7 +15,16 @@ interface TaskHandler
     public function taskType(): string;
 
     /**
-     * Handle the task. Return output data for COMPLETED or throw for FAILED.
+     * Handle the task.
+     *
+     * Return output fields for a successful COMPLETED task (wrapped by conductor:work as status COMPLETED).
+     *
+     * Alternatively return an explicit result: array{
+     *   status: 'COMPLETED'|'FAILED',
+     *   outputData?: array<string, mixed>,
+     *   reasonForIncompletion?: string,
+     *   terminal?: bool
+     * } (terminal + FAILED => FAILED_WITH_TERMINAL_ERROR on Conductor).
      *
      * @param  array<string, mixed>  $task
      * @return array<string, mixed>

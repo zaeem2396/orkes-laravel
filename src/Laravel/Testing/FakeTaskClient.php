@@ -28,8 +28,13 @@ final class FakeTaskClient
     }
 
     /** No-op. */
-    public function fail(string $taskId, string $reasonForIncompletion, array $outputData = [], ?string $workflowInstanceId = null): void
-    {
+    public function fail(
+        string $taskId,
+        string $reasonForIncompletion,
+        array $outputData = [],
+        ?string $workflowInstanceId = null,
+        bool $terminal = false,
+    ): void {
     }
 
     /** No-op. */

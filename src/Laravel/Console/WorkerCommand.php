@@ -54,6 +54,9 @@ final class WorkerCommand extends Command
             }
             $worker->listen($taskType, function (array $task) use ($handler): array {
                 $output = $handler->handle($task);
+                if (isset($output['status'])) {
+                    return $output;
+                }
 
                 return ['status' => 'COMPLETED', 'outputData' => $output];
             });

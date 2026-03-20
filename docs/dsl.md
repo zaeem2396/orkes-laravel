@@ -19,7 +19,7 @@ $def = Workflow::define('order_processing')
 - `Workflow::define(string $name)` — Start a new workflow definition.
 - `->task(string $taskName)` — Add a SIMPLE task (chainable).
 - `->description(string)`, `->version(int)`, `->ownerEmail(string)` — Optional metadata.
-- `->inputParameters(array)` — List of input parameter names (documentation). `->outputParameters(array)` — Output template (e.g. JSONPath expressions).
+- `->inputParameters(array)` — List of input parameter names (documentation on the workflow definition only). **`SIMPLE` tasks still need their own `inputParameters` object** in the workflow JSON if workers should receive workflow start input — e.g. map keys to `"${workflow.input.order_id}"` per [task inputs](https://conductor-oss.github.io/conductor/devguide/how-tos/Tasks/task-inputs.html). The fluent `->task()` helper does not add those maps automatically. `->outputParameters(array)` — Output template (e.g. JSONPath expressions).
 - `->toArray()` — Conductor workflow definition as array (name, version, tasks, schemaVersion, ownerEmail, etc.).
 - `->toJson(int $flags)` — JSON string (e.g. use JSON_PRETTY_PRINT for readability).
 - `->register(WorkflowClient $client)` — Register this definition with Conductor (POST metadata/workflow).

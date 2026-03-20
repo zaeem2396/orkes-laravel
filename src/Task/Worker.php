@@ -40,7 +40,7 @@ final class Worker
     /**
      * Register a handler for the given task type.
      *
-     * @param  callable(array<string, mixed>): array{status: string, outputData?: array<string, mixed>, reasonForIncompletion?: string}  $handler
+     * @param  callable(array<string, mixed>): array{status: string, outputData?: array<string, mixed>, reasonForIncompletion?: string, terminal?: bool}  $handler
      */
     public function listen(string $taskType, callable $handler): self
     {
@@ -94,11 +94,22 @@ final class Worker
     private function processTask(string $taskType, array $task): void
     {
         $taskId = $task['taskId'] ?? '';
-        $workflowInstanceId = isset($task['workflowInstanceId']) ? (string) $task['workflowInstanceId'] : null;
+        // Poll payloads use workflowInstanceId; some stacks expose workflowId only.
+        $workflowInstanceId = $task['workflowInstanceId'] ?? $task['workflowId'] ?? null;
+        $workflowInstanceId = $workflowInstanceId !== null && $workflowInstanceId !== ''
+            ? (string) $workflowInstanceId
+            : null;
         $handler = $this->handlers[$taskType];
 
         if ($taskId === '') {
             return;
+        }
+
+        if ($workflowInstanceId === null || $workflowInstanceId === '') {
+            throw new TaskException(
+                'Polled task is missing workflowInstanceId (and workflowId); cannot update task on Conductor.',
+                0,
+            );
         }
 
         $this->taskClient->ack($taskId, $workflowInstanceId);
@@ -141,7 +152,8 @@ final class Worker
 
         if ($status === self::STATUS_FAILED) {
             $reason = $result['reasonForIncompletion'] ?? 'Failed';
-            $this->taskClient->fail($taskId, $reason, $outputData, $workflowInstanceId);
+            $terminal = (bool) ($result['terminal'] ?? false);
+            $this->taskClient->fail($taskId, $reason, $outputData, $workflowInstanceId, $terminal);
 
             return;
         }
