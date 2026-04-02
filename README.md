@@ -31,6 +31,7 @@ Artisan commands:
 ```bash
 php artisan conductor:start order_processing --input='{"order_id":123}' --wf-version=2
 php artisan conductor:work --task=process_payment
+php artisan conductor:work --task=process_payment --once
 php artisan conductor:inspect
 php artisan conductor:local --once
 php artisan conductor:failures --retry
@@ -76,16 +77,20 @@ Configure in `.env`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `CONDUCTOR_SERVER` | Conductor API base URL | `http://localhost:8080/api` |
-| `CONDUCTOR_TOKEN` | Bearer token (optional; omit for no auth) | — |
+| `CONDUCTOR_SERVER` | Conductor API base URL (used if `CONDUCTOR_SERVER_URL` is empty) | `http://localhost:8080/api` |
+| `CONDUCTOR_SERVER_URL` | Preferred base URL (e.g. Orkes Cloud API URL) | — |
+| `CONDUCTOR_TOKEN` | Static JWT or bearer token (optional) | — |
+| `CONDUCTOR_AUTH_KEY` | Orkes application Key ID (with `CONDUCTOR_AUTH_SECRET`) | — |
+| `CONDUCTOR_AUTH_SECRET` | Orkes application Key Secret | — |
+| `CONDUCTOR_AUTH_HEADER_STYLE` | `bearer` (default) or `orkes` (`X-Authorization` for static token) | `bearer` |
 | `CONDUCTOR_TIMEOUT` | Request timeout (seconds) | `30` |
-| `CONDUCTOR_WORKER_CONCURRENCY` | Worker concurrency | `5` |
+| `CONDUCTOR_WORKER_MAX_RETRIES` | Handler exception retries per task (not Conductor task retries); scale with multiple worker processes | `0` |
 | `CONDUCTOR_POLL_INTERVAL` | Poll interval (seconds) | `5` |
 | `CONDUCTOR_RETRY_ENABLED` | Enable HTTP retry on 5xx/timeouts | `false` |
 | `CONDUCTOR_RETRY_MAX_ATTEMPTS` | Max retry attempts | `3` |
 | `CONDUCTOR_RETRY_INITIAL_DELAY_MS` | Initial retry delay (ms) | `1000` |
 
-See `config/conductor.php` for all options.
+See `config/conductor.php` for all options. **Orkes Cloud:** use `CONDUCTOR_SERVER_URL` plus `CONDUCTOR_AUTH_KEY` / `CONDUCTOR_AUTH_SECRET` (JWT from `POST /token` is sent as `X-Authorization`). Details: [docs/orkes-cloud.md](docs/orkes-cloud.md).
 
 The SDK throws `AuthenticationException` on 401, `WorkflowException` for workflow errors, and `TaskException` for task errors. Optional retry with exponential backoff is available via `RetryHandler` when constructing `HttpClient`, or by setting `CONDUCTOR_RETRY_ENABLED=true` in Laravel.
 

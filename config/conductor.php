@@ -8,13 +8,23 @@ declare(strict_types=1);
  */
 return [
 
-    'base_url' => env('CONDUCTOR_SERVER', 'http://localhost:8080/api'),
+    'base_url' => env('CONDUCTOR_SERVER_URL', env('CONDUCTOR_SERVER', 'http://localhost:8080/api')),
 
-    'auth_token' => env('CONDUCTOR_TOKEN'), // optional; leave unset for no auth
+    'auth_token' => env('CONDUCTOR_TOKEN'),
+
+    'auth_key' => env('CONDUCTOR_AUTH_KEY'),
+
+    'auth_secret' => env('CONDUCTOR_AUTH_SECRET'),
+
+    'auth_header_style' => env('CONDUCTOR_AUTH_HEADER_STYLE', 'bearer'),
 
     'timeout' => (int) env('CONDUCTOR_TIMEOUT', 30),
 
-    'worker_concurrency' => (int) env('CONDUCTOR_WORKER_CONCURRENCY', 5),
+    /*
+     * Retries when the task handler throws (per task pick-up), not Conductor task retries.
+     * Scale throughput by running multiple `php artisan conductor:work` processes.
+     */
+    'worker_max_retries' => (int) env('CONDUCTOR_WORKER_MAX_RETRIES', 0),
 
     'poll_interval' => (int) env('CONDUCTOR_POLL_INTERVAL', 5),
 

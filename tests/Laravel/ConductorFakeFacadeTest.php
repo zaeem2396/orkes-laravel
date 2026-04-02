@@ -15,6 +15,11 @@ final class ConductorFakeFacadeTest extends TestCase
     {
         $app['config']->set('conductor', [
             'base_url' => 'https://conductor.example/api',
+            'auth_token' => null,
+            'auth_key' => null,
+            'auth_secret' => null,
+            'auth_header_style' => 'bearer',
+            'timeout' => 30,
         ]);
     }
 

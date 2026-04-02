@@ -35,7 +35,9 @@ final class ProcessPaymentTaskHandler implements TaskHandler
 }
 ```
 
-To fail the task, throw an exception from `handle()`. The worker will call `fail()` with the exception message.
+To fail the task, throw an exception from `handle()`. The worker will call `fail()` with the exception message after **handler** retries are exhausted.
+
+**Config:** `worker_max_retries` (`CONDUCTOR_WORKER_MAX_RETRIES`, default `0`) controls how many times the worker re-invokes `handle()` if it **throws**, before posting `FAILED` to Conductor. This is separate from Conductor’s own task retry policy. For higher throughput, run **multiple** `conductor:work` processes (the package does not spawn concurrent pollers inside one process).
 
 ## Register handlers in config
 

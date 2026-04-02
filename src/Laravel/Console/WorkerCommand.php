@@ -12,15 +12,15 @@ use Illuminate\Console\Command;
 /**
  * Run Conductor task workers.
  *
- * Options: --task (filter task type), --queue (domain), --concurrency (reserved).
+ * Options: --task (filter task type), --queue (domain).
  * Example: php artisan conductor:work --task=process_payment --queue=my-queue
  */
 final class WorkerCommand extends Command
 {
     protected $signature = 'conductor:work
                             {--task= : Task type to poll (default: all registered)}
-                            {--concurrency= : Number of concurrent workers (reserved)}
-                            {--queue= : Queue/domain name}';
+                            {--queue= : Queue/domain name}
+                            {--once : Run a single poll cycle per task type then exit}';
 
     protected $description = 'Run Conductor task workers (uses config task_handlers, --task filter, --queue domain)';
 
@@ -28,6 +28,7 @@ final class WorkerCommand extends Command
     {
         $config = config('conductor', []);
         $pollInterval = (int) ($config['poll_interval'] ?? 5);
+        $maxRetries = (int) ($config['worker_max_retries'] ?? 0);
         $taskHandlers = $config['task_handlers'] ?? [];
         $taskFilter = $this->option('task') ? (string) $this->option('task') : null;
         $domain = $this->option('queue') ? (string) $this->option('queue') : null;
@@ -37,6 +38,7 @@ final class WorkerCommand extends Command
             $pollInterval,
             null,
             $domain,
+            $maxRetries,
         );
 
         $registered = 0;
@@ -65,6 +67,12 @@ final class WorkerCommand extends Command
 
         if ($registered === 0) {
             $this->warn('No task handlers registered. Add class names to config/conductor.php task_handlers.');
+
+            return self::SUCCESS;
+        }
+
+        if ($this->option('once')) {
+            $worker->runOneCycle();
 
             return self::SUCCESS;
         }

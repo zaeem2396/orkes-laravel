@@ -71,6 +71,30 @@ final class HttpClientTest extends TestCase
         $this->assertSame('Bearer secret-token', $request->getHeaderLine('Authorization'));
     }
 
+    public function test_request_adds_x_authorization_when_auth_scheme_orkes(): void
+    {
+        $mock = new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], '{}'),
+        ]);
+        $container = [];
+        $client = $this->createClientWithHistory($mock, $container);
+        $http = new HttpClient(
+            'http://localhost:8080/api',
+            'jwt-only',
+            30,
+            $client,
+            null,
+            HttpClient::AUTH_SCHEME_X_AUTHORIZATION,
+        );
+
+        $http->request('GET', 'workflow/w1');
+
+        $this->assertCount(1, $container);
+        $request = $container[0]['request'];
+        $this->assertSame('jwt-only', $request->getHeaderLine('X-Authorization'));
+        $this->assertSame('', $request->getHeaderLine('Authorization'));
+    }
+
     public function test_request_appends_base_url_to_uri(): void
     {
         $mock = new MockHandler([
@@ -96,7 +120,7 @@ final class HttpClientTest extends TestCase
         $client = $this->createClientWithHistory($mock, $container);
         $http = new HttpClient('http://localhost:8080/api', null, 30, $client);
 
-        $result = $http->request('POST', 'workflow', ['name' => 'demo', 'input' => []]);
+        $result = $http->request('POST', 'workflow/demo', []);
 
         $this->assertSame(['workflowId' => '59e73499-23c5-11f1-9a8f-3ad7b569bd26'], $result);
     }
@@ -131,7 +155,7 @@ final class HttpClientTest extends TestCase
         $this->expectException(ConductorException::class);
         $this->expectExceptionMessage('Failed to encode request body as JSON');
 
-        $http->request('POST', 'workflow', $circular);
+        $http->request('POST', 'workflow/demo', $circular);
     }
 
     public function test_request_throws_authentication_exception_on_401(): void

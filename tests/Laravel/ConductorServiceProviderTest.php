@@ -18,8 +18,11 @@ final class ConductorServiceProviderTest extends TestCase
         $app['config']->set('conductor', [
             'base_url' => 'https://conductor.example/api',
             'auth_token' => 'test-token',
+            'auth_key' => null,
+            'auth_secret' => null,
+            'auth_header_style' => 'bearer',
             'timeout' => 60,
-            'worker_concurrency' => 3,
+            'worker_max_retries' => 2,
             'poll_interval' => 10,
             'retry_enabled' => false,
         ]);
@@ -68,7 +71,7 @@ final class ConductorServiceProviderTest extends TestCase
         $this->assertArrayHasKey('base_url', $config);
         $this->assertArrayHasKey('auth_token', $config);
         $this->assertArrayHasKey('timeout', $config);
-        $this->assertArrayHasKey('worker_concurrency', $config);
+        $this->assertArrayHasKey('worker_max_retries', $config);
         $this->assertArrayHasKey('poll_interval', $config);
     }
 
@@ -80,7 +83,7 @@ final class ConductorServiceProviderTest extends TestCase
         $this->assertIsString($config['base_url']);
         $this->assertSame('test-token', $config['auth_token']);
         $this->assertSame(60, $config['timeout']);
-        $this->assertSame(3, $config['worker_concurrency']);
+        $this->assertSame(2, $config['worker_max_retries']);
         $this->assertSame(10, $config['poll_interval']);
     }
 
@@ -126,7 +129,7 @@ final class ConductorServiceProviderTest extends TestCase
     {
         $config = $this->app['config']->get('conductor');
 
-        $this->assertIsInt($config['worker_concurrency']);
+        $this->assertIsInt($config['worker_max_retries']);
         $this->assertIsInt($config['poll_interval']);
     }
 
@@ -136,5 +139,14 @@ final class ConductorServiceProviderTest extends TestCase
 
         $this->assertArrayHasKey('task_handlers', $config);
         $this->assertIsArray($config['task_handlers']);
+    }
+
+    public function test_config_includes_orkes_auth_keys_when_merged(): void
+    {
+        $config = $this->app['config']->get('conductor');
+
+        $this->assertArrayHasKey('auth_key', $config);
+        $this->assertArrayHasKey('auth_secret', $config);
+        $this->assertArrayHasKey('auth_header_style', $config);
     }
 }
