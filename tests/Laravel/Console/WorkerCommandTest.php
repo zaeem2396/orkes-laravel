@@ -13,6 +13,11 @@ final class WorkerCommandTest extends TestCase
     {
         $app['config']->set('conductor', [
             'base_url' => 'https://conductor.example/api',
+            'auth_token' => null,
+            'auth_key' => null,
+            'auth_secret' => null,
+            'auth_header_style' => 'bearer',
+            'timeout' => 30,
             'task_handlers' => [],
         ]);
     }
@@ -23,5 +28,12 @@ final class WorkerCommandTest extends TestCase
 
         $this->assertSame(0, $exitCode);
         $this->assertStringContainsString('No task handlers registered', Artisan::output());
+    }
+
+    public function test_conductor_work_once_exits_without_infinite_loop(): void
+    {
+        $exitCode = Artisan::call('conductor:work', ['--once' => true]);
+
+        $this->assertSame(0, $exitCode);
     }
 }

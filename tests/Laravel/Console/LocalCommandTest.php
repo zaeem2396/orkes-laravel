@@ -11,7 +11,15 @@ final class LocalCommandTest extends TestCase
 {
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('conductor', ['task_handlers' => []]);
+        $app['config']->set('conductor', [
+            'base_url' => 'https://conductor.example/api',
+            'auth_token' => null,
+            'auth_key' => null,
+            'auth_secret' => null,
+            'auth_header_style' => 'bearer',
+            'timeout' => 30,
+            'task_handlers' => [],
+        ]);
     }
 
     public function test_conductor_local_exits_successfully_when_no_handlers(): void

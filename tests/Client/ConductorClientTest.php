@@ -68,4 +68,23 @@ final class ConductorClientTest extends TestCase
 
         $this->assertNotNull($retryProp->getValue($http));
     }
+
+    public function test_from_array_uses_x_authorization_scheme_when_auth_header_style_orkes(): void
+    {
+        $client = ConductorClient::fromArray([
+            'base_url' => 'http://localhost:8080/api',
+            'token' => 'jwt',
+            'auth_header_style' => 'orkes',
+        ]);
+
+        $ref = new \ReflectionClass($client);
+        $prop = $ref->getProperty('http');
+        $prop->setAccessible(true);
+        $http = $prop->getValue($client);
+        $this->assertInstanceOf(HttpClient::class, $http);
+
+        $schemeProp = (new \ReflectionClass($http))->getProperty('authScheme');
+        $schemeProp->setAccessible(true);
+        $this->assertSame(HttpClient::AUTH_SCHEME_X_AUTHORIZATION, $schemeProp->getValue($http));
+    }
 }

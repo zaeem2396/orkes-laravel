@@ -8,9 +8,15 @@ declare(strict_types=1);
  */
 return [
 
-    'base_url' => env('CONDUCTOR_SERVER', 'http://localhost:8080/api'),
+    'base_url' => env('CONDUCTOR_SERVER_URL', env('CONDUCTOR_SERVER', 'http://localhost:8080/api')),
 
-    'auth_token' => env('CONDUCTOR_TOKEN'), // optional; leave unset for no auth
+    'auth_token' => env('CONDUCTOR_TOKEN'),
+
+    'auth_key' => env('CONDUCTOR_AUTH_KEY'),
+
+    'auth_secret' => env('CONDUCTOR_AUTH_SECRET'),
+
+    'auth_header_style' => env('CONDUCTOR_AUTH_HEADER_STYLE', 'bearer'),
 
     'timeout' => (int) env('CONDUCTOR_TIMEOUT', 30),
 

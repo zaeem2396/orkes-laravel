@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Conductor\Laravel\Providers;
 
+use Conductor\Client\ConductorAuthResolver;
 use Conductor\Client\ConductorClient;
 use Conductor\Client\HttpClient;
 use Conductor\Laravel\Console\FailuresCommand;
@@ -17,8 +18,8 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Registers the Conductor SDK client from config and publishes config/conductor.php.
- * Config keys: base_url, auth_token, timeout, worker_max_retries, poll_interval,
- * retry_enabled, retry_max_attempts, retry_initial_delay_ms, task_handlers.
+ * Config keys: base_url, auth_token, auth_key, auth_secret, auth_header_style, timeout,
+ * worker_max_retries, poll_interval, retry_enabled, retry_max_attempts, retry_initial_delay_ms, task_handlers.
  * Commands: conductor:start, conductor:work, conductor:inspect, conductor:local, conductor:failures.
  */
 final class ConductorServiceProvider extends ServiceProvider
@@ -28,10 +29,16 @@ final class ConductorServiceProvider extends ServiceProvider
         $this->app->singleton(ConductorClient::class, function ($app) {
             $config = $app['config']->get('conductor', []);
             $baseUrl = (string) ($config['base_url'] ?? '');
-            $token = isset($config['auth_token']) && (string) $config['auth_token'] !== ''
-                ? (string) $config['auth_token']
-                : null;
             $timeout = (int) ($config['timeout'] ?? 30);
+
+            $resolved = ConductorAuthResolver::resolve([
+                'base_url' => $baseUrl,
+                'token' => $config['auth_token'] ?? null,
+                'auth_key' => $config['auth_key'] ?? null,
+                'auth_secret' => $config['auth_secret'] ?? null,
+                'auth_header_style' => $config['auth_header_style'] ?? null,
+                'timeout' => $timeout,
+            ]);
 
             $retryHandler = null;
             if (! empty($config['retry_enabled'])) {
@@ -46,10 +53,11 @@ final class ConductorServiceProvider extends ServiceProvider
 
             $http = new HttpClient(
                 baseUrl: $baseUrl,
-                token: $token,
+                token: $resolved['token'],
                 timeout: $timeout,
                 guzzle: null,
                 retryHandler: $retryHandler,
+                authScheme: $resolved['authScheme'],
             );
 
             return new ConductorClient($http);

@@ -24,12 +24,19 @@ final class HttpClient
 {
     private const DEFAULT_TIMEOUT = 30;
 
+    /** Authorization: Bearer {token} (OSS / many Conductor deployments). */
+    public const AUTH_SCHEME_BEARER = 'bearer';
+
+    /** X-Authorization: {token} (Orkes Conductor API). */
+    public const AUTH_SCHEME_X_AUTHORIZATION = 'x_authorization';
+
     public function __construct(
         private readonly string $baseUrl,
         private readonly ?string $token = null,
         private readonly int $timeout = self::DEFAULT_TIMEOUT,
         private readonly ?ClientInterface $guzzle = null,
         private readonly ?RetryHandler $retryHandler = null,
+        private readonly string $authScheme = self::AUTH_SCHEME_BEARER,
     ) {
     }
 
@@ -89,14 +96,20 @@ final class HttpClient
             return $decoded;
         }
 
-        // Conductor OSS 3.x returns a raw workflow execution id (UUID) for POST /workflow.
+        // Conductor OSS 3.x and Orkes often return a raw workflow execution id (plain text) for POST /workflow/...
         if ($status >= 200 && $status < 300) {
             $trimmed = trim($body, "\" \n\r\t");
-            if ($trimmed !== '' && preg_match(
-                '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
-                $trimmed,
-            ) === 1) {
-                return ['workflowId' => $trimmed];
+            if ($trimmed !== '' && strpbrk($trimmed, "\n\r") === false) {
+                if (preg_match(
+                    '/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i',
+                    $trimmed,
+                ) === 1) {
+                    return ['workflowId' => $trimmed];
+                }
+                // Orkes may use non-hex characters in the execution id segments.
+                if (strlen($trimmed) <= 128 && preg_match('/^[a-zA-Z0-9._:-]+$/', $trimmed) === 1) {
+                    return ['workflowId' => $trimmed];
+                }
             }
         }
 
@@ -187,7 +200,11 @@ final class HttpClient
             'Accept' => 'application/json',
         ];
         if ($this->token !== null && $this->token !== '') {
-            $headers['Authorization'] = 'Bearer ' . $this->token;
+            if ($this->authScheme === self::AUTH_SCHEME_X_AUTHORIZATION) {
+                $headers['X-Authorization'] = $this->token;
+            } else {
+                $headers['Authorization'] = 'Bearer ' . $this->token;
+            }
         }
 
         return $headers;

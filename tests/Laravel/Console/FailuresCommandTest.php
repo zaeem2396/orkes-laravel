@@ -17,7 +17,14 @@ final class FailuresCommandTest extends TestCase
 {
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('conductor', ['base_url' => 'https://conductor.example/api']);
+        $app['config']->set('conductor', [
+            'base_url' => 'https://conductor.example/api',
+            'auth_token' => null,
+            'auth_key' => null,
+            'auth_secret' => null,
+            'auth_header_style' => 'bearer',
+            'timeout' => 30,
+        ]);
     }
 
     public function test_conductor_failures_reports_no_failed_workflows(): void

@@ -19,7 +19,8 @@ final class WorkerCommand extends Command
 {
     protected $signature = 'conductor:work
                             {--task= : Task type to poll (default: all registered)}
-                            {--queue= : Queue/domain name}';
+                            {--queue= : Queue/domain name}
+                            {--once : Run a single poll cycle per task type then exit}';
 
     protected $description = 'Run Conductor task workers (uses config task_handlers, --task filter, --queue domain)';
 
@@ -66,6 +67,12 @@ final class WorkerCommand extends Command
 
         if ($registered === 0) {
             $this->warn('No task handlers registered. Add class names to config/conductor.php task_handlers.');
+
+            return self::SUCCESS;
+        }
+
+        if ($this->option('once')) {
+            $worker->runOneCycle();
 
             return self::SUCCESS;
         }

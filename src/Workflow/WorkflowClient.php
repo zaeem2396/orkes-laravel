@@ -16,6 +16,7 @@ use Conductor\Exceptions\WorkflowException;
  *
  * @see https://conductor-oss.github.io/conductor/documentation/api/workflow.html
  * @see https://conductor-oss.github.io/conductor/documentation/api/startworkflow.html
+ * @see https://orkes.io/content/reference-docs/api/workflow/start-workflow-execution (POST /api/workflow/{name})
  */
 final class WorkflowClient
 {
@@ -33,17 +34,19 @@ final class WorkflowClient
      */
     public function start(string $name, array $input = [], ?string $correlationId = null, ?int $version = null): string
     {
-        $body = [
-            'name' => $name,
-            'input' => $input,
-        ];
+        // Orkes: POST /api/workflow/{name} with input as body; OSS also supports this path style.
+        $path = 'workflow/' . rawurlencode($name);
+        $query = [];
         if ($correlationId !== null) {
-            $body['correlationId'] = $correlationId;
+            $query['correlationId'] = $correlationId;
         }
         if ($version !== null) {
-            $body['version'] = $version;
+            $query['version'] = (string) $version;
         }
-        $result = $this->http->request('POST', 'workflow', $body);
+        if ($query !== []) {
+            $path .= '?' . http_build_query($query);
+        }
+        $result = $this->http->request('POST', $path, $input);
         if (isset($result['workflowId'])) {
             return (string) $result['workflowId'];
         }

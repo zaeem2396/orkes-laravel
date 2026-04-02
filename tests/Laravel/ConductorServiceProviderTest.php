@@ -18,6 +18,9 @@ final class ConductorServiceProviderTest extends TestCase
         $app['config']->set('conductor', [
             'base_url' => 'https://conductor.example/api',
             'auth_token' => 'test-token',
+            'auth_key' => null,
+            'auth_secret' => null,
+            'auth_header_style' => 'bearer',
             'timeout' => 60,
             'worker_max_retries' => 2,
             'poll_interval' => 10,
@@ -136,5 +139,14 @@ final class ConductorServiceProviderTest extends TestCase
 
         $this->assertArrayHasKey('task_handlers', $config);
         $this->assertIsArray($config['task_handlers']);
+    }
+
+    public function test_config_includes_orkes_auth_keys_when_merged(): void
+    {
+        $config = $this->app['config']->get('conductor');
+
+        $this->assertArrayHasKey('auth_key', $config);
+        $this->assertArrayHasKey('auth_secret', $config);
+        $this->assertArrayHasKey('auth_header_style', $config);
     }
 }

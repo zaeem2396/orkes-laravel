@@ -38,12 +38,11 @@ final class WorkflowClientTest extends TestCase
         $this->assertCount(1, $container);
         $request = $container[0]['request'];
         $this->assertSame('POST', $request->getMethod());
-        $this->assertStringContainsString('/workflow', (string) $request->getUri());
+        $this->assertStringContainsString('/workflow/order_processing', (string) $request->getUri());
         $body = (string) $request->getBody();
         $decoded = json_decode($body, true);
         $this->assertIsArray($decoded);
-        $this->assertSame('order_processing', $decoded['name']);
-        $this->assertSame(['order_id' => 1], $decoded['input']);
+        $this->assertSame(['order_id' => 1], $decoded);
     }
 
     public function test_start_throws_when_response_lacks_workflow_id(): void
@@ -72,9 +71,9 @@ final class WorkflowClientTest extends TestCase
 
         $client->start('my_workflow', [], 'corr-1', 2);
 
-        $body = json_decode((string) $container[0]['request']->getBody(), true);
-        $this->assertSame('corr-1', $body['correlationId']);
-        $this->assertSame(2, $body['version']);
+        $uri = (string) $container[0]['request']->getUri();
+        $this->assertStringContainsString('correlationId=corr-1', $uri);
+        $this->assertStringContainsString('version=2', $uri);
     }
 
     public function test_get_workflow_calls_get_with_include_tasks(): void
